@@ -11,12 +11,12 @@ export default new VueRouter({
             component: HomePage
         },
         {
-            path: '/',
+            path: '/cloud-storage',
             meta: {title: "云仓储"},
             component: CloudStorage
         },
         {
-            path: '/',
+            path: '/transaction',
             meta: {title: "交易监控"},
             component: TransactionMonitor
         }
