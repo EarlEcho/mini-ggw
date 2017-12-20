@@ -266,7 +266,7 @@
     border: 1px solid #dcdfe6;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    color: #c6c7c8;
+    color: #fff;
     display: inline-block;
     font-size: inherit;
     height: 40px;
@@ -427,7 +427,7 @@
     box-sizing: border-box;
     width: 100%;
     font-size: inherit;
-    color: #c6c7c8;
+    color: #fff;
     background-color: #5b6c7f;
     background-image: none;
     border: 1px solid #dcdfe6;

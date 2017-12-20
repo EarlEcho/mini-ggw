@@ -340,7 +340,7 @@
 /* Break-point
 --------------------------*/
 .el-checkbox {
-  color: #c6c7c8;
+  color: #fff;
   font-weight: 500;
   font-size: 14px;
   position: relative;
@@ -525,7 +525,7 @@
     background: #5b6c7f;
     border: 1px solid #dcdfe6;
     border-left: 0;
-    color: #c6c7c8;
+    color: #fff;
     -webkit-appearance: none;
     text-align: center;
     -webkit-box-sizing: border-box;

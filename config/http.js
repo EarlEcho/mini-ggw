@@ -1,7 +1,4 @@
-/*
-import axios from 'axios'
 import qs from 'qs'
-*/
 
 // axios 配置
 axios.defaults.timeout = 5000;

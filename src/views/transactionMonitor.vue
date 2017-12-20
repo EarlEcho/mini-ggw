@@ -4,7 +4,6 @@
         width: 1920px;
         height: 950px;
         box-sizing: border-box;
-        border: solid 1px red;
         position: absolute;
     }
 
@@ -15,7 +14,6 @@
         z-index: 0;
         width: 90%;
         height: 96%;
-        border: solid 1px red;
         overflow: hidden;
     }
 
@@ -23,6 +21,18 @@
         position: absolute;
         width: 200px;
         height: 200px;
+    }
+    .left-data-wrapper {
+        position: absolute;
+        left: 30px;
+        top: 34px;
+        width: 453px;
+        height: 890px;
+        overflow: hidden;
+        float: left;
+        div{
+            box-sizing: border-box;
+        }
     }
 </style>
 <template>
@@ -33,20 +43,31 @@
             <div id="transaction-map">
                 <!--中间的地图-->
             </div>
-            <div class="transaction-content">
-                hhhhhhhhhhhhhhhhhhhhh
+
+            <!--左边数据-->
+            <div class="left-data-wrapper">
+                <!--左上方表格-->
+                <left-top-table></left-top-table>
+
+                <!--<left-bottom-table></left-bottom-table>-->
+                <!--左下方的数据图-->
             </div>
+
         </div>
     </div>
 
 </template>
 
 <script>
-    const RotateCricle = () => import('@/components/rotateCricle')
+    import RotateCricle from '@/components/rotateCricle'
+
+    import LeftTopTable from '@/components/LeftTopTable'
+
     export default {
         name: '',
         components: {
-            RotateCricle
+            RotateCricle,
+            LeftTopTable
         },
         props: [],
         data() {

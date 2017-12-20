@@ -40,7 +40,7 @@ $--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
 $--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
 
 $--color-text-primary: #303133 !default;
-$--color-text-regular: #c6c7c8 !default;
+$--color-text-regular: #fff !default;
 $--color-text-secondary: #909399 !default;
 $--color-text-placeholder: #c0c4cc !default;
 
@@ -474,12 +474,12 @@ $--dialog-padding-primary: 15px !default;
 
 /* Table
 -------------------------- */
-$--table-border:  1px solid $--border-color-lighter !default;
+$--table-border:  none !default;
 $--table-text-color: $--color-text-regular !default;
-$--table-header-color: $--color-text-secondary !default;
-$--table-row-hover-background: $--background-color-base !default;
+$--table-header-color: $--color-text-regular !default;
+$--table-row-hover-background: #2f6189 !default;
 $--table-current-row-background: $--color-primary-light-9 !default;
-$--table-header-background: $--color-text-secondary !default;
+$--table-header-background: #1d3c5b !default;
 $--table-footer-background: $--color-text-placeholder !default;
 $--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, .12) !default;
 

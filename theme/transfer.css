@@ -497,7 +497,7 @@
     border: 1px solid #dcdfe6;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    color: #c6c7c8;
+    color: #fff;
     display: inline-block;
     font-size: inherit;
     height: 40px;
@@ -658,7 +658,7 @@
     box-sizing: border-box;
     width: 100%;
     font-size: inherit;
-    color: #c6c7c8;
+    color: #fff;
     background-color: #5b6c7f;
     background-image: none;
     border: 1px solid #dcdfe6;
@@ -1040,7 +1040,7 @@
   background: #5b6c7f;
   border: 1px solid #dcdfe6;
   border-color: #dcdfe6;
-  color: #c6c7c8;
+  color: #fff;
   -webkit-appearance: none;
   text-align: center;
   -webkit-box-sizing: border-box;
@@ -1741,7 +1741,7 @@
 /* Break-point
 --------------------------*/
 .el-checkbox {
-  color: #c6c7c8;
+  color: #fff;
   font-weight: 500;
   font-size: 14px;
   position: relative;
@@ -1926,7 +1926,7 @@
     background: #5b6c7f;
     border: 1px solid #dcdfe6;
     border-left: 0;
-    color: #c6c7c8;
+    color: #fff;
     -webkit-appearance: none;
     text-align: center;
     -webkit-box-sizing: border-box;
@@ -2068,7 +2068,7 @@
     .el-transfer-panel__item + .el-transfer-panel__item {
       margin-left: 0; }
     .el-transfer-panel__item.el-checkbox {
-      color: #c6c7c8; }
+      color: #fff; }
     .el-transfer-panel__item:hover {
       color: #409eff; }
     .el-transfer-panel__item.el-checkbox .el-checkbox__label {
@@ -2146,7 +2146,7 @@
       vertical-align: middle; }
     .el-transfer-panel .el-transfer-panel__footer .el-checkbox {
       padding-left: 20px;
-      color: #c6c7c8; }
+      color: #fff; }
   .el-transfer-panel .el-transfer-panel__empty {
     margin: 0;
     height: 30px;

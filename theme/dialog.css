@@ -312,7 +312,7 @@
     color: #303133; }
   .el-dialog__body {
     padding: 30px 20px;
-    color: #c6c7c8;
+    color: #fff;
     line-height: 24px;
     font-size: 14px; }
   .el-dialog__footer {

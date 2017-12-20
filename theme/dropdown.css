@@ -576,7 +576,7 @@
   background: #5b6c7f;
   border: 1px solid #dcdfe6;
   border-color: #dcdfe6;
-  color: #c6c7c8;
+  color: #fff;
   -webkit-appearance: none;
   text-align: center;
   -webkit-box-sizing: border-box;
@@ -1248,7 +1248,7 @@
 .el-dropdown {
   display: inline-block;
   position: relative;
-  color: #c6c7c8;
+  color: #fff;
   font-size: 14px; }
   .el-dropdown .el-button-group {
     display: block; }
@@ -1297,7 +1297,7 @@
     padding: 0 20px;
     margin: 0;
     font-size: 14px;
-    color: #c6c7c8;
+    color: #fff;
     cursor: pointer;
     outline: none; }
     .el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item:focus {

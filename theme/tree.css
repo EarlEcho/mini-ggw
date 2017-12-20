@@ -231,7 +231,7 @@
 .el-tree {
   cursor: default;
   background: #5b6c7f;
-  color: #c6c7c8; }
+  color: #fff; }
   .el-tree__empty-block {
     position: relative;
     min-height: 60px;

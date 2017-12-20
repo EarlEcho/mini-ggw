@@ -262,7 +262,7 @@
     font-size: 14px;
     line-height: 21px;
     margin: 6px 0 0 0;
-    color: #c6c7c8;
+    color: #fff;
     text-align: justify; }
     .el-notification__content p {
       margin: 0; }
@@ -280,7 +280,7 @@
     color: #909399;
     font-size: 16px; }
     .el-notification__closeBtn:hover {
-      color: #c6c7c8; }
+      color: #fff; }
   .el-notification .el-icon-success {
     color: #67c23a; }
   .el-notification .el-icon-error {
