@@ -15,26 +15,17 @@
 }
 
 /*数据框的通用底部样式*/
-.data-footer-box {
+.footer-btn-group {
     height: 42px;
     line-height: 42px;
     padding: 0 10px;
+    text-align: center;
 }
-
-.data-footer-box .action-group {
+.footer-btn-group div{
     display: inline-block;
-    height: 100%;
-    width: 33.2%;
+    vertical-align: middle;
 }
-
-.data-footer-box .box-center {
-}
-
-.data-footer-box .box-center .el-button {
-    margin: 0 10px;
-}
-
-.data-footer-box .action-group .el-button {
+.footer-btn-group .el-button {
     background: transparent;
     color: white;
     padding: 5px;
@@ -42,10 +33,16 @@
     font-size: 18px;
     vertical-align: middle;
 }
+
+.footer-btn-group .group-center i {
+    font-size: 20px;
+}
+
 /*覆盖样式*/
 .el-dialog__wrapper {
-    background: rgba(17,33,58,.8);
+    background: rgba(17, 33, 58, .8);
 }
+
 .data-header-box {
     height: 48px;
     line-height: 48px;
@@ -58,18 +55,14 @@
     font-weight: bold;
 }
 
-.data-header-box .action-group {
-    width: 75px;
-    height: 100%;
-}
-
-.data-header-box .action-group .el-button {
+.data-header-box .el-button {
     background: transparent;
     color: white;
     padding: 5px;
     border: none;
     font-size: 18px;
 }
+
 .el-table th {
     background-color: #2f6189 !important;
 }

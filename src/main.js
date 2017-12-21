@@ -6,6 +6,7 @@ require('../theme/index.css');
 
 require('@/assets/css/reset.css');
 require('@/assets/css/common.css');
+require('@/assets/css/iconfont.css');
 
 
 router.beforeEach((to, from, next) => {
