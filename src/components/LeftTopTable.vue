@@ -273,21 +273,23 @@ dcks        待出库吨数
                         allCount: '13213'
                     }
                 ],
-                realTimeFullData:[],
+                realTimeFullData: [],
                 realTimeData: []
             }
         },
         mounted() {
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
-                console.log(data.mx.Row);
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;
-                if (this.realTimeFullData.length > 9) {
-                    /*获取前面9条数据显示*/
-                    this.realTimeData.realTime[0] = this.realTimeFullData.slice(0, 9);
-                    console.log(this.realTimeData);
+                /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
+                let realDataPage = Math.ceil(this.realTimeFullData.length / 9);
 
+                /*储存分页数据*/
+                for (let i = 0, j = 0; i < realDataPage; i++) {
+                    this.realTimeData[i] = this.realTimeFullData.slice(j, j + 9);
+                    j = j + 9;
                 }
+                console.log(this.realTimeData);
             });
         },
         methods: {
