@@ -7,36 +7,33 @@
         .popup-table {
             height: 100%;
         }
-        .el-table th {
-            padding: 6px 0;
+        .expand-table-wrapper {
+            .data-content {
+                height: 550px;
+            }
         }
-
-        .el-table td {
-            padding: 3px 0;
-        }
-        .el-table td, .el-table th.is-leaf {
-            border-bottom: 4px solid #172f4b;
-        }
-
         .popup-title {
             font-size: 28px;
             color: white;
             text-align: center;
             line-height: 30px;
         }
-
-        .expand-table-wrapper {
-            .data-content {
-                height: 550px;
-            }
-        }
-
         .popup-bottom-wrapper {
             width: 33%;
             display: inline-block;
             height: 100%;
         }
         .w {
+            .el-table th {
+                padding: 6px 0;
+            }
+
+            .el-table td {
+                padding: 3px 0;
+            }
+            .el-table td, .el-table th.is-leaf {
+                border-bottom: 4px solid #172f4b;
+            }
             .border-box {
                 width: 449px;
                 height: 435px;
@@ -103,24 +100,21 @@
 
     }
 
+    .expand-table-wrapper .el-table th {
+        font-size: 15px;
+    }
 
+    .expand-table-wrapper .el-table td {
+        padding: 7px 0;
+        border-bottom: 6px solid #172f4b;
+    }
+    .expand-table-wrapper .el-table tr {
+    }
+    .expand-table-wrapper .el-table th.is-leaf {
+        border-bottom: 6px solid #172f4b;
+    }
 </style>
 <template>
-    <!--
-    fphm          销售组织
-ywrq          业务日期
-dhkh          订货客户
-jyjg          交易价格
-cjsl          成交数量
-wzgg          物资规格
-wzpm           物资品名
-wzcd           物资产地
-wzck           仓库
-khsf            省份
-djzt          状态
-dcks        待出库吨数
-
-    -->
 
 
     <div class="left-top-table" v-cloak>
@@ -129,6 +123,10 @@ dcks        待出库吨数
             <border-box>
                 <div class="data-header-box">
                     <span class="title">{{tableTitle}}</span>
+                    <div class="table-header-group">
+                        <el-button><i class="icon iconfont icon-fangda" @click="showFullRealData"></i></el-button>
+                        <el-button><i class="icon iconfont icon-question"></i></el-button>
+                    </div>
                 </div>
                 <div class="data-content">
                     <el-table :data="tempData" size="small" fit>
@@ -144,20 +142,132 @@ dcks        待出库吨数
                 </div>
                 <div class="footer-btn-group clearfix">
                     <div class="group-left">
-                        <el-button><i class="icon iconfont icon-left"></i></el-button>
-                        <el-button><i class="icon iconfont icon-right"></i></el-button>
+
                     </div>
                     <div class="group-center">
                         <el-button><i class="icon iconfont icon-left" @click="lastPage"></i></el-button>
                         <el-button><i class="icon iconfont icon-right" @click="nextPage"></i></el-button>
                     </div>
                     <div class="group-right">
-                        <el-button><i class="icon iconfont icon-left"></i></el-button>
-                        <el-button><i class="icon iconfont icon-right"></i></el-button>
+
                     </div>
                 </div>
             </border-box>
         </div>
+
+
+        <!--弹出框-->
+        <div class="popup-table">
+            <div class="expand-dialog">
+                <el-dialog :visible.sync="showRealTimeDialog" width="1486px" top="100px" :modal="false">
+                    <border-box>
+                        <p class="tooltip">
+                            <el-tooltip class="item" effect="dark" content="提示文字" placement="top-start">
+                                <el-button icon="icon iconfont icon-question"></el-button>
+                            </el-tooltip>
+                        </p>
+                        <p class="popup-title">实时交易数据分析</p>
+                        <el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
+                                 :inline="true">
+                            <el-form-item>
+                                <el-date-picker v-model="popupSearchData.timer1" type="date" placeholder="选择日期"
+                                                size="small"></el-date-picker>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-date-picker v-model="popupSearchData.timer2" type="date" placeholder="选择日期"
+                                                size="small"></el-date-picker>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="popupSearchData.city" placeholder="城市" size="small">
+                                    <el-option v-for="item in cityOptions" :key="item.value" :label="item.label"
+                                               :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="popupSearchData.company" placeholder="公司" size="small">
+                                    <el-option v-for="item in companyOptions" :key="item.value" :label="item.label"
+                                               :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+
+                            <el-form-item>
+                                <el-select v-model="popupSearchData.user" placeholder="用户" size="small">
+                                    <el-option v-for="item in userOptions" :key="item.value" :label="item.label"
+                                               :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="popupSearchData.variety" placeholder="品种" size="small">
+                                    <el-option v-for="item in varietyOptions" :key="item.value" :label="item.label"
+                                               :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="popupSearchData.standard" placeholder="规格" size="small">
+                                    <el-option v-for="item in standardOptions" :key="item.value" :label="item.label"
+                                               :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button @click="showDialogType1 = true" size="small">搜索</el-button>
+                            </el-form-item>
+                        </el-form>
+                        <div class="expand-table-wrapper">
+                            <div class="data-content">
+                                <el-table :data="tempPopupData" fit class="inner-table">
+                                    <el-table-column width="25px">
+                                        <template slot-scope="scope">
+                                            <i class="icon iconfont icon-right1 text-green"
+                                               style="margin-left: 5px;font-size: 16px"></i>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="ywrq" label="日期" show-overflow-tooltip
+                                                     :formatter="filterTime"></el-table-column>
+                                    <el-table-column prop="fphm" label="销售组织" show-overflow-tooltip
+                                                     width="190px"></el-table-column>
+                                    <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
+                                                     width="190px"></el-table-column>
+                                    <el-table-column prop="jyjg" label="交易价格"></el-table-column>
+                                    <el-table-column prop="cjsl" label="成交数量"></el-table-column>
+                                    <el-table-column prop="wzgg" label="物资规格" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzpm" label="物资品名" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzcd" label="物资产地"></el-table-column>
+                                    <el-table-column prop="wzck" label="仓库" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="khsf" label="省份"></el-table-column>
+                                    <el-table-column prop="djzt" label="状态"></el-table-column>
+                                    <el-table-column prop="dcks" label="待出库吨数">
+                                        <template slot-scope="scope">
+                                            <span class="text-red">{{ scope.row.dcks }}</span>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                            <div class="popup-other-infos">
+                                <p class="other-item">2017年10月1日至2017年10月25日，<span class="yellow">xxxx</span>地区，
+                                    合同数量<span class="blue">222</span>件，总交易量<span class="pink">111111</span>吨，
+                                    总交易金额<span class="orange">111111</span>万元，
+                                    已出库<span class="green">xxxx</span>吨，
+                                    未出库<span class="red">xxxx</span>吨。
+                                </p>
+                            </div>
+                            <div class="footer-btn-group clearfix">
+                                <div class="group-center">
+                                    <el-button><i class="icon iconfont icon-left" @click="popupLastPage"></i></el-button>
+                                    <el-button><i class="icon iconfont icon-right" @click="popupNextPage"></i></el-button>
+                                </div>
+                            </div>
+                        </div>
+                    </border-box>
+                </el-dialog>
+            </div>
+        </div>
+
+
     </div>
 
 </template>
@@ -188,6 +298,27 @@ dcks        待出库吨数
                 realDataPage: 0, /*分页数据的页数*/
                 realTimeData: [],
                 clickPage: 0,//点击页码的次数
+                showRealTimeDialog: false,
+
+                /*展开的弹出框的属性*/
+                popupDataLength:0,
+                popupRealTime:[],
+                tempPopupData:[],
+                clickPopupPage:0,//点击页码的次数
+                popupSearchData: {
+                    timer1: '',
+                    timer2: '',
+                    city: '',
+                    company: '',
+                    user: '',
+                    variety: '',
+                    standard: ''
+                },
+                cityOptions: [],
+                companyOptions: [],
+                userOptions: [],
+                varietyOptions: [],
+                standardOptions: [],
             }
         },
         beforeCreate() {
@@ -201,13 +332,25 @@ dcks        待出库吨数
                     this.$set(this.realTimeData, i, this.realTimeFullData.slice(j, j + 9))
                     j = j + 9;
                 }
-                ;
                 this.tempData = this.realTimeData[0];
             });
         },
         filters: {},
         methods: {
-            filterTime: function (row, column, cellValue) {
+            /*实时交易数据展开*/
+            showFullRealData() {
+                this.showRealTimeDialog = true;
+
+                /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
+                this.popupDataLength = Math.ceil(this.realTimeFullData.length / 11);
+                /*储存分页数据*/
+                for (let i = 0, j = 0; i < this.popupDataLength; i++) {
+                    this.$set(this.popupRealTime, i, this.realTimeFullData.slice(j, j + 11))
+                    j = j + 11;
+                }
+                this.tempPopupData = this.popupRealTime[0];
+            },
+            filterTime(row, column, cellValue) {
                 let date = Date(cellValue);
                 date = new Date(date);
                 let m = date.getMonth() + 1;
@@ -216,6 +359,30 @@ dcks        待出库吨数
                 d = d < 10 ? ('0' + d) : d;
                 return m + '-' + d;
             },
+            popupLastPage() {
+                /*点击一次  clickPage增加一次*/
+                console.log(this.clickPopupPage, this.popupDataLength);
+                if (this.clickPopupPage == 0) {
+                    this.$message('已经是第一页');
+                    return;
+                }
+                if (this.clickPopupPage < this.popupDataLength) {
+                    this.tempPopupData = this.popupRealTime[this.clickPopupPage - 1];
+                }
+                this.clickPopupPage--;
+            },
+            popupNextPage() {
+                console.log(this.clickPopupPage, this.popupDataLength);
+                if (this.clickPopupPage == this.popupDataLength - 1) {
+                    this.$message('已经是最后一页');
+                    return;
+                }
+                if (this.clickPopupPage < this.popupDataLength) {
+                    this.tempPopupData = this.popupRealTime[this.clickPopupPage + 1];
+                }
+                this.clickPopupPage++;
+            },
+
             lastPage() {
                 /*点击一次  clickPage增加一次*/
                 console.log(this.clickPage, this.realDataPage);
