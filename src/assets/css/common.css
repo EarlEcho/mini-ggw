@@ -25,6 +25,20 @@ body {
 .text-green {
     color: #0f0;
 }
+/*row col 的间隔色*/
+.dark-item {
+    background-color: #1d3c5b;
+    height: 30px;
+    line-height: 30px;
+    color: #196ca5;
+}
+
+.light-item {
+    background-color: #172f4b;
+    height: 30px;
+    line-height: 30px;
+    color: #196ca5;
+}
 p{
     display: block;
     -webkit-margin-before: 0em;

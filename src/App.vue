@@ -116,13 +116,67 @@
     .el-popper[x-placement^="bottom"] .popper__arrow {
         border-bottom-color: transparent;
     }
+
+    .dialog-fade-enter-active {
+        -webkit-animation: dialog-fade-in 1.2s;
+        animation: dialog-fade-in 1.2s
+    }
+
+    .dialog-fade-leave-active {
+        -webkit-animation: dialog-fade-out 1.2s;
+        animation: dialog-fade-out 1.2s
+    }
+
+    @-webkit-keyframes dialog-fade-in {
+        0% {
+            transform: scale(1.23);
+            opacity: 0
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1
+        }
+    }
+
+    @keyframes dialog-fade-in {
+        0% {
+            transform: scale(1.23);
+            opacity: 0
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1
+        }
+    }
+
+    @-webkit-keyframes dialog-fade-out {
+        0% {
+            transform: scale(1);
+            opacity: 1
+        }
+        100% {
+            transform: scale(1.23);
+            opacity: 0
+        }
+    }
+
+    @keyframes dialog-fade-out {
+        0% {
+            transform: scale(1);
+            opacity: 1
+        }
+        100% {
+            transform: scale(1.23);
+            opacity: 0
+        }
+    }
 </style>
 <template>
     <div id="app">
         <!--系统的头部-->
         <div class="index-header clearfix">
             <el-menu :default-active="logoHeaderActive" mode="horizontal" class="header-left-menu" router="true"  @select="handleSelect">
-                <el-menu-item index="">
+                <el-menu-item index="/">
                     <span>
                         <img src="./assets/image/logobk.png" alt="" style="width: 26px;vertical-align: middle;">首页
                     </span>

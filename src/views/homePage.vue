@@ -4,7 +4,7 @@
 </style>
 <template>
     <div class="index-wrapper">
-        首页
+        <h3>开发中...</h3>
     </div>
 </template>
 

@@ -125,7 +125,9 @@
                     <span class="title">{{tableTitle}}</span>
                     <div class="table-header-group">
                         <el-button><i class="icon iconfont icon-fangda" @click="showFullRealData"></i></el-button>
-                        <el-button><i class="icon iconfont icon-question"></i></el-button>
+                        <el-tooltip class="item" effect="dark" content="提示文字" placement="top-start">
+                            <el-button icon="icon iconfont icon-question"></el-button>
+                        </el-tooltip>
                     </div>
                 </div>
                 <div class="data-content">
@@ -305,6 +307,8 @@
                 popupRealTime:[],
                 tempPopupData:[],
                 clickPopupPage:0,//点击页码的次数
+
+                /*弹窗搜索部分*/
                 popupSearchData: {
                     timer1: '',
                     timer2: '',
@@ -314,6 +318,7 @@
                     variety: '',
                     standard: ''
                 },
+                /*select选择器*/
                 cityOptions: [],
                 companyOptions: [],
                 userOptions: [],
