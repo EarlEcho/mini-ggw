@@ -131,15 +131,15 @@ dcks        待出库吨数
                     <span class="title">{{tableTitle}}</span>
                 </div>
                 <div class="data-content">
-                    <el-table :data="realTimeData[0]" size="small" fit>
-                        <el-table-column prop="ywrq" label="日期" width="50px" show-overflow-tooltip
+                    <el-table :data="tempData" size="small" fit>
+                        <el-table-column prop="ywrq" label="日期" width="52px" show-overflow-tooltip
                                          :formatter="filterTime"></el-table-column>
-                        <el-table-column prop="khsf" label="省份" width="50px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="dhkh" label="订货客户" width="85px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="wzpm" label="品名" width="75px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="khsf" label="省份" width="53px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="dhkh" label="订货客户" width="100px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="wzpm" label="品名" width="80px" show-overflow-tooltip></el-table-column>
                         <el-table-column prop="wzgg" label="规格" width="55px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="cjsl" label="数量" width="50px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="jyjg" label="交易价格" width="55px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="cjsl" label="数量" width="56px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="jyjg" label="交易价格" width="57px" show-overflow-tooltip></el-table-column>
                     </el-table>
                 </div>
                 <div class="footer-btn-group clearfix">
@@ -181,11 +181,13 @@ dcks        待出库吨数
         props: [],
         data() {
             return {
+                /*实时交易数据 ---- 属性*/
                 tableTitle: '实时交易数据',
-                showTableBox2: false,
                 tempData: [],
                 realTimeFullData: [],
-                realTimeData: []
+                realDataPage: 0, /*分页数据的页数*/
+                realTimeData: [],
+                clickPage: 0,//点击页码的次数
             }
         },
         beforeCreate() {
@@ -193,37 +195,49 @@ dcks        待出库吨数
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;
                 /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
-                let realDataPage = Math.ceil(this.realTimeFullData.length / 9);
+                this.realDataPage = Math.ceil(this.realTimeFullData.length / 9);
                 /*储存分页数据*/
-                for (let i = 0, j = 0; i < realDataPage; i++) {
+                for (let i = 0, j = 0; i < this.realDataPage; i++) {
                     this.$set(this.realTimeData, i, this.realTimeFullData.slice(j, j + 9))
                     j = j + 9;
                 }
-                console.log(this.realTimeData[0]);
+                ;
+                this.tempData = this.realTimeData[0];
             });
         },
         filters: {},
         methods: {
             filterTime: function (row, column, cellValue) {
-                let date =Date(cellValue);
-                date  = new Date(date);
-                console.log(date);
-                let y = date.getFullYear();
+                let date = Date(cellValue);
+                date = new Date(date);
                 let m = date.getMonth() + 1;
                 m = m < 10 ? ('0' + m) : m;
                 let d = date.getDate();
                 d = d < 10 ? ('0' + d) : d;
-                let h = date.getHours();
-                let minute = date.getMinutes();
-                minute = minute < 10 ? ('0' + minute) : minute;
-                return y + '-' + m + '-' + d + ' ' + h + ':' + minute;
+                return m + '-' + d;
             },
             lastPage() {
-                console.log('上一页');
-                /*1：*/
+                /*点击一次  clickPage增加一次*/
+                console.log(this.clickPage, this.realDataPage);
+                if (this.clickPage == 0) {
+                    this.$message('已经是第一页');
+                    return;
+                }
+                if (this.clickPage < this.realDataPage) {
+                    this.tempData = this.realTimeData[this.clickPage - 1];
+                }
+                this.clickPage--;
             },
             nextPage() {
-                console.log('下一页');
+                console.log(this.clickPage, this.realDataPage);
+                if (this.clickPage == this.realDataPage - 1) {
+                    this.$message('已经是最后一页');
+                    return;
+                }
+                if (this.clickPage < this.realDataPage) {
+                    this.tempData = this.realTimeData[this.clickPage + 1];
+                }
+                this.clickPage++;
             },
             /*showTable2() {
                 this.showTableBox2 = true;
