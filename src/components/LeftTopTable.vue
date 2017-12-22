@@ -131,15 +131,15 @@ dcks        待出库吨数
                     <span class="title">{{tableTitle}}</span>
                 </div>
                 <div class="data-content">
-                    <el-table :data="tempData" size="small" fit>
-                        <el-table-column prop="date" label="时间" width="40px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="area" label="地区" width="50px"></el-table-column>
-                        <el-table-column prop="company" label="公司" width="79px"></el-table-column>
-                        <el-table-column prop="type" label="品种" width="75px"></el-table-column>
-                        <el-table-column prop="standard" label="规格" width="55px"></el-table-column>
-                        <el-table-column prop="num" label="数量" width="50px"></el-table-column>
-                        <el-table-column prop="price" label="单价" width="51px"></el-table-column>
-                        <el-table-column prop="allCount" label="总价" width="53px"></el-table-column>
+                    <el-table :data="realTimeData[0]" size="small" fit>
+                        <el-table-column prop="ywrq" label="日期" width="50px" show-overflow-tooltip
+                                         :formatter="filterTime"></el-table-column>
+                        <el-table-column prop="khsf" label="省份" width="50px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="dhkh" label="订货客户" width="85px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="wzpm" label="品名" width="75px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="wzgg" label="规格" width="55px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="cjsl" label="数量" width="50px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="jyjg" label="交易价格" width="55px" show-overflow-tooltip></el-table-column>
                     </el-table>
                 </div>
                 <div class="footer-btn-group clearfix">
@@ -183,116 +183,41 @@ dcks        待出库吨数
             return {
                 tableTitle: '实时交易数据',
                 showTableBox2: false,
-                tempData: [
-                    {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '15870',
-                        price: '354',
-                        allCount: '1320001'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-                    }, {
-                        date: '11.30',
-                        area: '成都',
-                        company: '某某公司',
-                        type: '一类',
-                        standard: '1#',
-                        num: '12',
-                        price: '354',
-                        allCount: '13213'
-                    }
-                ],
+                tempData: [],
                 realTimeFullData: [],
                 realTimeData: []
             }
         },
-        mounted() {
+        beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;
                 /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
                 let realDataPage = Math.ceil(this.realTimeFullData.length / 9);
-
                 /*储存分页数据*/
                 for (let i = 0, j = 0; i < realDataPage; i++) {
-                    this.realTimeData[i] = this.realTimeFullData.slice(j, j + 9);
+                    this.$set(this.realTimeData, i, this.realTimeFullData.slice(j, j + 9))
                     j = j + 9;
                 }
-                console.log(this.realTimeData);
+                console.log(this.realTimeData[0]);
             });
         },
+        filters: {},
         methods: {
+            filterTime: function (row, column, cellValue) {
+                let date =Date(cellValue);
+                date  = new Date(date);
+                console.log(date);
+                let y = date.getFullYear();
+                let m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                let minute = date.getMinutes();
+                minute = minute < 10 ? ('0' + minute) : minute;
+                return y + '-' + m + '-' + d + ' ' + h + ':' + minute;
+            },
             lastPage() {
                 console.log('上一页');
                 /*1：*/

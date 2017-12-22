@@ -22,6 +22,19 @@ let ggdp = {
         }).catch((response) => {
         });
     },
+    //标准时间格式转年月日
+    filterTime(date) {
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        var minute = date.getMinutes();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        return y + '-' + m + '-' + d + ' ' + h + ':' + minute;
+    },
+
 
     //时间戳转 xxxx-xx-xx
     timestampToshortText(value) {
