@@ -7,7 +7,7 @@ let ggdp = {
             method: 'get',
             url: url,
         }).then((response) => {
-            callback(response.data.Data.Body);
+            callback(response.data.Body);
         }).catch((response) => {
         });
     },
@@ -18,7 +18,7 @@ let ggdp = {
             url: url,
             data: data
         }).then((response) => {
-            callback(response.data.Data.Body);
+            callback(response.data.Body);
         }).catch((response) => {
         });
     },

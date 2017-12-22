@@ -355,7 +355,6 @@
                 this.dataAnalysis = data;
             });
             ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
-                console.log(data)
                 this.dataAccount = data;
             });
 

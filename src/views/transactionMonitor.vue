@@ -35,7 +35,14 @@
             box-sizing: border-box;
         }
     }
-
+    .right-data-wrapper {
+        position: absolute;
+        z-index: 1;
+        top: 34px;
+        right: 30px;
+        overflow: hidden;
+        float: right;
+    }
     .storage-main-infos {
         position: absolute;
         top: 35px;
@@ -78,6 +85,16 @@
                 <!--左下方的数据图-->
             </div>
 
+            <!--右侧数据-->
+            <div class="right-data-wrapper clearfix">
+                <!--右上方的数据-->
+                <right-top-table></right-top-table>
+
+                <!--右下方的数据-->
+                <!--<right-bottom-table></right-bottom-table>-->
+            </div>
+
+
         </div>
     </div>
 
@@ -89,6 +106,7 @@
 
     import LeftTopTable from '@/components/LeftTopTable'
     import LeftBottomTable from '@/components/LeftBottomTable'
+    import RightTopTable from '@/components/RightTopTable'
 
 
     export default {
@@ -96,7 +114,8 @@
         components: {
             RotateCricle,
             LeftTopTable,
-            LeftBottomTable
+            LeftBottomTable,
+            RightTopTable
         },
         props: [],
         data() {
