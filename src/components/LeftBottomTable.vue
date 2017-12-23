@@ -54,8 +54,8 @@
 
     .transaction-pie {
         .border-box {
-            width: 453px;
-            height: 432px;
+            width: 449px;
+            height: 426px;
             margin-bottom: 13px;
             background-color: #1C2B44;
             border: solid 2px #96E6EC;
@@ -86,13 +86,18 @@
         }
 
     }
+    .mian-box{
+        .group-right{
+            float: right;
+        }
+    }
 
 </style>
 <template>
     <div class="mian-box">
         <!--左下方的数据图-->
         <el-collapse-transition>
-            <div class="transaction-data-table" v-show="!showTransacPie">
+            <div class="transaction-data-table" v-show="showDatas">
                 <border-box>
                     <div class="data-header-box">
                         <span class="title">交易数据分析</span>
@@ -147,33 +152,18 @@
                         </div>
                     </div>
                     <div class="footer-btn-group clearfix">
-                        <div class="group-left">
-
-                        </div>
-                        <div class="group-center">
-
-                        </div>
                         <div class="group-right">
-
+                            <el-button><i class="icon iconfont icon-menu2" @click="showMainTable"></i></el-button>
+                            <el-button><i class="icon iconfont icon-chart1" @click="showPieChart"></i></el-button>
                         </div>
                     </div>
-                    <!--
-                    <div class="data-footer-box clearfix">
-                        <div class="action-group g-rt right">
-                            <el-button icon="icon iconfont icon-menu1 darkbule"
-                                       @click="showTransacPie = !showTransacPie"></el-button>
-                            <el-button icon="icon iconfont icon-pie " @click="transacPieChart"></el-button>
-                        </div>
-                    </div>-->
                 </border-box>
             </div>
-
         </el-collapse-transition>
-
 
         <!--左下方的饼图-->
         <transition name="el-zoom-in-center">
-            <div class="transaction-pie" v-show="showTransacPie">
+            <div class="transaction-pie" v-show="pieChart">
                 <border-box>
                     <div class="data-header-box">
                         <span class="title">交易数据分析</span>
@@ -195,11 +185,10 @@
                         </el-radio-group>
                     </div>
                     <div id="transaction-pie-chart" style="width: 450px;height: 300px;"></div>
-                    <div class="data-footer-box clearfix">
-                        <div class="action-group g-rt right">
-                            <el-button icon="icon iconfont icon-menu1"
-                                       @click="showTransacPie = !showTransacPie"></el-button>
-                            <el-button icon="icon iconfont icon-pie darkbule" @click="transacPieChart"></el-button>
+                    <div class="footer-btn-group clearfix">
+                        <div class="group-right">
+                            <el-button><i class="icon iconfont icon-menu2" @click="showMainTable"></i></el-button>
+                            <el-button><i class="icon iconfont icon-chart1" @click="showPieChart"></i></el-button>
                         </div>
                     </div>
                 </border-box>
@@ -217,9 +206,8 @@
     import BorderBox from '@/components/BoderCompontents'
 
     // 按需引入 ECharts 主模块
-    //    let echarts = require('echarts/lib/echarts');
-    //
-    //    require('echarts/lib/chart/pie');
+    let echarts = require('echarts/lib/echarts');
+    require('echarts/lib/chart/pie');
     //    // 引入提示框和标题组件
     //    require('echarts/lib/component/tooltip');
     //    require('echarts/lib/component/title');
@@ -230,8 +218,11 @@
         props: [],
         data() {
             return {
-                dataAnalysis:{},
-                dataAccount:{},
+                showDatas: true,
+                pieChart: false,
+
+                dataAnalysis: {},
+                dataAccount: {},
                 radioValue1: '',
                 radioValue2: '',
                 showRealPie: true,
@@ -337,6 +328,18 @@
             }
         },
         methods: {
+            showMainTable() {
+                this.pieChart = false;
+                this.showDatas = true;
+            },
+            showPieChart() {
+                this.pieChart = true;
+                this.showDatas = false;
+                let pieChart = echarts.init(document.getElementById('transaction-pie-chart'));
+                pieChart.setOption(this.transacPieOptions);
+            },
+
+
             transacPieChart: function () {
                 let _this = this;
                 _this.showTransacPie = !_this.showTransacPie;

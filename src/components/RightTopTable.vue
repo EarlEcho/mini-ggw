@@ -151,10 +151,10 @@
         }
 
         .data-content .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-            width: 132px;
+            width: 133px;
         }
         .data-content .el-tabs__item {
-            width: 130px;
+            width: 131px;
         }
     }
 </style>
@@ -174,40 +174,19 @@
                 </div>
                 <div class="data-content">
                     <el-tabs v-model="tabActive" type="card">
-                        <el-tab-pane label="螺纹钢" name="first">
-                            <el-table :data="priceDataAnalyze" size="small" fit>
-                                <el-table-column prop="province" label="省份" width="50px"></el-table-column>
-                                <el-table-column prop="city" label="城市" width="52px"></el-table-column>
-                                <el-table-column prop="name" label="品名" width="75px"></el-table-column>
-                                <el-table-column prop="standard" label="规格" width="55px"></el-table-column>
-                                <el-table-column prop="texture" label="材质" width="60px"></el-table-column>
-                                <el-table-column prop="mill" label="钢厂" width="60px"></el-table-column>
-                                <el-table-column prop="date" label="日期" width="50px"></el-table-column>
-                                <!--<el-table-column prop="turnover" label="成交量" width="55px">
-                                    <template slot-scope="scope">
-                                    <span :class="scope.row.turnover>2000?'red bold':'green bold'"
-                                          style="font-size: 13px">{{scope.row.turnover}}</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="upDowns" label="涨跌" width="65px">
-                                    <template slot-scope="scope">
-                                    <span :class="scope.row.upDowns>50?'red numarrow':'green numarrow'">
-                                        <i :class="scope.row.upDowns>50?'iconfont icon-up':'iconfont icon-dowm' "></i>
-                                        {{scope.row.upDowns}}
-                                    </span>
-                                    </template>
-                                </el-table-column>-->
-                            </el-table>
-                        </el-tab-pane>
-                        <el-tab-pane label="高线" name="second">
-                            <p style="padding-top:60px;color: white;text-align: center">暂无数据</p>
-                        </el-tab-pane>
-                        <el-tab-pane label="盘螺" name="third">
-                            <p style="padding-top:60px;color: white;text-align: center">暂无数据</p>
-                        </el-tab-pane>
-                        <el-tab-pane label="热轧板卷" name="fourth">
-                            <p style="padding-top:60px;color: white;text-align: center">暂无数据</p>
-                        </el-tab-pane>
+                        <el-tab-pane label="螺纹钢" name="first"></el-tab-pane>
+                        <el-tab-pane label="高线" name="second"></el-tab-pane>
+                        <el-tab-pane label="盘螺" name="third"></el-tab-pane>
+                        <el-tab-pane label="热轧板卷" name="fourth"></el-tab-pane>
+                        <el-table :data="priceDataAnalyze" size="small" fit>
+                            <el-table-column prop="province" label="省份" width="61px"></el-table-column>
+                            <el-table-column prop="city" label="城市" width="70px"></el-table-column>
+                            <el-table-column prop="name" label="品名" width="85px"></el-table-column>
+                            <el-table-column prop="standard" label="规格" width="70px"></el-table-column>
+                            <el-table-column prop="texture" label="材质" width="70px"></el-table-column>
+                            <el-table-column prop="mill" label="钢厂" width="95px"></el-table-column>
+                            <el-table-column prop="date" label="日期" width="75px"></el-table-column>
+                        </el-table>
                     </el-tabs>
 
                 </div>
