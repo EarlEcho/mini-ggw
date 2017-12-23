@@ -366,7 +366,7 @@
             },
             popupLastPage() {
                 /*点击一次  clickPage增加一次*/
-                console.log(this.clickPopupPage, this.popupDataLength);
+//                console.log(this.clickPopupPage, this.popupDataLength);
                 if (this.clickPopupPage == 0) {
                     this.$message('已经是第一页');
                     return;
@@ -377,7 +377,6 @@
                 this.clickPopupPage--;
             },
             popupNextPage() {
-                console.log(this.clickPopupPage, this.popupDataLength);
                 if (this.clickPopupPage == this.popupDataLength - 1) {
                     this.$message('已经是最后一页');
                     return;
@@ -390,7 +389,6 @@
 
             lastPage() {
                 /*点击一次  clickPage增加一次*/
-                console.log(this.clickPage, this.realDataPage);
                 if (this.clickPage == 0) {
                     this.$message('已经是第一页');
                     return;
@@ -401,7 +399,6 @@
                 this.clickPage--;
             },
             nextPage() {
-                console.log(this.clickPage, this.realDataPage);
                 if (this.clickPage == this.realDataPage - 1) {
                     this.$message('已经是最后一页');
                     return;

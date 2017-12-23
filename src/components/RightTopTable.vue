@@ -263,12 +263,11 @@
             }
         },
         beforeCreate() {
-            ggdp.getAjax('/inter.ashx?action=timemark&proname=%E9%99%95%E8%A5%BF', (data) => {
+           /* ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
                 this.dailyPriceFullData = data;
                 console.log(this.dailyPriceFullData);
-//                this.tempData = this.dailyPriceFullData
 
-            });
+            });*/
 
         },
         methods: {
