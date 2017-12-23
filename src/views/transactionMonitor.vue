@@ -67,6 +67,10 @@
         <!--底部旋转动画-->
         <rotate-cricle></rotate-cricle>
         <div class="transaction-wrapper">
+            <!--!&#45;&#45;最底部的旋转动画&ndash;&gt;-->
+
+            <bottom-gloab></bottom-gloab>
+            <!--中间底部的旋转球体-->
             <div id="transaction-map">
                 <!--中间的地图-->
             </div>
@@ -118,6 +122,9 @@
     import RightTopTable from '@/components/RightTopTable'
     import RightBottomTable from '@/components/RightBottomTable'
 
+    const BottomGloab = () => import('@/components/bottomGloab');
+
+
 
     export default {
         name: '',
@@ -126,7 +133,8 @@
             LeftTopTable,
             LeftBottomTable,
             RightTopTable,
-            RightBottomTable
+            RightBottomTable,
+            BottomGloab
         },
         props: [],
         data() {

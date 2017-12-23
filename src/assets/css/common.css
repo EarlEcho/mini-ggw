@@ -409,3 +409,19 @@ p {
     width: 6px;
     height: 6px;
 }
+
+
+/*弹窗的关闭按钮*/
+.el-dialog__header .el-dialog__headerbtn {
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    top: 20px;
+    right: 35px;
+}
+.el-dialog__headerbtn .el-icon {
+    color: white;
+    font-size: 18px;
+    line-height: 24px;
+}
