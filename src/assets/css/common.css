@@ -25,6 +25,7 @@ body {
 .text-green {
     color: #0f0;
 }
+
 /*row col 的间隔色*/
 .dark-item {
     background-color: #1d3c5b;
@@ -39,13 +40,14 @@ body {
     line-height: 30px;
     color: #196ca5;
 }
-p{
+
+p {
     display: block;
     -webkit-margin-before: 0em;
     -webkit-margin-after: 0em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
-    margin:0;
+    margin: 0;
 }
 
 /*覆盖的tab选项卡样式*/
@@ -97,6 +99,14 @@ p{
 
 .footer-btn-group .group-center i {
     font-size: 20px;
+}
+
+.group-left .el-button + .el-button {
+    margin: 0;
+}
+
+.group-right .el-button + .el-button {
+    margin: 0;
 }
 
 /*覆盖样式*/
@@ -291,11 +301,13 @@ p{
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
     background-color: #234b6c;
 }
+
 /*覆盖的data-picker样式*/
 .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 135px;
 }
-.el-date-editor .el-input, .el-date-editor .el-input__inner{
+
+.el-date-editor .el-input, .el-date-editor .el-input__inner {
     border-radius: 0;
     background-color: #5b6c7f;
     color: #c6c7c8;
@@ -303,6 +315,7 @@ p{
     border: solid 1px #46586c;
 
 }
+
 .el-picker-panel {
     color: white;
     border: 1px solid #dfe4ed;
@@ -316,6 +329,7 @@ p{
 .el-picker-panel__icon-btn {
     color: white;
 }
+
 /*弹出框的底部信息*/
 .popup-other-infos {
     width: 99.9%;
@@ -334,4 +348,64 @@ p{
 .popup-other-infos .other-item span {
     font-weight: 600;
 
+}
+
+/*覆盖的单选按钮样式*/
+.checkbox-wrapper {
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #16304F;
+    padding: 0 15px;
+}
+
+.el-radio {
+    color: white;
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: 0;
+}
+
+.el-radio__inner {
+    border: 1px solid #2CA1F4;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    background-color: #16304F;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+    border-color: #2CA1F4;
+    background: #2CA1F4;
+}
+
+.el-radio__input.is-checked .el-radio__inner::after {
+    background-color: white;
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+    color: #2CA1F4;
+}
+
+.el-radio__label {
+    padding-left: 5px;
+}
+
+.el-radio + .el-radio {
+    margin-left: 10px;
+}
+
+.el-radio__input .el-radio__inner::after {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.el-radio__inner::after {
+    background-color: #2CA1F4;
+    width: 6px;
+    height: 6px;
 }

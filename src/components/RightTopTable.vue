@@ -263,11 +263,11 @@
             }
         },
         beforeCreate() {
-           /* ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
-                this.dailyPriceFullData = data;
-                console.log(this.dailyPriceFullData);
+            ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
+                /*this.dailyPriceFullData = data;
+                console.log(this.dailyPriceFullData);*/
 
-            });*/
+            });
 
         },
         methods: {

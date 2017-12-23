@@ -223,7 +223,6 @@
             drawLine() {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('transaction-map'));
-
                 /*
                                 myChart.on('click', function (param) {
                                     console.log(param)
@@ -233,7 +232,6 @@
                                 });*/
 
                 // 绘制图表
-                console.log(this.series);
                 myChart.setOption({
                     visualMap: {
                         min: 1000,
