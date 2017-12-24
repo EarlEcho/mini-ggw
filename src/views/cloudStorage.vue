@@ -1,5 +1,5 @@
 <!--云仓储-->
-<style  lang="less">
+<style lang="less">
     .cloud-wrapper {
         width: 1920px;
         height: 920px;
@@ -60,10 +60,10 @@
                         font-weight: bold;
                         .inner-span {
                             color: #cccccc;
-                            padding: 0 8px;
+                            padding: 0 5px;
                         }
                         .el-row {
-                            padding: 0 15px;
+                            padding: 0 10px;
                         }
                     }
                     .dark-item {
@@ -81,11 +81,10 @@
             }
 
         }
-
         .cloud-right-wrapper {
             width: 1492px;
             height: 885px;
-            border: solid 1px red;
+            border: solid 1px white;
             float: left;
         }
     }
@@ -116,14 +115,14 @@
                         <el-col :span="6">
                             {{item.title}}:<span class="inner-span">{{item.titleNum}}</span>
                         </el-col>
-                        <el-col :span="4" class="right">
+                        <el-col :span="3" class="right">
                             重量:
                         </el-col>
-                        <el-col :span="6" class="right">
-                            <span class="inner-span"> {{item.num}}</span>吨
+                        <el-col :span="8" class="right">
+                            <span class="inner-span"> {{item.weight}}</span>吨
                         </el-col>
-                        <el-col :span="5" :push="3" class="left">
-                            预警:<span class="red"> {{item.warn}}</span>
+                        <el-col :span="6" :push="1" class="left">
+                            预警:<span class="text-red"> {{item.warn}}</span>
                         </el-col>
                     </el-row>
                 </div>
@@ -170,47 +169,119 @@
                 homeLeftDatas: {
                     storeData: [{
                         title: '今日入库量',
-                        num: '1564584.4'
+                        num: '0'
                     }, {
                         title: '出库量',
-                        num: '12485.7'
+                        num: '0'
                     }, {
                         title: '本月入库量',
-                        num: '3598444.2'
+                        num: '0'
                     }, {
                         title: '出库量',
-                        num: '254874.9'
+                        num: '0'
                     }, {
                         title: '实时静态库存',
-                        num: '545645.4'
+                        num: '0'
                     }],
                     notStoreData: [{
                         title: '入库',
-                        titleNum: '22',
-                        num: '232',
-                        warn: '2'
+                        titleNum: '0',
+                        weight: '0',
+                        warn: '0'
                     }, {
                         title: '出库',
-                        titleNum: '12',
-                        num: '1231',
-                        warn: '3'
+                        titleNum: '0',
+                        weight: '0',
+                        warn: '0'
                     }, {
                         title: '加工',
-                        titleNum: '17',
-                        num: '33',
-                        warn: '1'
+                        titleNum: '0',
+                        weight: '0',
+                        warn: '0'
                     }, {
                         title: '收费',
-                        titleNum: '2',
-                        num: '432',
-                        warn: '10'
+                        titleNum: '0',
+                        weight: '0',
+                        warn: '0'
                     }, {
                         title: '车皮',
-                        titleNum: '41',
-                        num: '18',
-                        warn: '9'
+                        titleNum: '0',
+                        weight: '0',
+                        warn: '0'
                     }],
                     groupStoreData: [{
+                        title: '今日入库量',
+                        num: '0'
+                    }, {
+                        title: '出库量',
+                        num: '0'
+                    }, {
+                        title: '本月入库量',
+                        num: '0'
+                    }, {
+                        title: '出库量',
+                        num: '0'
+                    }, {
+                        title: '实时静态库存',
+                        num: '0'
+                    }]
+                },
+            }
+        },
+        beforeCreate() {
+            /*1、云仓储数据*/
+            ggdp.getAjax('/inter.ashx?action=wstorage', (data) => {
+                let storageData = data.Data;
+                this.homeLeftDatas.storeData[0].num = storageData.FTodayIn;  //今日入库量
+                this.homeLeftDatas.storeData[1].num = storageData.FTodayOut;  //今日出库量
+                this.homeLeftDatas.storeData[2].num = storageData.FMonthIn;  //本月入库量
+                this.homeLeftDatas.storeData[3].num = storageData.FMonthOut;  //本月出库量
+                this.homeLeftDatas.storeData[4].num = storageData.FNowStrage;  //实时静态库存
+            });
+
+
+            /*云仓储待作业*/
+            ggdp.getAjax('/inter.ashx?action=processed', (data) => {
+                let processData = data.Data;
+                /*入库*/
+                this.homeLeftDatas.notStoreData[0].titleNum = processData.FInCount;  //入库单数量
+                this.homeLeftDatas.notStoreData[0].weight = processData.FInWeight;  //入库重量
+                this.homeLeftDatas.notStoreData[0].warn = processData.FInALCount;  //入库单预警数量
+
+                /*出库*/
+                this.homeLeftDatas.notStoreData[1].titleNum = processData.FOutCount;  //出库单数量
+                this.homeLeftDatas.notStoreData[1].weight = processData.FOutWeight;  //出库重量
+                this.homeLeftDatas.notStoreData[1].warn = processData.FOutALCount;  //出库单预警数量
+
+                /*加工*/
+                this.homeLeftDatas.notStoreData[2].titleNum = processData.FMhCount;  //加工单数量
+                this.homeLeftDatas.notStoreData[2].weight = processData.FMhWeight;  //加工重量
+                this.homeLeftDatas.notStoreData[2].warn = processData.FMhALCount;  //加工单预警数量
+
+                /*收费*/
+                this.homeLeftDatas.notStoreData[3].titleNum = processData.FChCount;  //收费单数量
+                this.homeLeftDatas.notStoreData[3].weight = processData.FChWeight;  //收费重量
+                this.homeLeftDatas.notStoreData[3].warn = processData.FChALCount;  //收费单预警数量
+
+                /*车皮*/
+                this.homeLeftDatas.notStoreData[4].titleNum = processData.FTkCount;  //车皮单数量
+                this.homeLeftDatas.notStoreData[4].weight = processData.FTkWeight;  //车皮重量
+                this.homeLeftDatas.notStoreData[4].warn = processData.FTkALCount;  //车皮单预警数量
+
+            });
+
+
+            /*集团库存数据*/
+            ggdp.getAjax('/inter.ashx?action=stack', (data) => {
+                let stackData = data;
+                this.homeLeftDatas.groupStoreData[0].num = stackData.jrrk;  //今日入库量
+                this.homeLeftDatas.groupStoreData[1].num = stackData.jrck;  //今日出库量
+                this.homeLeftDatas.groupStoreData[2].num = stackData.byljrk;  //本月入库量
+                this.homeLeftDatas.groupStoreData[3].num = stackData.byljck;  //本月出库量
+                this.homeLeftDatas.groupStoreData[4].num = stackData.ssjtkc;  //实时静态库存
+
+                /*
+                * groupStoreData: [{
                         title: '今日入库量',
                         num: '1564584.4'
                     }, {
@@ -226,8 +297,10 @@
                         title: '实时静态库存',
                         num: '545645.4'
                     }]
-                },
-            }
+                * */
+
+            });
+
         },
         methods: {}
     }

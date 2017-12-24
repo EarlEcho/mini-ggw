@@ -40,7 +40,12 @@ body {
     line-height: 30px;
     color: #196ca5;
 }
-
+.right{
+    text-align: right;
+}
+.left{
+    text-align: left;
+}
 p {
     display: block;
     -webkit-margin-before: 0em;
