@@ -8,6 +8,8 @@ require('@/assets/css/reset.css');
 require('@/assets/css/common.css');
 require('@/assets/css/iconfont.css');
 
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
 
 router.beforeEach((to, from, next) => {
     if (to.meta.title) {//如果设置标题，拦截后设置标题
