@@ -64,7 +64,8 @@
         }
 
         .popup-table .data-content {
-            height: 550px;
+            /*550*/
+            height: 590px;
         }
 
         .table-rank-icon {
@@ -120,6 +121,10 @@
     .expand-table-wrapper .el-table th.is-leaf {
         border-bottom: 6px solid #172f4b;
     }
+
+    .temp-gap-w {
+        height: 45px;
+    }
 </style>
 <template>
     <div class="left-top-table" v-cloak>
@@ -166,7 +171,7 @@
                 <!--图表-->
                 <div class="data-content" v-show="realPieChart">
                     <!--显示实时交易数据的table  showRealTable-->
-                    <div class="checkbox-wrapper clearfix">
+                    <!--<div class="checkbox-wrapper clearfix">
                         <el-radio-group v-model="radioType">
                             <el-radio :label="1">公司</el-radio>
                             <el-radio :label="2">品种</el-radio>
@@ -177,8 +182,8 @@
                             <el-radio :label="3">3月</el-radio>
                             <el-radio :label="6">6月</el-radio>
                         </el-radio-group>
-                    </div>
-                    <div id="real-pie-chart" style="width: 453px;height: 300px;">
+                    </div>-->
+                    <div id="real-pie-chart" style="width: 453px;height: 340px;">
                         <!--点击模块的饼图后的图表-->
                     </div>
                 </div>
@@ -213,7 +218,7 @@
                             </el-tooltip>
                         </p>
                         <p class="popup-title">实时交易数据分析</p>
-                        <el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
+                        <!--<el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
                                  :inline="true">
                             <el-form-item>
                                 <el-date-picker v-model="popupSearchData.timer1" type="date" placeholder="选择日期"
@@ -262,7 +267,11 @@
                             <el-form-item>
                                 <el-button @click="showDialogType1 = true" size="small">搜索</el-button>
                             </el-form-item>
-                        </el-form>
+                        </el-form>-->
+                        <div class="temp-gap-w">
+
+                        </div>
+
                         <div class="expand-table-wrapper">
                             <div class="data-content">
                                 <el-table :data="tempPopupData" fit class="inner-table">
@@ -274,10 +283,10 @@
                                     </el-table-column>
                                     <el-table-column prop="ywrq" label="日期" show-overflow-tooltip
                                                      :formatter="filterTime"></el-table-column>
-                                    <el-table-column prop="fphm" label="销售组织" show-overflow-tooltip
+                                    <!--<el-table-column prop="fphm" label="销售组织" show-overflow-tooltip
                                                      width="190px"></el-table-column>
                                     <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
-                                                     width="190px"></el-table-column>
+                                                     width="190px"></el-table-column>-->
                                     <el-table-column prop="jyjg" label="交易价格"></el-table-column>
                                     <el-table-column prop="cjsl" label="成交数量"></el-table-column>
                                     <el-table-column prop="wzgg" label="物资规格" show-overflow-tooltip></el-table-column>
@@ -480,6 +489,10 @@
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;
+                this.realPieOptions.legend.data = data.mx.charts.area;
+                this.realPieOptions.series[1].data = data.mx.charts.datas;
+                this.realPieOptions.series[0].data = data.mx.charts.datas;
+
                 /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
                 this.realDataPage = Math.ceil(this.realTimeFullData.length / 9);
                 /*储存分页数据*/
@@ -523,11 +536,11 @@
                 this.showRealTimeDialog = true;
 
                 /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
-                this.popupDataLength = Math.ceil(this.realTimeFullData.length / 11);
+                this.popupDataLength = Math.ceil(this.realTimeFullData.length / 12);
                 /*储存分页数据*/
                 for (let i = 0, j = 0; i < this.popupDataLength; i++) {
-                    this.$set(this.popupRealTime, i, this.realTimeFullData.slice(j, j + 11))
-                    j = j + 11;
+                    this.$set(this.popupRealTime, i, this.realTimeFullData.slice(j, j + 12))
+                    j = j + 12;
                 }
                 this.tempPopupData = this.popupRealTime[0];
             },

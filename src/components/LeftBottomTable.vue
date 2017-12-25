@@ -173,7 +173,7 @@
                             </el-tooltip>
                         </div>
                     </div>
-                    <div class="checkbox-wrapper clearfix">
+                    <!--<div class="checkbox-wrapper clearfix">
                         <el-radio-group v-model="radioValue1">
                             <el-radio :label="3">金额</el-radio>
                             <el-radio :label="6">量</el-radio>
@@ -183,8 +183,8 @@
                             <el-radio :label="6">本周</el-radio>
                             <el-radio :label="9">本月</el-radio>
                         </el-radio-group>
-                    </div>
-                    <div id="transaction-pie-chart" style="width: 450px;height: 300px;"></div>
+                    </div>-->
+                    <div id="transaction-pie-chart" style="width: 450px;height: 340px;"></div>
                     <div class="footer-btn-group clearfix">
                         <div class="group-right">
                             <el-button><i class="icon iconfont icon-menu2" @click="showMainTable"></i></el-button>

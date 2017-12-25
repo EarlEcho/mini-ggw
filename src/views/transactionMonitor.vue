@@ -230,64 +230,64 @@
                     zjyl: ''
                 },
                 series: [],
-                fromdata: '北京',
+                fromdata: '西安',
                 BJData: [
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '上海',
                         value: 100
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '广州',
                         value: 70
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '葫芦岛',
                         value: 30
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '成都',
                         value: 30
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '哈尔滨',
                         value: 30
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '鄂尔多斯',
                         value: 30
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '银川',
                         value: 10
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '拉萨',
                         value: 80
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '西安',
                         value: 55
                     }],
                     [{
-                        name: '北京'
+                        name: '西安'
                     }, {
                         name: '乌鲁木齐',
                         value: 90

@@ -56,7 +56,8 @@
         display: inline-block;
         position: relative;
         top: 72px;
-        left: 200px;
+        /*200px*/
+        left: 320px;
 
     }
 
@@ -176,11 +177,11 @@
         <!--系统的头部-->
         <div class="index-header clearfix">
             <el-menu :default-active="logoHeaderActive" mode="horizontal" class="header-left-menu" router="true"  @select="handleSelect">
-                <el-menu-item index="/">
+                <!--<el-menu-item index="/">
                     <span>
                         <img src="./assets/image/logobk.png" alt="" style="width: 26px;vertical-align: middle;">首页
                     </span>
-                </el-menu-item>
+                </el-menu-item>-->
                 <el-menu-item index="/cloud-storage">
                     <span><i class="icon iconfont icon-tilewarehouse"></i>云仓储</span>
                 </el-menu-item>
