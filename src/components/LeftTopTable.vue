@@ -122,9 +122,7 @@
         border-bottom: 6px solid #172f4b;
     }
 
-    .temp-gap-w {
-        height: 45px;
-    }
+
 </style>
 <template>
     <div class="left-top-table" v-cloak>

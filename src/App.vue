@@ -19,7 +19,7 @@
         div {
             box-sizing: border-box;
         }
-        .el-menu--horizontal{
+        .el-menu--horizontal {
             border-bottom: none;
             background-color: transparent;
         }
@@ -176,7 +176,8 @@
     <div id="app">
         <!--系统的头部-->
         <div class="index-header clearfix">
-            <el-menu :default-active="logoHeaderActive" mode="horizontal" class="header-left-menu" router="true"  @select="handleSelect">
+            <el-menu :default-active="logoHeaderActive" mode="horizontal" class="header-left-menu" router="true"
+                     @select="handleSelect">
                 <!--<el-menu-item index="/">
                     <span>
                         <img src="./assets/image/logobk.png" alt="" style="width: 26px;vertical-align: middle;">首页
@@ -190,7 +191,7 @@
                 </el-menu-item>
             </el-menu>
             <div class="header-action-box g-rt">
-                <span class="header-timer">{{nowDate | filterTime}}</span>
+                <span class="header-timer">{{nowDate}}</span>
                 <div class="header-chooser">监测间隔
                     <div class="header-chooser-select">
                         <el-select v-model="intervalValue" placeholder="请选择" size="mini">
@@ -222,7 +223,7 @@
         data() {
             return {
                 logoHeaderActive: '/',
-                nowDate: new Date(),
+                nowDate: '',
                 intervalValue: '1',
                 intervalOptions: [{
                     value: '1',
@@ -239,9 +240,23 @@
         methods: {
             handleSelect(key, keyPath) {
                 this.logoHeaderActive = key;
+            },
+            filterTime: function () {
+                var date = new Date();
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                var d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                var h = date.getHours();
+                var minute = date.getMinutes();
+                minute = minute < 10 ? ('0' + minute) : minute;
+                var second = date.getSeconds();
+                second = second < 10 ? ('0' + second) : second;
+                this.nowDate = y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
             }
         },
-        mounted() {
+        created() {
             let path = this.$router.history.current.fullPath
             if (path == '/cloud-storage') {
                 this.logoHeaderActive = '/cloud-storage';
@@ -252,20 +267,14 @@
             /*if (path == '/') {
                 this.logoHeaderActive = '/';
             }*/
+            let _this = this;
+            setInterval(function () {
+                _this.filterTime();
+            }, 1000);
+
+
         },
-        filters: {
-            filterTime: function (date) {
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                m = m < 10 ? ('0' + m) : m;
-                var d = date.getDate();
-                d = d < 10 ? ('0' + d) : d;
-                var h = date.getHours();
-                var minute = date.getMinutes();
-                minute = minute < 10 ? ('0' + minute) : minute;
-                return y + '-' + m + '-' + d + ' ' + h + ':' + minute;
-            }
-        }
+        filters: {}
     }
 </script>
 

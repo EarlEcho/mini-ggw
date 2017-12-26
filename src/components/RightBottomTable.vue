@@ -154,7 +154,7 @@
         <div class="daily-price-table" v-show="!showDailyPriceLine">
             <border-box>
                 <div class="data-header-box">
-                    <span class="title">今日价格指数 <small>&emsp;2017年12月23日</small></span>
+                    <span class="title">实时螺纹均价</span>
                     <div class="table-header-group">
                         <el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>
                         <el-tooltip class="item" effect="dark" content="指定城市最新一条螺纹钢价格指数数据，其中涨跌是针对与紧接着一条的数据之差。"
@@ -208,11 +208,11 @@
 
                                 <el-table-column prop="rise" label="涨跌" width="55px" show-overflow-tooltip>
                                     <template slot-scope="scope">
-                                    <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
-                                        <i :class="scope.row.rise>0?'icon iconfont icon-up':'icon iconfont icon-down' "></i>
-                                        {{Math.abs(scope.row.rise)}}
-                                        <!--math.abs是取绝对值的函数-->
-                                    </span>
+                                        <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
+                                            <i :class="scope.row.rise>0?'icon iconfont icon-up':'icon iconfont icon-down' "></i>
+                                            {{Math.abs(scope.row.rise)}}
+                                            <!--math.abs是取绝对值的函数-->
+                                        </span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -237,7 +237,7 @@
                             </el-tooltip>
                         </p>
                         <p class="popup-title">价格指数分析</p>
-                        <el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
+                        <!--<el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
                                  :inline="true">
                             <el-form-item>
                                 <el-date-picker v-model="popupSearchData.timer1" type="date" placeholder="选择日期"
@@ -271,8 +271,10 @@
                             <el-form-item>
                                 <el-button @click="showDialogType1 = true" size="small">搜索</el-button>
                             </el-form-item>
-                        </el-form>
+                        </el-form>-->
+                        <div class="temp-gap-w">
 
+                        </div>
                         <div class="type2-chart-table-box clearfix">
                             <div class="expand-table-wrapper g-lf">
                                 <div class="data-content type2-data-table">
@@ -310,7 +312,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="popup-other-infos">
+                        <!--<div class="popup-other-infos">
                             <p class="other-item">2017年10月1日至2017年10月25日，<span class="yellow">xxxx</span>地区，
                                 合同数量<span class="blue">222</span>件，总交易量<span class="pink">111111</span>吨，
                                 总交易金额<span class="orange">111111</span>万元，
@@ -323,7 +325,7 @@
                                 已出库<span class="green">xxxx</span>吨，
                                 未出库<span class="red">xxxx</span>吨。
                             </p>
-                        </div>
+                        </div>-->
                     </border-box>
 
                 </el-dialog>

@@ -186,7 +186,7 @@
 <template>
     <div class="cloud-wrapper">
         <div class="cloud-left-wrapper">
-            <border-box>
+            <!--<border-box>
                 <data-header-box item-title="云仓储数据" :expand-popup="true"></data-header-box>
                 <div class="data-list-item">
                     <el-row v-for="(item,index) in homeLeftDatas.storeData" :key="index"
@@ -199,6 +199,21 @@
                         </el-col>
                     </el-row>
                 </div>
+            </border-box>-->
+            <border-box>
+                <data-header-box item-title="云仓库存数据" :expand-popup="true"></data-header-box>
+                <div class="data-list-item">
+                    <el-row v-for="(item,index) in homeLeftDatas.groupStoreData" :key="index"
+                            :class=" index%2==0?'dark-item':'light-item'">
+                        <el-col :span="9" class="right">
+                            {{item.title}}：
+                        </el-col>
+                        <el-col :span="15" class="right">
+                            <span class="inner-span"> {{item.num}}</span>吨
+                        </el-col>
+                    </el-row>
+                </div>
+                <!--<data-footer-box :left-item="false" :center-item="false"></data-footer-box>-->
             </border-box>
 
             <border-box>
@@ -223,21 +238,6 @@
             </border-box>
 
 
-            <border-box>
-                <data-header-box item-title="集团库存数量" :expand-popup="true"></data-header-box>
-                <div class="data-list-item">
-                    <el-row v-for="(item,index) in homeLeftDatas.groupStoreData" :key="index"
-                            :class=" index%2==0?'dark-item':'light-item'">
-                        <el-col :span="9" class="right">
-                            {{item.title}}：
-                        </el-col>
-                        <el-col :span="15" class="right">
-                            <span class="inner-span"> {{item.num}}</span>吨
-                        </el-col>
-                    </el-row>
-                </div>
-                <!--<data-footer-box :left-item="false" :center-item="false"></data-footer-box>-->
-            </border-box>
         </div>
         <div class="cloud-right-wrapper">
             <div class="homepage-navbar clearfix">
@@ -383,31 +383,7 @@
                         num: '0'
                     }]
                 },
-                monitorCitys: [{
-                    key: '1',
-                    value: '西安'
-                }, {
-                    key: '2',
-                    value: '北京'
-                }, {
-                    key: '3',
-                    value: '上海'
-                }, {
-                    key: '4',
-                    value: '深圳'
-                }, {
-                    key: '5',
-                    value: '广州'
-                }, {
-                    key: '6',
-                    value: '南京'
-                }, {
-                    key: '7',
-                    value: '杭州'
-                }, {
-                    key: '8',
-                    value: '重庆'
-                }]
+                monitorCitys: []
 
             }
         },
@@ -466,8 +442,11 @@
 
             /*3、仓库（视频上面的仓库标签）*/
             ggdp.getAjax('/inter.ashx?action=wlist', (data) => {
-//                console.log(data.Data);
-                this.monitorCitys = data.Data.slice(0, 7);
+                let tagList = data.Data.slice(0, 7);
+                for (let i = 0; i < 7; i++) {
+                    tagList[i].FNAME = tagList[i].FNAME.slice(4);
+                }
+                this.monitorCitys = tagList;
             });
             setTimeout(() => {
                 this.player.muted(false)

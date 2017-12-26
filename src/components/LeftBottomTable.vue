@@ -27,28 +27,32 @@
                 height: 312px;
             }
         }
-        .transaction-item {
-            font-size: 15px;
-            font-weight: bolder;
-            span {
-                color: #cccccc;
-                padding: 0 8px;
-            }
-            .el-col-8 {
-                text-align: right;
-            }
+
+    }
+
+    .transaction-item {
+        font-size: 15px;
+        font-weight: bolder;
+        span {
+            color: #cccccc;
+            padding: 0 8px;
         }
-        .dark-item {
-            height: 29px;
-            line-height: 29px;
-            padding: 0 15px;
+        .el-col-8 {
+            text-align: right;
         }
-        .light-item {
-            height: 50px;
-            line-height: 35px;
-            padding: 0 15px 0 15px;
-            &:after {
-            }
+    }
+
+    .dark-item {
+        height: 29px;
+        line-height: 29px;
+        padding: 0 15px;
+    }
+
+    .light-item {
+        height: 50px;
+        line-height: 35px;
+        padding: 0 15px 0 15px;
+        &:after {
         }
     }
 
@@ -86,8 +90,9 @@
         }
 
     }
-    .mian-box{
-        .group-right{
+
+    .mian-box {
+        .group-right {
             float: right;
         }
     }
@@ -97,7 +102,7 @@
     <div class="mian-box">
         <!--左下方的数据图-->
         <el-collapse-transition>
-            <div class="transaction-data-table" v-show="showDatas">
+            <div class="transaction-pie" v-show="showDatas">
                 <border-box>
                     <div class="data-header-box">
                         <span class="title">交易数据分析</span>
@@ -115,9 +120,9 @@
                                 <el-col :span="4">吨</el-col>
                             </el-row>
                             <el-row class="light-item">
-                                <el-col :span="8">计：</el-col>
+                                <el-col :span="8">金额：</el-col>
                                 <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.jrze}}</span></el-col>
-                                <el-col :span="4">万元<br></el-col>
+                                <el-col :span="4">元<br></el-col>
                             </el-row>
                             <el-row class="dark-item">
                                 <el-col :span="8">本周交易量：</el-col>
@@ -125,9 +130,9 @@
                                 <el-col :span="4">吨</el-col>
                             </el-row>
                             <el-row class="light-item">
-                                <el-col :span="8">计：</el-col>
+                                <el-col :span="8">金额：</el-col>
                                 <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.bzze}}</span></el-col>
-                                <el-col :span="4">万元</el-col>
+                                <el-col :span="4">元</el-col>
                             </el-row>
                             <el-row class="dark-item">
                                 <el-col :span="8">本月交易量：</el-col>
@@ -135,9 +140,9 @@
                                 <el-col :span="4">吨</el-col>
                             </el-row>
                             <el-row class="light-item">
-                                <el-col :span="8">计：</el-col>
+                                <el-col :span="8">金额：</el-col>
                                 <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.byze}}</span></el-col>
-                                <el-col :span="4">万元</el-col>
+                                <el-col :span="4">元</el-col>
                             </el-row>
                             <el-row class="dark-item">
                                 <el-col :span="8">累计交易量：</el-col>
@@ -145,9 +150,9 @@
                                 <el-col :span="4">吨</el-col>
                             </el-row>
                             <el-row class="light-item">
-                                <el-col :span="8">计：</el-col>
+                                <el-col :span="8">金额：</el-col>
                                 <el-col :span="10" :offset="2" class="right"><span>{{dataAccount.zjyje}}</span></el-col>
-                                <el-col :span="4">万元</el-col>
+                                <el-col :span="4">元</el-col>
                             </el-row>
                         </div>
                     </div>
@@ -233,96 +238,69 @@
                 showDailyPriceLine: false,
 
                 transacPieOptions: {
-                    backgroundColor: '#1C2B44',
+                    color: ['#3398DB'],
+                    textStyle: {
+                        color: '#fff'
+                    },
                     tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
                     },
-                    color: ['#02ACB2', '#FFFF00', '#FFA011', '#A6141B', '#00FF01'],
-                    legend: {
-                        itemWidth: 20,
-                        itemHeight: 10,
-                        orient: 'vertical',
-                        padding: [7, 10],
-                        top: '15px',
-                        left: '5px',
-                        x: 'left',
-                        data: ['重庆公司', '北京公司', '上海公司', '杭州公司', '西安公司'],
-                        textStyle: {
-                            color: '#fff',
-                            fontSize: 11
-                        },
-                        backgroundColor: '#274f7d',
-                        borderColor: '#53657a',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        shadowColor: '#29547d',
-                        shadowBlur: 10,
-                        shadowOffsetX: 5,
-                        shadowOffsetY: 5
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
                     },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: ['12-01', '12-02', '12-04', '12-06', '12-08', '12-10', '12-12', '12-14', '12-16', '12-18', '12-20', '12-22'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            // type : 'category',
+                            // data : ['10','20','30','40'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
                     series: [
                         {
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['61%', '55%'],
-                            selectedMode: 'single',
-                            data: [
-                                {value: 351, name: '重庆公司', selected: true},
-                                {value: 150, name: '北京公司'},
-                                {value: 94, name: '上海公司'},
-                                {value: 55, name: '杭州公司'},
-                                {value: 105, name: '西安公司'}
-                            ],
-                            label: {
-                                normal: {
-                                    backgroundColor: '#5c6c80',
-                                    borderColor: '#495c72',
-                                    borderWidth: 1,
-                                    borderRadius: 4,
-                                    color: 'white',
-                                    padding: [5, 7],
-                                    fontSize: 11,
-                                    lineHeight: 33,
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    lineStyle: {
-                                        color: 'white'
-                                    }
-                                }
-                            }
+                            name: '本月成交量',
+                            type: 'bar',
+                            barWidth: '40%',
+                            data: [2645, 3453, 4242, 2455, 3135, 4543,2313, 5454, 4534, 3442,3131, 3221]
                         },
-                        {
-                            type: 'pie',
-                            radius: '55%',
-                            center: ['61%', '55%'],
-                            selectedMode: 'single',
-                            data: [
-                                {value: 351, name: '重庆公司', selected: true},
-                                {value: 150, name: '北京公司'},
-                                {value: 94, name: '上海公司'},
-                                {value: 55, name: '杭州公司'},
-                                {value: 105, name: '西安公司'}
-                            ],
-                            label: {
-                                normal: {
-                                    formatter: '{d}%\n{c}吨',
-                                    position: 'inner',
-                                    color: 'white',
-                                    fontSize: 11,
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    lineStyle: {
-                                        color: 'white'
-                                    }
-                                }
-                            }
-                        },
-                    ]
+
+                    ],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(17, 168,171, 1)'
+                            }, {
+                                offset: 1,
+                                color: 'rgba(17, 168,171, 0.1)'
+                            }]),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowBlur: 10
+                        }
+                    }
                 }
 
             }
@@ -337,20 +315,6 @@
                 this.showDatas = false;
                 let pieChart = echarts.init(document.getElementById('transaction-pie-chart'));
                 pieChart.setOption(this.transacPieOptions);
-            },
-
-
-            transacPieChart: function () {
-                let _this = this;
-                _this.showTransacPie = !_this.showTransacPie;
-                let pieChart = echarts.init(document.getElementById('transaction-pie-chart'));
-                pieChart.setOption(_this.transacPieOptions);
-            },
-            transactionTableData: function () {
-                this.showTransacPie = false;
-            },
-            expandData: function () {
-                console.log('展开');
             }
         },
         beforeCreate() {

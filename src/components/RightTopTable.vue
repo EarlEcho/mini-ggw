@@ -151,10 +151,10 @@
         }
 
         .data-content .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-            width: 133px;
+            width: 525px;
         }
         .data-content .el-tabs__item {
-            width: 131px;
+            width: 525px;
         }
     }
 </style>
@@ -164,7 +164,7 @@
         <div class="daily-volume-table">
             <border-box>
                 <div class="data-header-box">
-                    <span class="title">今日成交价</span>
+                    <span class="title">实施成交价</span>
                     <div class="table-header-group">
                         <el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>
                         <el-tooltip class="item" effect="dark" content="提示文字" placement="top-start">
@@ -174,11 +174,11 @@
                 </div>
                 <div class="data-content">
                     <el-tabs v-model="tabActive" type="card">
-                        <el-tab-pane label="螺纹钢" name="first"></el-tab-pane>
-                        <el-tab-pane label="高线" name="second"></el-tab-pane>
+                        <!--<el-tab-pane label="螺纹钢" name="first"></el-tab-pane>
                         <el-tab-pane label="盘螺" name="third"></el-tab-pane>
-                        <el-tab-pane label="热轧板卷" name="fourth"></el-tab-pane>
-                        <el-table :data="priceDataAnalyze" size="small" fit>
+                        <el-tab-pane label="热轧板卷" name="fourth"></el-tab-pane>-->
+                        <el-tab-pane label="高线" name="second"></el-tab-pane>
+                        <el-table :data="tempData" size="small" fit>
                             <el-table-column prop="pname" label="省份" width="61px"></el-table-column>
                             <el-table-column prop="city" label="城市" width="70px"></el-table-column>
                             <el-table-column prop="tradname" label="品名" width="85px"></el-table-column>
@@ -221,8 +221,6 @@
     //    require('echarts/lib/component/tooltip');
     //    require('echarts/lib/component/title');
 
-    let myChart;
-
     export default {
         name: 'RightTopTable',
         components: {BorderBox},
@@ -233,9 +231,9 @@
                 tabActive: 'first',
                 priceDataAnalyze: [],
                 tempData: [],
-                dailyPriceFullData: [],
-                dailyPricePage: 0, /*分页数据的页数*/
-                dailyPriceData: [],
+                priceFullData: [],
+                priceFirstData:[],
+                pricePage: 0, /*分页数据的页数*/
                 clickPage: 0,//点击页码的次数
 
 
@@ -243,16 +241,43 @@
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
-//                console.log(data);
-                this.priceDataAnalyze = data.mx.Row.gx.slice(0, 10);
+                this.priceFullData = data.mx.Row.gx;
 
-                /*this.dailyPriceFullData = data;
-                console.log(this.dailyPriceFullData);*/
-
+                /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
+                this.pricePage = Math.ceil(this.priceFullData.length / 10);
+                /*储存分页数据*/
+                for (let i = 0, j = 0; i < this.pricePage; i++) {
+                    this.$set(this.priceFirstData, i, this.priceFullData.slice(j, j + 10))
+                    j = j + 10;
+                }
+                this.tempData = this.priceFirstData[0];
             });
 
         },
         methods: {
+            lastPage() {
+                /*点击一次  clickPage增加一次*/
+                 console.log(this.clickPage, this.pricePage);
+                 if (this.clickPage == 0) {
+                     this.$message('已经是第一页');
+                     return;
+                 }
+                 if (this.clickPage < this.pricePage) {
+                     this.tempData = this.priceFirstData[this.clickPage - 1];
+                 }
+                 this.clickPage--;
+            },
+            nextPage() {
+                console.log(this.clickPage, this.pricePage);
+                if (this.clickPage == this.pricePage - 1) {
+                    this.$message('已经是最后一页');
+                    return;
+                }
+                if (this.clickPage < this.pricePage) {
+                    this.tempData = this.priceFirstData[this.clickPage + 1];
+                }
+                this.clickPage++;
+            },
             showPopupTable: function () {
                 /*let _this = this;
                 _this.showDialogType2 = true;
@@ -300,29 +325,7 @@
                 this.clickPopupPage++;*/
             },
 
-            lastPage() {
-                /*点击一次  clickPage增加一次*/
-                /* console.log(this.clickPage, this.realDataPage);
-                 if (this.clickPage == 0) {
-                     this.$message('已经是第一页');
-                     return;
-                 }
-                 if (this.clickPage < this.realDataPage) {
-                     this.tempData = this.realTimeData[this.clickPage - 1];
-                 }
-                 this.clickPage--;*/
-            },
-            nextPage() {
-                console.log(this.clickPage, this.realDataPage);
-                /*if (this.clickPage == this.realDataPage - 1) {
-                    this.$message('已经是最后一页');
-                    return;
-                }
-                if (this.clickPage < this.realDataPage) {
-                    this.tempData = this.realTimeData[this.clickPage + 1];
-                }
-                this.clickPage++;*/
-            },
+
 
         }
 

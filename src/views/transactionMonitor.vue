@@ -48,12 +48,11 @@
     .storage-main-infos {
         position: absolute;
         top: 35px;
-        left: 530px;
-        width: 460px;
+        left: 700px;
         height: 55px;
         p {
             font-weight: bold;
-            font-size: 17px;
+            font-size: 18px;
             color: #F1951A;
             line-height: 25px;
         }
@@ -127,8 +126,8 @@
             <div class="storage-main-infos">
                 <!--<p>今日已成交<span>{{transactionDatas.}}</span>笔，累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>万元</p>
                 <p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
-                <p>今日未出库数量<span>{{transactionDatas.wck}}</span>吨，已出库数量累计<span>{{transactionDatas.yck}}</span>吨</p>
-                <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>万元</p>
+                <p>今日待出库数量<span>{{transactionDatas.wck}}</span>吨，已出库数量累计<span>{{transactionDatas.yck}}</span>吨</p>
+                <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>元</p>
                 <!--<p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
             </div>
             <!--左边数据-->
@@ -163,11 +162,11 @@
                     </el-tabs>
                 </div>
                 <div class="checkbox-wrapper clearfix">
-                    <el-radio-group v-model="radioValue1">
+                    <!--<el-radio-group v-model="radioValue1">
                         <el-radio :label="3">按量</el-radio>
                         <el-radio :label="6">按金额</el-radio>
                         <el-radio :label="9">按品种</el-radio>
-                    </el-radio-group>
+                    </el-radio-group>-->
                     <el-radio-group v-model="radioValue2" class="g-rt">
                         <el-radio :label="3">1月</el-radio>
                         <el-radio :label="6">3月</el-radio>
@@ -236,61 +235,79 @@
                     [{
                         name: '西安'
                     }, {
-                        name: '上海',
+                        name: '乌鲁木齐',
                         value: 100
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '广州',
+                        name: '拉萨',
                         value: 70
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '葫芦岛',
-                        value: 30
-                    }],
-                    [{
-                        name: '西安'
-                    }, {
-                        name: '成都',
-                        value: 30
-                    }],
-                    [{
-                        name: '西安'
-                    }, {
-                        name: '哈尔滨',
-                        value: 30
-                    }],
-                    [{
-                        name: '西安'
-                    }, {
-                        name: '鄂尔多斯',
+                        name: '西宁',
                         value: 30
                     }],
                     [{
                         name: '西安'
                     }, {
                         name: '银川',
+                        value: 30
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '兰州',
+                        value: 30
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '包头',
+                        value: 30
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '成都',
                         value: 10
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '拉萨',
+                        name: '重庆',
                         value: 80
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '西安',
+                        name: '贵阳',
                         value: 55
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '乌鲁木齐',
+                        name: '长沙',
+                        value: 90
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '太原',
+                        value: 90
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '昆明',
+                        value: 90
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '贵阳',
                         value: 90
                     }]
                 ],
@@ -488,8 +505,28 @@
                         }
                     },
                     tooltip: {
-                        trigger: 'item',
+                        trigger: 'item'
                     },
+                    toolbox: {
+                        show: true,
+                        orient: 'vertical',
+                        left: 'right',
+                        top: 'center',
+                        feature: {
+                            dataView: {readOnly: false},
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    legened: {
+                        data: ['高线', '螺纹钢', 'XXX'],
+                        dataPoints: {
+                            data1: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}],
+                            data2: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}],
+                            data3: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}]
+                        }
+                    },
+
                     legend: {
                         orient: 'horizontal',
                         left: '50',
@@ -509,9 +546,9 @@
                             }
                         },*/
                         zlevel: 10,
-                        layoutCenter: ['46%', '52.4%'],
+                        layoutCenter: ['48%', '50%'],
                         roam: true,
-                        layoutSize: "108%",
+                        layoutSize: "110%",
                         zoom: 1.08,
                         itemStyle: {
                             normal: {

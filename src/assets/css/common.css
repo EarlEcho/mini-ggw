@@ -25,7 +25,9 @@ body {
 .text-green {
     color: #0f0;
 }
-
+.temp-gap-w {
+    height: 45px;
+}
 /*row col 的间隔色*/
 .dark-item {
     background-color: #1d3c5b;
