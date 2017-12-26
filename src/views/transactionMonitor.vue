@@ -61,6 +61,7 @@
             color: #fff;
         }
     }
+
     .el-popover {
         padding: 0;
         border-radius: 0;
@@ -149,7 +150,8 @@
             </div>
 
             <!--点击地图的弹出框-->
-            <el-popover popper-class="map-click-chart" transition="el-zoom-in-center" v-model="showMapChart" ref="popover5"
+            <el-popover popper-class="map-click-chart" transition="el-zoom-in-center" v-model="showMapChart"
+                        ref="popover5"
                         placement="top">
                 <div class="title">
                     XX地区交易及价格信息
@@ -200,7 +202,6 @@
     import RightBottomTable from '@/components/RightBottomTable'
 
     const BottomGloab = () => import('@/components/bottomGloab');
-
 
 
     export default {
@@ -318,7 +319,7 @@
                                 color: '#57617B'
                             }
                         },
-                        data:[]
+                        data: []
                     }],
                     yAxis: [{
                         type: 'value',
@@ -474,6 +475,7 @@
 
                 // 绘制图表
                 myChart.setOption({
+                    color: ['#fc5353', '#f4fc6c', '#e68b55', '#9a68ff', '#ff60c5'],
                     visualMap: {
                         min: 1000,
                         max: 5000,
@@ -481,16 +483,31 @@
                         right: '32%',
                         bottom: '6%',
                         zlevel: 10,
-                        color: ['#ff3333', 'orange', 'yellow', 'lime', 'aqua'],
                         textStyle: {
                             color: '#fff'
                         }
                     },
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    legend: {
+                        orient: 'horizontal',
+                        left: '50',
+                        top: '10',
+                        data: ['高线'],
+                        textStyle: {
+                            color: '#ffffff'
+                        },
+                        icon: 'circle',
+                    },
                     geo: {
                         map: 'china',
-                        label: {
-                            emphasis: {show: true}
-                        },
+                        /*label: {
+                            emphasis: {
+                                show: true,
+                                formatter: '{b}: {c}'
+                            }
+                        },*/
                         zlevel: 10,
                         layoutCenter: ['46%', '52.4%'],
                         roam: true,
@@ -511,6 +528,19 @@
                     series: this.series,
                 });
             },
+            convertData2(data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var geoCoord = chinaPoint[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value)
+                        });
+                    }
+                }
+                return res;
+            }
         },
         created() {
             /*此处获取地图上方的交易数据概述*/
@@ -522,6 +552,44 @@
             /*绘制地图*/
             [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
                 _this.series.push(
+                    {
+                        name: '高线',
+                        type: 'scatter',
+                        zlevel: 20,
+                        color: '#f00',
+                        coordinateSystem: 'geo',
+                        data: _this.convertData2([
+                            {name: "章丘", value: 45},
+                            {name: "肇庆", value: 46},
+                            {name: "大连", value: 47},
+                            {name: "临汾", value: 47},
+                            {name: "吴江", value: 47},
+                            {name: "石嘴山", value: 49},
+                            {name: "沈阳", value: 50},
+                            {name: "苏州", value: 50},
+                            {name: "茂名", value: 50},
+                            {name: "嘉兴", value: 51},
+                            {name: "长春", value: 51},
+                            {name: "胶州", value: 52},
+                            {name: "银川", value: 52},
+                            {name: "张家港", value: 52},
+                            {name: "三门峡", value: 53},
+                            {name: "锦州", value: 54},
+                            {name: "南昌", value: 54},
+                            {name: "柳州", value: 54},
+                            {name: "三亚", value: 54},
+                            {name: "自贡", value: 56},
+                            {name: "吉林", value: 56},
+                            {name: "阳江", value: 57},
+                            {name: "泸州", value: 57},
+                            {name: "西宁", value: 57},
+                        ]),
+                        symbolSize: 10,
+                        itemStyle: {
+                            normal: {color: '#f00'}
+                        }
+
+                    },
                     {
                         type: 'lines',
                         zlevel: 15,
@@ -561,7 +629,11 @@
                         },
                         zlevel: 15,
                         label: {
-                            normal: {show: true, position: 'right', offset: [5, 0], formatter: '{b}'}
+                            normal: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{b}'
+                            }
                         },
                         symbol: 'circle',
                         symbolSize: 15,
@@ -573,12 +645,12 @@
                         data: item[1].map(function (dataItem) {
                             return {
                                 name: dataItem[1].name,
-                                value: chinaPoint[dataItem[1].name].concat([dataItem[1].name])
+                                value: chinaPoint[dataItem[1].name].concat([dataItem[1].name]),
+                                tooltip: {
+                                    formatter: dataItem[0].name + "--" + dataItem[1].name + "：" + dataItem[1].value
+                                }
                             };
                         }),
-                        /*markPoint 表示  高亮点*/
-                        /*markPoint: {  symbol: 'circle',  symbolSize: 6,  label: {      normal: {          show: false      }  },  itemStyle: {      normal: {          color: 'red'      },      emphasis: {          color: 'red'      }  },  data: [      {          name: '广东',          value: 10,          coord: [113.23, 23.16]      }, {          name: '深圳',          coord: [114.07, 22.62]      }, {          name: '成都',          coord: [102.56, 30.92]      }, {          name: '南京',          coord: [118.78, 32.04]      }, {          name: '兰州',          coord: [103.73, 35.03]      }, {          name: '武汉',          coord: [114.31, 30.5]      }, {          name: '义乌',          coord: [120.06, 29.32]      }, {          name: '抚顺',          coord: [123.97, 41.97]      }, {          name: '拉萨',          coord: [91.11, 30.97]      }, {          name: '曲靖',          coord: [103.79, 25.51]      }, {          name: '嘉峪关',          coord: [98.289152, 39.77313]      }, {          name: '张家口',          coord: [114.87, 40.82]      }, {          name: '铜川',          coord: [109.11, 35.09]      }  ]
-                         }*/
                     }
                 );
             });
