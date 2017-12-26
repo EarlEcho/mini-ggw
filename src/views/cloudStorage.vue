@@ -102,7 +102,7 @@
             border: none;
             .el-menu-item {
                 height: 30px;
-                width: 106px;
+                width: 135px;
                 text-align: center;
                 line-height: 30px;
                 &:hover {
@@ -467,7 +467,7 @@
             /*3、仓库（视频上面的仓库标签）*/
             ggdp.getAjax('/inter.ashx?action=wlist', (data) => {
 //                console.log(data.Data);
-                this.monitorCitys = data.Data;
+                this.monitorCitys = data.Data.slice(0, 7);
             });
             setTimeout(() => {
                 this.player.muted(false)

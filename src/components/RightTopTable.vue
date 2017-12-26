@@ -6,7 +6,7 @@
         }
 
         .el-table td {
-            padding: 3px 0;
+            padding: 4px 0;
         }
         .el-table td, .el-table th.is-leaf {
             border-bottom: 3px solid #172f4b;
@@ -179,13 +179,13 @@
                         <el-tab-pane label="盘螺" name="third"></el-tab-pane>
                         <el-tab-pane label="热轧板卷" name="fourth"></el-tab-pane>
                         <el-table :data="priceDataAnalyze" size="small" fit>
-                            <el-table-column prop="province" label="省份" width="61px"></el-table-column>
+                            <el-table-column prop="pname" label="省份" width="61px"></el-table-column>
                             <el-table-column prop="city" label="城市" width="70px"></el-table-column>
-                            <el-table-column prop="name" label="品名" width="85px"></el-table-column>
+                            <el-table-column prop="tradname" label="品名" width="85px"></el-table-column>
                             <el-table-column prop="standard" label="规格" width="70px"></el-table-column>
-                            <el-table-column prop="texture" label="材质" width="70px"></el-table-column>
-                            <el-table-column prop="mill" label="钢厂" width="95px"></el-table-column>
-                            <el-table-column prop="date" label="日期" width="75px"></el-table-column>
+                            <el-table-column prop="material" label="材质" width="70px"></el-table-column>
+                            <el-table-column prop="steelFactory" label="钢厂" width="95px"></el-table-column>
+                            <el-table-column prop="price" label="价格" width="75px"></el-table-column>
                         </el-table>
                     </el-tabs>
 
@@ -243,6 +243,9 @@
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
+//                console.log(data);
+                this.priceDataAnalyze = data.mx.Row.gx.slice(0, 10);
+
                 /*this.dailyPriceFullData = data;
                 console.log(this.dailyPriceFullData);*/
 
@@ -299,15 +302,15 @@
 
             lastPage() {
                 /*点击一次  clickPage增加一次*/
-               /* console.log(this.clickPage, this.realDataPage);
-                if (this.clickPage == 0) {
-                    this.$message('已经是第一页');
-                    return;
-                }
-                if (this.clickPage < this.realDataPage) {
-                    this.tempData = this.realTimeData[this.clickPage - 1];
-                }
-                this.clickPage--;*/
+                /* console.log(this.clickPage, this.realDataPage);
+                 if (this.clickPage == 0) {
+                     this.$message('已经是第一页');
+                     return;
+                 }
+                 if (this.clickPage < this.realDataPage) {
+                     this.tempData = this.realTimeData[this.clickPage - 1];
+                 }
+                 this.clickPage--;*/
             },
             nextPage() {
                 console.log(this.clickPage, this.realDataPage);

@@ -66,7 +66,7 @@
     <div class="data-header-box">
         <span class="title">{{title}}</span>
         <div class="table-header-group">
-            <el-button><i class="icon iconfont icon-fangda" @click="showPopupTable" v-show="showExpandPopup"></i></el-button>
+            <!--<el-button><i class="icon iconfont icon-fangda" @click="showPopupTable" v-show="showExpandPopup"></i></el-button>-->
             <el-tooltip class="item" effect="dark" content="提示文字" placement="top-start">
                 <el-button icon="icon iconfont icon-question"></el-button>
             </el-tooltip>

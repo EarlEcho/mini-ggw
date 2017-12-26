@@ -185,7 +185,7 @@
                 <el-menu-item index="/cloud-storage">
                     <span><i class="icon iconfont icon-tilewarehouse"></i>云仓储</span>
                 </el-menu-item>
-                <el-menu-item index="/transaction">
+                <el-menu-item index="/">
                     <span><i class="icon iconfont icon-chart"></i>交易监控</span>
                 </el-menu-item>
             </el-menu>
@@ -221,7 +221,7 @@
         components: {},
         data() {
             return {
-                logoHeaderActive: '/transaction',
+                logoHeaderActive: '/',
                 nowDate: new Date(),
                 intervalValue: '1',
                 intervalOptions: [{
