@@ -156,7 +156,7 @@
                 <div class="data-header-box">
                     <span class="title">实时螺纹均价</span>
                     <div class="table-header-group">
-                        <el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>
+                        <!--<el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>-->
                         <el-tooltip class="item" effect="dark" content="指定城市最新一条螺纹钢价格指数数据，其中涨跌是针对与紧接着一条的数据之差。"
                                     placement="top-start">
                             <el-button icon="icon iconfont icon-question"></el-button>

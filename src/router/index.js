@@ -1,4 +1,4 @@
-const HomePage = () => import('@/views/homePage')
+// const HomePage = () => import('@/views/homePage')
 const CloudStorage = () => import('@/views/cloudStorage')
 const TransactionMonitor = () => import('@/views/transactionMonitor')
 

@@ -40,19 +40,17 @@
         .el-col-8 {
             text-align: right;
         }
-    }
 
-    .dark-item {
-        height: 29px;
-        line-height: 29px;
-        padding: 0 15px;
-    }
+        .dark-item {
+            height: 34px !important;
+            line-height: 34px !important;
+            padding: 0 15px !important;
+        }
 
-    .light-item {
-        height: 50px;
-        line-height: 35px;
-        padding: 0 15px 0 15px;
-        &:after {
+        .light-item {
+            height: 50px !important;
+            line-height: 35px !important;
+            padding: 0 15px 0 15px !important;
         }
     }
 
@@ -237,70 +235,92 @@
                 showDailyVolumeLine: false,
                 showDailyPriceLine: false,
 
+
                 transacPieOptions: {
-                    color: ['#3398DB'],
                     textStyle: {
                         color: '#fff'
                     },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    title: [{
+                        text: '重量和金额总统计',
+                        left: '35%',
+                        top: '6%',
+                        textStyle: {
+                            color: '#fff'
                         }
+                    }],
+                    color: ["#f9882c", "#24c5fb"],
+                    textStyle: {
+                        color: "#ffffff",
+
                     },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
+                    legend: {
+                        right: 10,
+                        width: 500,
+                        itemWidth: 40,
+                        textStyle: {
+                            color: "#d7d7d7"
+                        },
+                        data: ['重量', '金额']
                     },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: ['12-01', '12-02', '12-04', '12-06', '12-08', '12-10', '12-12', '12-14', '12-16', '12-18', '12-20', '12-22'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            // type : 'category',
-                            // data : ['10','20','30','40'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '本月成交量',
-                            type: 'bar',
-                            barWidth: '40%',
-                            data: [2645, 3453, 4242, 2455, 3135, 4543,2313, 5454, 4534, 3442,3131, 3221]
+                    xAxis: [{
+                        type: 'category',
+                        axisTick: {
+                            show: false
                         },
 
-                    ],
-                    label: {
-                        normal: {
+                        data: ['今日', '本周', '本月', '累计']
+                    }],
+                    yAxis: {
+                        "axisLine": {
+                            lineStyle: {
+                                color: '#c0576d'
+                            }
+                        },
+                        splitLine: {
                             show: true,
-                            position: 'top',
-                            formatter: '{c}'
+                            lineStyle: {
+                                color: '#c0576d'
+                            }
+                        },
+                        "axisTick": {
+                            "show": false
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: '#ffd285'
+                            }
+                        },
+                        type: 'value'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                         }
                     },
-                    itemStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(17, 168,171, 1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(17, 168,171, 0.1)'
-                            }]),
-                            shadowColor: 'rgba(0, 0, 0, 0.1)',
-                            shadowBlur: 10
-                        }
-                    }
+                    series: [{
+                        name: '重量',
+                        type: 'bar',
+                        barWidth: 10,
+                        itemStyle: {
+                            normal: {
+                                barBorderRadius: 6,
+                                color: '#ffd285'
+                            }
+                        },
+                        data: [120, 165, 134, 157]
+                    }, {
+                        name: '金额',
+                        type: 'bar',
+                        barWidth: 15,
+                        itemStyle: {
+                            normal: {
+                                barBorderRadius: 6,
+                                color: '#ec4863'
+                            }
+                        },
+                        data: [247, 210, 195, 207]
+                    },]
                 }
 
             }
@@ -319,6 +339,10 @@
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=analhysis', (data) => {
+                this.transacPieOptions.xAxis.data = data.barGraph.xAxis;
+                this.transacPieOptions.series[0].data = data.barGraph.series1;
+                this.transacPieOptions.series[1].data = data.barGraph.series2;
+
                 this.dataAnalysis = data;
             });
             ggdp.getAjax('/inter.ashx?action=statistics', (data) => {

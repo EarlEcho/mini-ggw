@@ -151,10 +151,10 @@
         }
 
         .data-content .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-            width: 525px;
+            width: 133px;
         }
         .data-content .el-tabs__item {
-            width: 525px;
+            width: 131px;
         }
     }
 </style>
@@ -164,9 +164,9 @@
         <div class="daily-volume-table">
             <border-box>
                 <div class="data-header-box">
-                    <span class="title">实施成交价</span>
+                    <span class="title">实时成交价</span>
                     <div class="table-header-group">
-                        <el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>
+                        <!--<el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>-->
                         <el-tooltip class="item" effect="dark" content="提示文字" placement="top-start">
                             <el-button icon="icon iconfont icon-question"></el-button>
                         </el-tooltip>
@@ -174,29 +174,29 @@
                 </div>
                 <div class="data-content">
                     <el-tabs v-model="tabActive" type="card">
-                        <!--<el-tab-pane label="螺纹钢" name="first"></el-tab-pane>
-                        <el-tab-pane label="盘螺" name="third"></el-tab-pane>
-                        <el-tab-pane label="热轧板卷" name="fourth"></el-tab-pane>-->
-                        <el-tab-pane label="高线" name="second"></el-tab-pane>
+                        <el-tab-pane label="高线" name="gx"></el-tab-pane>
+                        <el-tab-pane label="螺纹钢" name="lwg"></el-tab-pane>
+                        <el-tab-pane label="盘螺" name="pl"></el-tab-pane>
+                        <el-tab-pane label="热轧板卷" name="rzbj"></el-tab-pane>
                         <el-table :data="tempData" size="small" fit>
                             <el-table-column prop="pname" label="省份" width="61px"></el-table-column>
                             <el-table-column prop="city" label="城市" width="70px"></el-table-column>
                             <el-table-column prop="tradname" label="品名" width="85px"></el-table-column>
-                            <el-table-column prop="standard" label="规格" width="70px"></el-table-column>
+                            <el-table-column prop="standard" label="规格" width="70px"
+                                             show-overflow-tooltip></el-table-column>
                             <el-table-column prop="material" label="材质" width="70px"></el-table-column>
                             <el-table-column prop="steelFactory" label="钢厂" width="95px"></el-table-column>
                             <el-table-column prop="price" label="价格" width="75px"></el-table-column>
                         </el-table>
                     </el-tabs>
-
                 </div>
                 <div class="footer-btn-group clearfix">
                     <div class="group-left">
 
                     </div>
                     <div class="group-center">
-                        <el-button><i class="icon iconfont icon-left" @click="lastPage"></i></el-button>
-                        <el-button><i class="icon iconfont icon-right" @click="nextPage"></i></el-button>
+                        <el-button><i class="icon iconfont icon-left" @click="lastPage(tabActive)"></i></el-button>
+                        <el-button><i class="icon iconfont icon-right" @click="nextPage(tabActive)"></i></el-button>
                     </div>
                     <div class="group-right">
 
@@ -228,55 +228,191 @@
         data() {
             return {
                 /*今日成交价的属性*/
-                tabActive: 'first',
-                priceDataAnalyze: [],
+                tabActive: 'gx',
                 tempData: [],
+
+                /*高线*/
+                gxFullData: [],
+                gxLength: 0,
+                gxClickPage: 0,
+                gxShowPage: [],
+
+                /*螺纹钢*/
+                lwgFullData: [],
+                lwgLength: 0,
+                lwgClickPage: 0,
+                lwgShowPage: [],
+
+                /*盘螺*/
+                plFullData: [],
+                plLength: 0,
+                plClickPage: 0,
+                plShowPage: [],
+
+
+                /*热轧板卷*/
+                rzbjFullData: [],
+                rzbjLength: 0,
+                rzbjClickPage: 0,
+                rzbjShowPage: [],
+
+
+                priceDataAnalyze: [],
                 priceFullData: [],
-                priceFirstData:[],
+                priceFirstData: [],
                 pricePage: 0, /*分页数据的页数*/
                 clickPage: 0,//点击页码的次数
 
 
             }
         },
+        watch: {
+            tabActive(val, oldval) {
+                if (val == 'gx') {
+                    this.tempData = this.gxShowPage[0];
+                    this.gxClickPage = 0;
+                }
+                if (val == 'lwg') {
+                    this.tempData = this.lwgShowPage[0];
+                    this.lwgClickPage = 0;
+                }
+                if (val == 'pl') {
+                    this.tempData = this.plShowPage[0];
+                    this.plClickPage = 0;
+                }
+                if (val == 'rzbj') {
+                    this.tempData = this.rzbjShowPage[0];
+                    this.rzbjClickPage = 0;
+                }
+            }
+        },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
-                this.priceFullData = data.mx.Row.gx;
-
-                /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
-                this.pricePage = Math.ceil(this.priceFullData.length / 10);
+                //第一版默认显示高线
+                console.log(data);
+                //高线
+                this.gxFullData = data.mx.Row.gx;
+                this.gxLength = Math.ceil(this.gxFullData.length / 10);
                 /*储存分页数据*/
-                for (let i = 0, j = 0; i < this.pricePage; i++) {
-                    this.$set(this.priceFirstData, i, this.priceFullData.slice(j, j + 10))
+                for (let i = 0, j = 0; i < this.gxLength; i++) {
+                    this.$set(this.gxShowPage, i, this.gxFullData.slice(j, j + 10))
                     j = j + 10;
                 }
-                this.tempData = this.priceFirstData[0];
+                this.tempData = this.gxShowPage[0];
+
+                /*螺纹钢*/
+                this.lwgFullData = data.mx.Row.lwg;
+                this.lwgLength = Math.ceil(this.lwgFullData.length / 10);
+                for (let i = 0, j = 0; i < this.lwgLength; i++) {
+                    this.$set(this.lwgShowPage, i, this.lwgFullData.slice(j, j + 10))
+                    j = j + 10;
+                }
+
+                /*盘螺*/
+                this.plFullData = data.mx.Row.pl;
+                this.plLength = Math.ceil(this.plFullData.length / 10);
+                for (let i = 0, j = 0; i < this.plLength; i++) {
+                    this.$set(this.plShowPage, i, this.plFullData.slice(j, j + 10))
+                    j = j + 10;
+                }
+
+                /*热轧板卷*/
+                this.rzbjFullData = data.mx.Row.rzbj;
+                this.rzbjLength = Math.ceil(this.rzbjFullData.length / 10);
+                for (let i = 0, j = 0; i < this.rzbjLength; i++) {
+                    this.$set(this.rzbjShowPage, i, this.rzbjFullData.slice(j, j + 10))
+                    j = j + 10;
+                }
+
             });
 
         },
         methods: {
-            lastPage() {
-                /*点击一次  clickPage增加一次*/
-                 console.log(this.clickPage, this.pricePage);
-                 if (this.clickPage == 0) {
-                     this.$message('已经是第一页');
-                     return;
-                 }
-                 if (this.clickPage < this.pricePage) {
-                     this.tempData = this.priceFirstData[this.clickPage - 1];
-                 }
-                 this.clickPage--;
+            lastPage(index) {
+                if (index == 'gx') {
+                    if (this.gxClickPage == 0) {
+                        this.$message('已经是第一页');
+                        return;
+                    }
+                    if (this.gxClickPage < this.gxLength) {
+                        this.tempData = this.gxShowPage[this.gxClickPage - 1];
+                    }
+                    this.gxClickPage--;
+                }
+                if (index == 'lwg') {
+                    if (this.lwgClickPage == 0) {
+                        this.$message('已经是第一页');
+                        return;
+                    }
+                    if (this.lwgClickPage < this.lwgLength) {
+                        this.tempData = this.lwgShowPage[this.lwgClickPage - 1];
+                    }
+                    this.lwgClickPage--;
+                }
+                if (index == 'pl') {
+                    if (this.plClickPage == 0) {
+                        this.$message('已经是第一页');
+                        return;
+                    }
+                    if (this.plClickPage < this.plLength) {
+                        this.tempData = this.plShowPage[this.plClickPage - 1];
+                    }
+                    this.plClickPage--;
+
+                }
+                if (index == 'rzbj') {
+                    if (this.rzbjClickPage == 0) {
+                        this.$message('已经是第一页');
+                        return;
+                    }
+                    if (this.rzbjClickPage < this.rzbjLength) {
+                        this.tempData = this.rzbjShowPage[this.rzbjClickPage - 1];
+                    }
+                    this.rzbjClickPage--;
+                }
             },
-            nextPage() {
-                console.log(this.clickPage, this.pricePage);
-                if (this.clickPage == this.pricePage - 1) {
-                    this.$message('已经是最后一页');
-                    return;
+            nextPage(index) {
+                if (index == 'gx') {
+                    if (this.gxClickPage == this.gxLength-1) {
+                        this.$message('已经是最后一页');
+                        return;
+                    }
+                    if (this.gxClickPage < this.gxLength) {
+                        this.tempData = this.gxShowPage[this.gxClickPage + 1];
+                    }
+                    this.gxClickPage++;
                 }
-                if (this.clickPage < this.pricePage) {
-                    this.tempData = this.priceFirstData[this.clickPage + 1];
+                if (index == 'lwg') {
+                    if (this.lwgClickPage == this.lwgLength-1) {
+                        this.$message('已经是最后一页');
+                        return;
+                    }
+                    if (this.lwgClickPage < this.lwgLength) {
+                        this.tempData = this.lwgShowPage[this.lwgClickPage + 1];
+                    }
+                    this.lwgClickPage++;
                 }
-                this.clickPage++;
+                if (index == 'pl') {
+                    if (this.plClickPage == this.plLength-1) {
+                        this.$message('已经是最后一页');
+                        return;
+                    }
+                    if (this.plClickPage < this.plLength) {
+                        this.tempData = this.plShowPage[this.plClickPage + 1];
+                    }
+                    this.plClickPage++;
+
+                }
+                if (index == 'rzbj') {
+                    if (this.rzbjClickPage == this.rzbjLength-1) {
+                        this.$message('已经是最后一页');
+                        return;
+                    }
+                    if (this.rzbjClickPage < this.rzbjLength) {
+                        this.tempData = this.rzbjShowPage[this.rzbjClickPage + 1];
+                    }
+                    this.rzbjClickPage++;
+                }
             },
             showPopupTable: function () {
                 /*let _this = this;
@@ -324,7 +460,6 @@
                 }
                 this.clickPopupPage++;*/
             },
-
 
 
         }

@@ -1,4 +1,4 @@
-<style scoped lang="less">
+<style lang="less">
     .menu-copy-btn {
         margin-top: 1px;
     }

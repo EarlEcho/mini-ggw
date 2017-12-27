@@ -5,7 +5,7 @@ import router from './router'
 require('../theme/index.css');
 
 require('@/assets/css/reset.css');
-require('@/assets/css/common.css');
+require('@/assets/css/common.less');
 require('@/assets/css/iconfont.css');
 
 require('video.js/dist/video-js.css')

@@ -25,9 +25,11 @@ body {
 .text-green {
     color: #0f0;
 }
+
 .temp-gap-w {
     height: 45px;
 }
+
 /*row col 的间隔色*/
 .dark-item {
     background-color: #1d3c5b;
@@ -42,12 +44,15 @@ body {
     line-height: 30px;
     color: #196ca5;
 }
-.right{
+
+.right {
     text-align: right;
 }
-.left{
+
+.left {
     text-align: left;
 }
+
 p {
     display: block;
     -webkit-margin-before: 0em;
@@ -55,6 +60,50 @@ p {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     margin: 0;
+}
+
+.map-click-chart {
+    width: 650px;
+    height: 390px;
+    position: absolute;
+    border: solid 1px #288ed9;
+    top: 25%;
+    left: 32%;
+    background: rgba(22, 45, 72, 0.8);
+    .title {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: white;
+        border-bottom: solid 1px #288ed9;
+    }
+    .chart-tabs {
+        height: 35px;
+        .el-tabs--card > .el-tabs__header {
+            border-bottom: none;
+        }
+        .el-tabs--card > .el-tabs__header .el-tabs__nav {
+            border: none;
+        }
+        .el-tabs__item {
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            height: 34px;
+            line-height: 34px;
+            color: white;
+            width: 299px;
+            text-align: center;
+            border-bottom: solid 1px #288ed9;
+            &:first-child {
+                border-right: solid 1px #288ed9;
+            }
+        }
+        .el-tabs__item.is-active {
+            border-bottom: none;
+        }
+
+    }
 }
 
 /*覆盖的tab选项卡样式*/
@@ -417,7 +466,6 @@ p {
     height: 6px;
 }
 
-
 /*弹窗的关闭按钮*/
 .el-dialog__header .el-dialog__headerbtn {
     border: 2px solid white;
@@ -427,6 +475,7 @@ p {
     top: 20px;
     right: 35px;
 }
+
 .el-dialog__headerbtn .el-icon {
     color: white;
     font-size: 18px;

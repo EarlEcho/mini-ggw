@@ -73,6 +73,7 @@
         margin: -80px 0 0 -80px;
         transition: all .6s;
         overflow: hidden;
+
     }
 
     .ball:hover {

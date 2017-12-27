@@ -153,11 +153,11 @@
                         ref="popover5"
                         placement="top">
                 <div class="title">
-                    XX地区交易及价格信息
+                    {{mapInnerArea}}地区交易及价格信息
                 </div>
                 <div class="chart-tabs">
                     <el-tabs v-model="chartActive" type="card">
-                        <!--<el-tab-pane label="交易数据分析" name="first"></el-tab-pane>-->
+                        <el-tab-pane label="价格指数分析" name="first"></el-tab-pane>
                         <el-tab-pane label="价格信息分析" name="second"></el-tab-pane>
                     </el-tabs>
                 </div>
@@ -311,6 +311,7 @@
                         value: 90
                     }]
                 ],
+                mapInnerArea: '',
                 chartOption: {
                     backgroundColor: '#172f4b',
                     tooltip: {
@@ -320,6 +321,10 @@
                                 color: '#57617B'
                             }
                         }
+                    },
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
                     },
                     grid: {
                         left: '0',
@@ -387,8 +392,8 @@
                                 color: 'rgb(137,189,27)'
                             }
                         },
-                        data: ["3080", "4000", 0, 0, "3300", "3000.05", "3070", 0, "3090", "3040.00", "3040", "3050", 0, 0, 0, "3373.00", "3073.00", "3250", "2999", "3250", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "3250", "3350.00", 0, "3350", "3350", 0, "3350", "3350", "3350", "3471.00", "3472.11", "3472.11", "3488", "3511", "3555", "3555", 0, 0, 0, "3533", "3533", 0, "3566", "3566", "3566", "3400", "3400", 0, "3400"]
-                    }, {
+                        data: [],
+                    }/*, {
                         name: '规格2',
                         type: 'line',
                         smooth: true,
@@ -415,7 +420,7 @@
                                 color: 'rgb(0,136,212)'
                             }
                         },
-                        data: ["3090", "3080", "3950.1", "3987.3", "3907.3", "3020.05", "3010", "3090", "3080", "3030.00", "3030", "3030", 0, 0, 0, "3353.00", "3053.00", "3500", "3583", "3500", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "3500", "3600.00", 0, "3600", "3600", 0, "3600", "3600", "3600", "3721.00", "3722.11", "3722.11", "3700", "4212", "3555", "3555", 0, 0, 0, "3555", "3555", 0, "3555", "3555", "3555", "3555", "3555", 0, "3555"]
+                        data: [],
                     }, {
                         name: '规格3',
                         type: 'line',
@@ -443,8 +448,9 @@
                                 color: 'rgb(219,50,51)'
                             }
                         },
-                        data: ["3060", "3050", "3800.1", "3837.3", "3757.3", "3010.5", "3040", "3060", "3100", "3050.00", "3050", "3050", 0, 0, 0, "3373.00", "3073.00", "3600", "3603", "3600", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "3600", "3700.00", 0, "3700", "3700", 0, "3700", "3700", "3700", "3821.00", "3822.11", "3822.11", "3500", "4111", "3555", "3555", 0, 0, 0, "3555", "3555", 0, "3555", "3555", "3555", "3580", "3580", 0, "3580"]
-                    },]
+                        data: [],
+                    },*/
+                    ]
                 },
             }
         },
@@ -466,15 +472,26 @@
             mapClickEvent() {
                 let innerChart;
                 let _this = this;
+
                 if (this.showMapChart) {
                     this.showMapChart = false;
 
                 } else {
+
+                    ggdp.getAjax('/inter.ashx?action=getexponent&timemark=1&proname=陕西', (data) => {
+                        console.log(data);
+                        _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                        _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                        _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                        _this.mapInnerArea = data.mx.Row.pname;
+                    });
+
+
                     this.showMapChart = true;
                     setTimeout(function () {
                         innerChart = echarts.init(document.getElementById('map-innner-chart'));
                         innerChart.setOption(_this.chartOption);
-                    }, 500);
+                    }, 1000);
                 }
 
 
@@ -518,6 +535,8 @@
                             saveAsImage: {}
                         }
                     },
+                    dataType: ["螺纹钢","热轧板卷","中厚板"],
+                    datas: [],
                     legened: {
                         data: ['高线', '螺纹钢', 'XXX'],
                         dataPoints: {

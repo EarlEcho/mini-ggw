@@ -1,5 +1,5 @@
-<style scoped lang="less">
-    .cricle-animation{
+<style lang="less">
+    .cricle-animation {
         position: fixed;
         top: 0;
         left: 0;
@@ -7,71 +7,73 @@
         height: 100%;
         z-index: -1;
         background-color: #11213A;
-    }
-    .main-content {
-        width: 62%;
-        margin: 0 auto;
-        padding-top: 40px;
-    }
-    svg circle:first-child {
-        animation: anticlockwise-trans 12s linear infinite;
-        -webkit-animation: anticlockwise-trans 12s linear infinite;
-        -webkit-transform-origin: 50px 50px;
-        -moz-animation: anticlockwise 12s linear infinite;
-        -o-animation: anticlockwise 12s linear infinite;
+        .main-content {
+            width: 62%;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+        svg circle:first-child {
+            animation: anticlockwise-trans 12s linear infinite;
+            -webkit-animation: anticlockwise-trans 12s linear infinite;
+            -webkit-transform-origin: 50px 50px;
+            -moz-animation: anticlockwise 12s linear infinite;
+            -o-animation: anticlockwise 12s linear infinite;
+        }
+
+        svg circle:nth-child(2) {
+            animation: clockwise-trans 7s linear infinite;
+            -webkit-animation: clockwise-trans 7s linear infinite;
+            -webkit-transform-origin: 50px 50px;
+            -moz-animation: clockwise 7s linear infinite;
+            -o-animation: clockwise 8s linear infinite;
+        }
+
+        svg circle:last-child {
+            animation: anticlockwise-trans 10s linear infinite;
+            -webkit-animation: anticlockwise-trans 10s linear infinite;
+            -webkit-transform-origin: 50px 50px;
+            -moz-animation: anticlockwise 10s linear infinite;
+            -o-animation: anticlockwise 10s linear infinite;
+        }
+
+        @keyframes anticlockwise {
+            from {
+                transform: rotate(0)
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes anticlockwise-trans {
+            from {
+                transform: rotate(360deg)
+            }
+            to {
+                transform: rotate(0)
+            }
+        }
+
+        @keyframes clockwise {
+            from {
+                transform: rotate(-360deg)
+            }
+            to {
+                transform: rotate(0)
+            }
+        }
+
+        @keyframes clockwise-trans {
+            from {
+                transform: rotate(-360deg)
+            }
+            to {
+                transform: rotate(0)
+            }
+        }
     }
 
-    svg circle:nth-child(2) {
-        animation: clockwise-trans 7s linear infinite;
-        -webkit-animation: clockwise-trans 7s linear infinite;
-        -webkit-transform-origin: 50px 50px;
-        -moz-animation: clockwise 7s linear infinite;
-        -o-animation: clockwise 8s linear infinite;
-    }
 
-    svg circle:last-child {
-        animation: anticlockwise-trans 10s linear infinite;
-        -webkit-animation: anticlockwise-trans 10s linear infinite;
-        -webkit-transform-origin: 50px 50px;
-        -moz-animation: anticlockwise 10s linear infinite;
-        -o-animation: anticlockwise 10s linear infinite;
-    }
-
-    /*@keyframes anticlockwise {
-        from {
-            transform: rotate(0)
-        }
-        to {
-            transform: rotate(360deg)
-        }
-    }
-
-    @keyframes anticlockwise-trans {
-        from {
-            transform: rotate(360deg)
-        }
-        to {
-            transform: rotate(0)
-        }
-    }
-
-    @keyframes clockwise {
-        from {
-            transform: rotate(-360deg)
-        }
-        to {
-            transform: rotate(0)
-        }
-    }
-
-    @keyframes clockwise-trans {
-        from {
-            transform: rotate(-360deg)
-        }
-        to {
-            transform: rotate(0)
-        }
-    }*/
 </style>
 <template>
     <div class="cricle-animation">
