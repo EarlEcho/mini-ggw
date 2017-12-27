@@ -144,12 +144,12 @@
                             </el-row>
                             <el-row class="dark-item">
                                 <el-col :span="8">累计交易量：</el-col>
-                                <el-col :span="10" :offset="2" class="right"><span>{{dataAccount.zjyl}}</span></el-col>
+                                <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.bnxl}}</span></el-col>
                                 <el-col :span="4">吨</el-col>
                             </el-row>
                             <el-row class="light-item">
                                 <el-col :span="8">金额：</el-col>
-                                <el-col :span="10" :offset="2" class="right"><span>{{dataAccount.zjyje}}</span></el-col>
+                                <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.bnze}}</span></el-col>
                                 <el-col :span="4">元</el-col>
                             </el-row>
                         </div>
@@ -240,10 +240,13 @@
                     textStyle: {
                         color: '#fff'
                     },
+                    grid: {
+                        left: '80',
+                    },
                     title: [{
                         text: '重量和金额总统计',
                         left: '35%',
-                        top: '6%',
+                        top: '10%',
                         textStyle: {
                             color: '#fff'
                         }
@@ -260,7 +263,7 @@
                         textStyle: {
                             color: "#d7d7d7"
                         },
-                        data: ['重量', '金额']
+                        data: ['重量(吨)', '金额(万元)']
                     },
                     xAxis: [{
                         type: 'category',
@@ -296,10 +299,14 @@
                         trigger: 'axis',
                         axisPointer: { // 坐标轴指示器，坐标轴触发有效
                             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                        }
+                        },
+                        /*formatter:function (params) {
+                            console.log(params);
+                            return params[0].axisValue + '<br/>' + params[0].seriesName +':'
+                        }*/
                     },
                     series: [{
-                        name: '重量',
+                        name: '重量(吨)',
                         type: 'bar',
                         barWidth: 10,
                         itemStyle: {
@@ -310,7 +317,7 @@
                         },
                         data: [120, 165, 134, 157]
                     }, {
-                        name: '金额',
+                        name: '金额(万元)',
                         type: 'bar',
                         barWidth: 15,
                         itemStyle: {

@@ -289,7 +289,6 @@
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
                 //第一版默认显示高线
-                console.log(data);
                 //高线
                 this.gxFullData = data.mx.Row.gx;
                 this.gxLength = Math.ceil(this.gxFullData.length / 10);

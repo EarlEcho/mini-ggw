@@ -84,7 +84,7 @@
         .numarrow {
             display: inline-block;
             width: 35px;
-            text-align: left;
+            text-align: center;
             i {
                 margin-right: -6px;
                 vertical-align: middle;
@@ -182,11 +182,11 @@
 
                                 <el-table-column prop="rise" label="涨跌" width="55px" show-overflow-tooltip>
                                     <template slot-scope="scope">
-                                    <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
-                                        <i :class="scope.row.rise>0?'icon iconfont icon-up':'icon iconfont icon-down' "></i>
-                                        {{Math.abs(scope.row.rise)}}
-                                        <!--math.abs是取绝对值的函数-->
-                                    </span>
+                                        <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
+                                            <i :class="riseIcon(scope.row.rise)"></i>
+                                            {{mathAbs(scope.row.rise)}}
+                                            <!--math.abs是取绝对值的函数-->
+                                        </span>
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -209,8 +209,8 @@
                                 <el-table-column prop="rise" label="涨跌" width="55px" show-overflow-tooltip>
                                     <template slot-scope="scope">
                                         <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
-                                            <i :class="scope.row.rise>0?'icon iconfont icon-up':'icon iconfont icon-down' "></i>
-                                            {{Math.abs(scope.row.rise)}}
+                                            <i :class="riseIcon(scope.row.rise)"></i>
+                                            {{mathAbs(scope.row.rise)}}
                                             <!--math.abs是取绝对值的函数-->
                                         </span>
                                     </template>
@@ -295,10 +295,10 @@
                                         <el-table-column prop="rise" label="涨跌" width="65px" show-overflow-tooltip>
                                             <template slot-scope="scope">
                                                 <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
-                                                    <i :class="scope.row.rise>0?'icon iconfont icon-up':'icon iconfont icon-down' "></i>
-                                                    {{Math.abs(scope.row.rise)}}
-                                                    <!--math.abs是取绝对值的函数-->
-                                                 </span>
+                                                    <i :class="riseIcon(scope.row.rise)"></i>
+                                                    {{mathAbs(scope.row.rise)}}
+                                                            <!--math.abs是取绝对值的函数-->
+                                                </span>
                                             </template>
                                         </el-table-column>
                                     </el-table>
@@ -389,6 +389,25 @@
 
         },
         methods: {
+            riseIcon(val) {
+                if (val == 0) {
+                    return 'center';
+                }
+                if (val > 0) {
+                    return 'icon iconfont icon-up';
+                }
+                else {
+                    return 'icon iconfont icon-down';
+                }
+            },
+            mathAbs(val) {
+                if (val == 0) {
+                    return '---'
+                }
+                else {
+                    return Math.abs(val);
+                }
+            },
             showPopupTable() {
                 this.showPriceDialog = true;
 
@@ -414,7 +433,7 @@
                 LineChart.setOption(_this.dailyLineOptions);
             },
             expandData: function () {
-                console.log('展开');
+
             },
 
         },

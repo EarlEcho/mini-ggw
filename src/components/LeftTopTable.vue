@@ -301,11 +301,10 @@
                                 </el-table>
                             </div>
                             <div class="popup-other-infos">
-                                <p class="other-item">2017年10月1日至2017年10月25日，<span class="yellow">xxxx</span>地区，
-                                    合同数量<span class="blue">222</span>件，总交易量<span class="pink">111111</span>吨，
-                                    总交易金额<span class="orange">111111</span>万元，
-                                    已出库<span class="green">xxxx</span>吨，
-                                    未出库<span class="red">xxxx</span>吨。
+                                <p class="other-item">
+                                今日待出库数量<span class="text-red"> {{transactionDatas.wck}} </span>吨，已出库数量<span class="text-green"> {{transactionDatas.yck}} </span>吨
+                                累计<span class="text-orange"> {{transactionDatas.zjyl}} </span>吨，交易金额<span class="text-blue"> {{transactionDatas.zjyje}} </span>元
+
                                 </p>
                             </div>
                             <div class="footer-btn-group clearfix">
@@ -346,6 +345,7 @@
         props: [],
         data() {
             return {
+                transactionDatas:'',
                 /*饼图时的单选框*/
                 radioType: 1,
                 radioMonth: 1,
@@ -484,6 +484,10 @@
             }
         },
         beforeCreate() {
+            /*此处获取地图上方的交易数据概述*/
+            ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
+                this.transactionDatas = data;
+            });
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;
@@ -553,7 +557,6 @@
             },
             popupLastPage() {
                 /*点击一次  clickPage增加一次*/
-//                console.log(this.clickPopupPage, this.popupDataLength);
                 if (this.clickPopupPage == 0) {
                     this.$message('已经是第一页');
                     return;

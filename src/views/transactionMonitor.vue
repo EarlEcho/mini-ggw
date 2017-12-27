@@ -126,7 +126,7 @@
             <div class="storage-main-infos">
                 <!--<p>今日已成交<span>{{transactionDatas.}}</span>笔，累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>万元</p>
                 <p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
-                <p>今日待出库数量<span>{{transactionDatas.wck}}</span>吨，已出库数量累计<span>{{transactionDatas.yck}}</span>吨</p>
+                <p>今日待出库数量<span>{{transactionDatas.wck}}</span>吨，已出库数量<span>{{transactionDatas.yck}}</span>吨</p>
                 <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>元</p>
                 <!--<p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
             </div>
