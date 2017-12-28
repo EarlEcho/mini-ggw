@@ -109,6 +109,36 @@
 
         }
     }
+
+    .map-inner-charts {
+        .el-dialog {
+            background: rgba(22, 45, 72, 0.9);
+        }
+        .el-dialog__header {
+            color: white;
+            font-weight: bold;
+            margin: 0 0 10px;
+        }
+        .el-dialog__body {
+            padding: 10px 0;
+        }
+        .el-tabs--card > .el-tabs__header .el-tabs__nav {
+            border: none;
+        }
+        .el-tabs__item {
+            width: 325px;
+            text-align: center;
+            color: white;
+        }
+        .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+            border: none;
+            background-color: #2CA1F4;
+            color: white;
+        }
+        .el-tabs--card > .el-tabs__header {
+            border: none;
+        }
+    }
 </style>
 <template>
     <div>
@@ -149,12 +179,11 @@
             </div>
 
             <!--点击地图的弹出框-->
-            <el-popover popper-class="map-click-chart" transition="el-zoom-in-center" v-model="showMapChart"
-                        ref="popover5"
-                        placement="top">
-                <div class="title">
+
+            <el-dialog :visible.sync="showMapChart" width="650px" top="17%" center class="map-inner-charts">
+                <template slot="title">
                     {{mapInnerArea}}地区交易及价格信息
-                </div>
+                </template>
                 <div class="chart-tabs">
                     <el-tabs v-model="chartActive" type="card">
                         <el-tab-pane label="价格指数分析" name="first"></el-tab-pane>
@@ -162,23 +191,16 @@
                     </el-tabs>
                 </div>
                 <div class="checkbox-wrapper clearfix">
-                    <!--<el-radio-group v-model="radioValue1">
-                        <el-radio :label="3">按量</el-radio>
-                        <el-radio :label="6">按金额</el-radio>
-                        <el-radio :label="9">按品种</el-radio>
-                    </el-radio-group>-->
-                    <el-radio-group v-model="radioValue2" class="g-rt">
-                        <el-radio :label="3">1月</el-radio>
-                        <el-radio :label="6">3月</el-radio>
-                        <el-radio :label="9">6月</el-radio>
+                    <el-radio-group v-model="mapInnerMonther" class="g-rt">
+                        <el-radio :label="1">1月</el-radio>
+                        <el-radio :label="3">3月</el-radio>
+                        <el-radio :label="6">6月</el-radio>
                     </el-radio-group>
                 </div>
                 <div id="map-innner-chart" style="width: 100%;height: 260px;">
 
                 </div>
-
-            </el-popover>
-
+            </el-dialog>
         </div>
     </div>
 
@@ -219,7 +241,7 @@
                 /*地图弹出框*/
                 chartActive: 'first',
                 radioValue1: 3,
-                radioValue2: 3,
+                mapInnerMonther: 3,
                 showMapChart: false,
                 /*位于地图上方的交易数据概述*/
                 transactionDatas: {
@@ -393,65 +415,13 @@
                             }
                         },
                         data: [],
-                    }/*, {
-                        name: '规格2',
-                        type: 'line',
-                        smooth: true,
-                        lineStyle: {
-                            normal: {
-                                width: 1
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(0, 136, 212, 0.3)'
-                                }, {
-                                    offset: 0.8,
-                                    color: 'rgba(0, 136, 212, 0)'
-                                }], false),
-                                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(0,136,212)'
-                            }
-                        },
-                        data: [],
-                    }, {
-                        name: '规格3',
-                        type: 'line',
-                        smooth: true,
-                        lineStyle: {
-                            normal: {
-                                width: 1
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(219, 50, 51, 0.3)'
-                                }, {
-                                    offset: 0.8,
-                                    color: 'rgba(219, 50, 51, 0)'
-                                }], false),
-                                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(219,50,51)'
-                            }
-                        },
-                        data: [],
-                    },*/
-                    ]
+                    }]
                 },
+            }
+        },
+        watch: {
+            mapInnerMonther(val, oldval) {
+                console.log(val);
             }
         },
         methods: {
@@ -469,30 +439,27 @@
                 }
                 return res;
             },
-            mapClickEvent() {
-                let innerChart;
+            mapClickEvent(param) {
                 let _this = this;
+                let innerChart;
+                let url = '';  //请求的url
+                let getType = ''; //价格指数分析还是价格信息分析
+                let area = param.name;  //点击区域
 
-                if (this.showMapChart) {
-                    this.showMapChart = false;
+                url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
+                ggdp.getAjax(url, (data) => {
+                    console.log(data);
+                    _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                    _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                    _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                    _this.mapInnerArea = data.mx.Row.pname;
+                });
 
-                } else {
-
-                    ggdp.getAjax('/inter.ashx?action=getexponent&timemark=1&proname=陕西', (data) => {
-                        console.log(data);
-                        _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                        _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                        _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
-                        _this.mapInnerArea = data.mx.Row.pname;
-                    });
-
-
-                    this.showMapChart = true;
-                    setTimeout(function () {
-                        innerChart = echarts.init(document.getElementById('map-innner-chart'));
-                        innerChart.setOption(_this.chartOption);
-                    }, 1000);
-                }
+                this.showMapChart = true;
+                setTimeout(function () {
+                    innerChart = echarts.init(document.getElementById('map-innner-chart'));
+                    innerChart.setOption(_this.chartOption);
+                }, 1000);
 
 
             },
@@ -501,10 +468,20 @@
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
                 myChart.on('click', function (param) {
-                    console.log(param)
-                    if (param.componentType == 'geo') {
-                        _this.mapClickEvent();
-                    }
+
+                    let url = '/inter.ashx?action=getexponent&timemark=1' + '&proname=' + param.name;
+                    ggdp.getAjax(url, (data) => {
+                        _this.$message('开发中');
+
+                    });
+
+                    /*if (this.showMapChart) {
+                        this.showMapChart = false;
+                    } else {
+                        if (param.componentType == 'geo') {
+                            _this.mapClickEvent(param);
+                        }
+                    }*/
                 });
 
                 // 绘制图表
@@ -522,7 +499,10 @@
                         }
                     },
                     tooltip: {
-                        trigger: 'item'
+                        trigger: 'item',
+                        formatter: function (params) {
+                            return params.name + ' : ' + params.value[2];
+                        }
                     },
                     toolbox: {
                         show: true,
@@ -535,17 +515,6 @@
                             saveAsImage: {}
                         }
                     },
-                    dataType: ["螺纹钢","热轧板卷","中厚板"],
-                    datas: [],
-                    legened: {
-                        data: ['高线', '螺纹钢', 'XXX'],
-                        dataPoints: {
-                            data1: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}],
-                            data2: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}],
-                            data3: [{name: "章丘", value: 45}, {name: "肇庆", value: 45}]
-                        }
-                    },
-
                     legend: {
                         orient: 'horizontal',
                         left: '50',
@@ -558,16 +527,10 @@
                     },
                     geo: {
                         map: 'china',
-                        /*label: {
-                            emphasis: {
-                                show: true,
-                                formatter: '{b}: {c}'
-                            }
-                        },*/
                         zlevel: 10,
                         layoutCenter: ['48%', '50%'],
                         roam: true,
-                        layoutSize: "110%",
+                        layoutSize: "100%",
                         zoom: 1.08,
                         itemStyle: {
                             normal: {

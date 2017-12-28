@@ -19,7 +19,7 @@
         props: [],
         data() {
             return {
-                msg: 'hello vue'
+
             }
         },
         mounted(){

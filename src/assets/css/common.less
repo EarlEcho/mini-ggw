@@ -25,12 +25,15 @@ body {
 .text-green {
     color: #0f0;
 }
-.text-orange{
+
+.text-orange {
     color: orange;
 }
-.text-blue{
+
+.text-blue {
     color: deepskyblue;
 }
+
 .temp-gap-w {
     height: 45px;
 }
@@ -57,9 +60,11 @@ body {
 .left {
     text-align: left;
 }
-.center{
+
+.center {
     text-align: center !important;
 }
+
 p {
     display: block;
     -webkit-margin-before: 0em;
@@ -246,21 +251,36 @@ p {
 }
 
 /*弹出框背景*/
-.expand-dialog .el-dialog {
-    background: url(../image/popupTable.png) no-repeat;
-    background-size: 100%;
-    box-shadow: none;
-    border: none;
-    padding: 0 0 40px 0;
-}
+.expand-dialog {
+    .el-dialog__wrapper {
+        background: rgba(17, 33, 58, .8);
+    }
+    .el-dialog {
+        background: url(../image/popupTable.png) no-repeat;
+        background-size: 100%;
+        box-shadow: none;
+        border: none;
+        padding: 0 0 40px 0;
+    }
+    .el-dialog__header, .el-dialog__body {
+        padding: 0;
+        padding-top: 15px;
+    }
 
-.el-dialog__wrapper {
-    background: rgba(17, 33, 58, .8);
-}
-
-.el-dialog__header, .el-dialog__body {
-    padding: 0;
-    padding-top: 15px;
+    /*弹窗的关闭按钮*/
+    .el-dialog__header .el-dialog__headerbtn {
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        top: 20px;
+        right: 35px;
+    }
+    .el-dialog__headerbtn .el-icon {
+        color: white;
+        font-size: 18px;
+        line-height: 24px;
+    }
 }
 
 /*弹出框的border*/
@@ -473,18 +493,3 @@ p {
     height: 6px;
 }
 
-/*弹窗的关闭按钮*/
-.el-dialog__header .el-dialog__headerbtn {
-    border: 2px solid white;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    top: 20px;
-    right: 35px;
-}
-
-.el-dialog__headerbtn .el-icon {
-    color: white;
-    font-size: 18px;
-    line-height: 24px;
-}
