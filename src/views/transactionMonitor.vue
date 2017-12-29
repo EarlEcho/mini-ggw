@@ -160,8 +160,11 @@
                 <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>元</p>
                 <!--<p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
             </div>
+            <el-button size="small" @click="showFourTables">{{switchBtnText}}</el-button>
             <!--左边数据-->
-            <div class="left-data-wrapper">
+
+
+            <div class="left-data-wrapper" v-if="showFourItem">
                 <!--左上方表格-->
                 <left-top-table></left-top-table>
 
@@ -170,7 +173,7 @@
             </div>
 
             <!--右侧数据-->
-            <div class="right-data-wrapper clearfix">
+            <div class="right-data-wrapper clearfix" v-if="showFourItem">
                 <!--右上方的数据-->
                 <right-top-table></right-top-table>
 
@@ -217,10 +220,10 @@
     import RotateCricle from '@/components/rotateCricle'
 
     /*4个表格*/
-    import LeftTopTable from '@/components/LeftTopTable'
-    import LeftBottomTable from '@/components/LeftBottomTable'
-    import RightTopTable from '@/components/RightTopTable'
-    import RightBottomTable from '@/components/RightBottomTable'
+    const LeftTopTable = () => import('@/components/LeftTopTable');
+    const LeftBottomTable = () => import('@/components/LeftBottomTable');
+    const RightTopTable = () => import('@/components/RightTopTable');
+    const RightBottomTable = () => import('@/components/RightBottomTable');
 
     const BottomGloab = () => import('@/components/bottomGloab');
 
@@ -238,6 +241,9 @@
         props: [],
         data() {
             return {
+                //是否显示4个模块表格
+                showFourItem: false,
+                switchBtnText:'显示表格',
                 /*地图弹出框*/
                 chartActive: 'first',
                 radioValue1: 3,
@@ -425,6 +431,16 @@
             }
         },
         methods: {
+            showFourTables(){
+                if(!this.showFourItem){
+                    this.showFourItem = true;
+                    this.switchBtnText = '隐藏表格';
+                }else{
+                    this.showFourItem = false;
+                    this.switchBtnText = '显示表格';
+                }
+
+            },
             convertData(data) {
                 let res = [];
                 for (let i = 0; i < data.length; i++) {
