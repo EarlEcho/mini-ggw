@@ -219,7 +219,7 @@
     import china from 'echarts/map/js/china.js';
     import RotateCricle from '@/components/rotateCricle'
 
-    /*4个表格*/
+    /*4个表格 懒加载*/
     const LeftTopTable = () => import('@/components/LeftTopTable');
     const LeftBottomTable = () => import('@/components/LeftBottomTable');
     const RightTopTable = () => import('@/components/RightTopTable');
