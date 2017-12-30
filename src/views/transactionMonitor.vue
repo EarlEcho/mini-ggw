@@ -188,7 +188,7 @@
                     {{mapInnerArea}}地区交易及价格信息
                 </template>
                 <div class="chart-tabs">
-                    <el-tabs v-model="chartActive" type="card">
+                    <el-tabs v-model="mapType" type="card">
                         <el-tab-pane label="价格指数分析" name="first"></el-tab-pane>
                         <el-tab-pane label="价格信息分析" name="second"></el-tab-pane>
                     </el-tabs>
@@ -246,7 +246,6 @@
                 showFourItem: false,
                 switchBtnText: '显示表格',
                 /*地图弹出框*/
-                chartActive: 'first',
 
 
                 //点击地图打开的曲线图
@@ -255,7 +254,7 @@
                 //城市选项
                 mapInnerArea: '',
                 //折线图的类型
-                mapType: '',
+                mapType: 'first',
 
 
                 showMapChart: false,
@@ -426,40 +425,122 @@
             }
         },
         watch: {
+            //http://219.144.217.162:8085/inter.ashx?action=timemark&timemark=1&proname=陕西
+            mapType(val, oldval) {
+                console.log(val, oldval);
+                let _this = this;
+                if (val == 'first') {
+                    //价格指数分析的接口
+                    let url = '/inter.ashx?action=getexponent&timemark=' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
+                    ggdp.getAjax(url, (data) => {
+                        // console.log(data);
+                        if (data.mx.Row.errno == 2) {
+                            _this.$message(data.mx.Row.errmsg);
+                        } else {
+                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            _this.$message('请稍等，数据切换中...');
+                            setTimeout(function () {
+                                if (innerChart == '' || typeof(innerChart) == 'undefined') {
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption, true);
+                                } else {
+                                    innerChart.dispose();
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption);
+                                }
+                            }, 1000);
+                        }
+                    });
+
+                } else {
+                    //价格信息分析的接口
+                    let url = '/inter.ashx?action=timemark&timemark' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
+                    ggdp.getAjax(url, (data) => {
+                        if (data.mx.Row.errno == 2) {
+                            _this.$message(data.mx.Row.errmsg);
+                        } else {
+                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            _this.$message('请稍等，数据切换中...');
+                            setTimeout(function () {
+                                if (innerChart == '' || typeof(innerChart) == 'undefined') {
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption, true);
+                                } else {
+                                    innerChart.dispose();
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption);
+                                }
+                            }, 1000);
+                        }
+                    });
+                }
+
+
+            },
+
+            ////点击地图打开的曲线图
+            //月份选项
+            // mapInnerMonther: 1,
+            // //城市选项
+            // mapInnerArea: '',
+            // //折线图的类型
+            // mapType: 'first',
+
             mapInnerMonther(val, oldval) {
                 console.log(val, val);
-                //
-                // //月份选项
-                // mapInnerMonther: 3,
-                //     //城市选项
-                //     mapInnerArea: '',
-                //     //折线图的类型
-                //     mapType: '',
                 let _this = this;
-                let url = '/inter.ashx?action=getexponent&timemark=' + val + '&proname=' + this.mapInnerArea;
-                ggdp.getAjax(url, (data) => {
-                    // console.log(data);
-                    if (data.mx.Row.errno == 2) {
-                        _this.$message(data.mx.Row.errmsg);
-                    } else {
-                        _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                        _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                        _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
-                        _this.$message('请稍等，数据切换中...');
-                        setTimeout(function () {
-                            if (innerChart == '' || typeof(innerChart) == 'undefined') {
-                                innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                innerChart.setOption(_this.chartOption, true);
-                            } else {
-                                innerChart.dispose();
-                                innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                innerChart.setOption(_this.chartOption);
-                            }
-                        }, 1000);
-                    }
-                });
+                if (_this.mapType == 'first') {
+                    //价格指数分析的接口
+                    let url = '/inter.ashx?action=getexponent&timemark=' + val + '&proname=' + this.mapInnerArea;
+                    ggdp.getAjax(url, (data) => {
+                        if (data.mx.Row.errno == 2) {
+                            _this.$message(data.mx.Row.errmsg);
+                        } else {
+                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            _this.$message('请稍等，数据切换中...');
+                            setTimeout(function () {
+                                if (innerChart == '' || typeof(innerChart) == 'undefined') {
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption, true);
+                                } else {
+                                    innerChart.dispose();
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption);
+                                }
+                            }, 1000);
+                        }
+                    });
 
-
+                } if(_this.mapType == 'second') {
+                    //价格信息分析的接口
+                    let url = '/inter.ashx?action=timemark&timemark' + val + '&proname=' + this.mapInnerArea;
+                    ggdp.getAjax(url, (data) => {
+                        if (data.mx.Row.errno == 2) {
+                            _this.$message(data.mx.Row.errmsg);
+                        } else {
+                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            _this.$message('请稍等，数据切换中...');
+                            setTimeout(function () {
+                                if (innerChart == '' || typeof(innerChart) == 'undefined') {
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption, true);
+                                } else {
+                                    innerChart.dispose();
+                                    innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                    innerChart.setOption(_this.chartOption);
+                                }
+                            }, 1000);
+                        }
+                    });
+                }
             }
         },
         methods: {
@@ -516,14 +597,15 @@
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
                 myChart.on('click', function (param) {
+
                     let url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
                     ggdp.getAjax(url, (data) => {
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
-                            if(data.mx.Row.datas.dates==''){
+                            if (data.mx.Row.datas.dates == '') {
                                 _this.$message('数据为空');
-                                return ;
+                                return;
                             }
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
                             _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
