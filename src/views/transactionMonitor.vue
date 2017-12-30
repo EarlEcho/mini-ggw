@@ -258,7 +258,6 @@
                 mapType: '',
 
 
-
                 showMapChart: false,
                 /*位于地图上方的交易数据概述*/
                 transactionDatas: {
@@ -437,12 +436,12 @@
                 //     //折线图的类型
                 //     mapType: '',
                 let _this = this;
-                let url = '/inter.ashx?action=getexponent&timemark='+ val + '&proname=' + this.mapInnerArea;
+                let url = '/inter.ashx?action=getexponent&timemark=' + val + '&proname=' + this.mapInnerArea;
                 ggdp.getAjax(url, (data) => {
                     // console.log(data);
-                    if(data.mx.Row.errno==2){
+                    if (data.mx.Row.errno == 2) {
                         _this.$message(data.mx.Row.errmsg);
-                    }else{
+                    } else {
                         _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
                         _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
                         _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
@@ -517,26 +516,26 @@
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
                 myChart.on('click', function (param) {
-
-                    let url = '/inter.ashx?action=getexponent&timemark='+ _this.mapInnerMonther + '&proname=' + param.name;
+                    let url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
                     ggdp.getAjax(url, (data) => {
-                        console.log(data);
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
+                            if(data.mx.Row.datas.dates==''){
+                                _this.$message('数据为空');
+                                return ;
+                            }
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
                             _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
                             _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
                             _this.mapInnerArea = data.mx.Row.pname;
                             _this.showMapChart = true;
-                            let innerChart;
                             setTimeout(function () {
                                 innerChart = echarts.init(document.getElementById('map-innner-chart'));
                                 innerChart.setOption(_this.chartOption);
                             }, 1000);
                         }
                     });
-
                     /*if (this.showMapChart) {
                         this.showMapChart = false;
                     } else {
@@ -563,7 +562,11 @@
                     tooltip: {
                         trigger: 'item',
                         formatter: function (params) {
-                            return params.name + ' : ' + params.value[2];
+                            if (params.value) {
+                                return params.name + ' : ' + params.value[2];
+                            } else {
+                                return params.name;
+                            }
                         }
                     },
                     toolbox: {
