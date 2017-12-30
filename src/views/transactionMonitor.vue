@@ -200,7 +200,7 @@
                         <el-radio :label="6">6月</el-radio>
                     </el-radio-group>
                 </div>
-                <div id="map-innner-chart" style="width: 100%;height: 260px;">
+                <div id="map-innner-chart" style="width: 100%;height: 260px;" ref="mapInnerChart">
 
                 </div>
             </el-dialog>
@@ -227,6 +227,7 @@
 
     const BottomGloab = () => import('@/components/bottomGloab');
 
+    let innerChart;
 
     export default {
         name: '',
@@ -243,11 +244,21 @@
             return {
                 //是否显示4个模块表格
                 showFourItem: false,
-                switchBtnText:'显示表格',
+                switchBtnText: '显示表格',
                 /*地图弹出框*/
                 chartActive: 'first',
-                radioValue1: 3,
-                mapInnerMonther: 3,
+
+
+                //点击地图打开的曲线图
+                //月份选项
+                mapInnerMonther: 1,
+                //城市选项
+                mapInnerArea: '',
+                //折线图的类型
+                mapType: '',
+
+
+
                 showMapChart: false,
                 /*位于地图上方的交易数据概述*/
                 transactionDatas: {
@@ -339,20 +350,10 @@
                         value: 90
                     }]
                 ],
-                mapInnerArea: '',
                 chartOption: {
                     backgroundColor: '#172f4b',
                     tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            lineStyle: {
-                                color: '#57617B'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        show: true,
-                        trigger: 'item',
+                        trigger: 'item'
                     },
                     grid: {
                         left: '0',
@@ -427,15 +428,47 @@
         },
         watch: {
             mapInnerMonther(val, oldval) {
-                console.log(val);
+                console.log(val, val);
+                //
+                // //月份选项
+                // mapInnerMonther: 3,
+                //     //城市选项
+                //     mapInnerArea: '',
+                //     //折线图的类型
+                //     mapType: '',
+                let _this = this;
+                let url = '/inter.ashx?action=getexponent&timemark='+ val + '&proname=' + this.mapInnerArea;
+                ggdp.getAjax(url, (data) => {
+                    // console.log(data);
+                    if(data.mx.Row.errno==2){
+                        _this.$message(data.mx.Row.errmsg);
+                    }else{
+                        _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                        _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                        _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                        _this.$message('请稍等，数据切换中...');
+                        setTimeout(function () {
+                            if (innerChart == '' || typeof(innerChart) == 'undefined') {
+                                innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                innerChart.setOption(_this.chartOption, true);
+                            } else {
+                                innerChart.dispose();
+                                innerChart = echarts.init(_this.$refs.mapInnerChart);
+                                innerChart.setOption(_this.chartOption);
+                            }
+                        }, 1000);
+                    }
+                });
+
+
             }
         },
         methods: {
-            showFourTables(){
-                if(!this.showFourItem){
+            showFourTables() {
+                if (!this.showFourItem) {
                     this.showFourItem = true;
                     this.switchBtnText = '隐藏表格';
-                }else{
+                } else {
                     this.showFourItem = false;
                     this.switchBtnText = '显示表格';
                 }
@@ -456,26 +489,26 @@
                 return res;
             },
             mapClickEvent(param) {
-                let _this = this;
-                let innerChart;
-                let url = '';  //请求的url
-                let getType = ''; //价格指数分析还是价格信息分析
-                let area = param.name;  //点击区域
-
-                url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
-                ggdp.getAjax(url, (data) => {
-                    console.log(data);
-                    _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                    _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                    _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
-                    _this.mapInnerArea = data.mx.Row.pname;
-                });
-
-                this.showMapChart = true;
-                setTimeout(function () {
-                    innerChart = echarts.init(document.getElementById('map-innner-chart'));
-                    innerChart.setOption(_this.chartOption);
-                }, 1000);
+                // let _this = this;
+                //
+                // let url = '';  //请求的url
+                // let getType = ''; //价格指数分析还是价格信息分析
+                // let area = param.name;  //点击区域
+                //
+                // url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
+                // ggdp.getAjax(url, (data) => {
+                //     console.log(data);
+                //     _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                //     _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                //     _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                //     _this.mapInnerArea = data.mx.Row.pname;
+                // });
+                //
+                // this.showMapChart = true;
+                // setTimeout(function () {
+                //     innerChart = echarts.init(document.getElementById('map-innner-chart'));
+                //     innerChart.setOption(_this.chartOption);
+                // }, 1000);
 
 
             },
@@ -485,10 +518,23 @@
                 let _this = this;
                 myChart.on('click', function (param) {
 
-                    let url = '/inter.ashx?action=getexponent&timemark=1' + '&proname=' + param.name;
+                    let url = '/inter.ashx?action=getexponent&timemark='+ _this.mapInnerMonther + '&proname=' + param.name;
                     ggdp.getAjax(url, (data) => {
-                        _this.$message('开发中');
-
+                        console.log(data);
+                        if (data.mx.Row.errno == 2) {
+                            _this.$message(data.mx.Row.errmsg);
+                        } else {
+                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            _this.mapInnerArea = data.mx.Row.pname;
+                            _this.showMapChart = true;
+                            let innerChart;
+                            setTimeout(function () {
+                                innerChart = echarts.init(document.getElementById('map-innner-chart'));
+                                innerChart.setOption(_this.chartOption);
+                            }, 1000);
+                        }
                     });
 
                     /*if (this.showMapChart) {
