@@ -1,6 +1,6 @@
 import App from './App'
 import router from './router'
-
+import $ from 'jquery'
 /*引入elementUI的样式文件*/
 require('../theme/index.css');
 
