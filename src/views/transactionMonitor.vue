@@ -255,6 +255,7 @@
                 mapInnerArea: '',
                 //折线图的类型
                 mapType: 'first',
+                mapLineNum: 1,
 
 
                 showMapChart: false,
@@ -420,6 +421,146 @@
                             }
                         },
                         data: [],
+                    }, {
+                        name: '规格1',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(137, 189, 27, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(137, 189, 27, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 20
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(137,189,27)'
+                            }
+                        },
+                        data: [],
+                    }, {
+                        name: '规格1',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(137, 189, 27, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(137, 189, 27, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 20
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(137,189,27)'
+                            }
+                        },
+                        data: [],
+                    }, {
+                        name: '规格1',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(137, 189, 27, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(137, 189, 27, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 20
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(137,189,27)'
+                            }
+                        },
+                        data: [],
+                    }, {
+                        name: '规格1',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(137, 189, 27, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(137, 189, 27, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 20
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(137,189,27)'
+                            }
+                        },
+                        data: [],
+                    }, {
+                        name: '规格1',
+                        type: 'line',
+                        smooth: true,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(137, 189, 27, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(137, 189, 27, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 20
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(137,189,27)'
+                            }
+                        },
+                        data: [],
                     }]
                 },
             }
@@ -427,7 +568,6 @@
         watch: {
             //http://219.144.217.162:8085/inter.ashx?action=timemark&timemark=1&proname=陕西
             mapType(val, oldval) {
-                console.log(val, oldval);
                 let _this = this;
                 if (val == 'first') {
                     //价格指数分析的接口
@@ -438,8 +578,22 @@
                             _this.$message(data.mx.Row.errmsg);
                         } else {
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            if (data.mx.Row.datas.lwg) {
+                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            }
+                            if (data.mx.Row.datas.gx) {
+                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
+                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                            }
+                            if (data.mx.Row.datas.pl) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                            }
+                            if (data.mx.Row.datas.rzjb) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
                                 if (innerChart == '' || typeof(innerChart) == 'undefined') {
@@ -448,7 +602,7 @@
                                 } else {
                                     innerChart.dispose();
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                    innerChart.setOption(_this.chartOption);
+                                    innerChart.setOption(_this.chartOption, true);
                                 }
                             }, 1000);
                         }
@@ -458,12 +612,36 @@
                     //价格信息分析的接口
                     let url = '/inter.ashx?action=timemark&timemark' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
                     ggdp.getAjax(url, (data) => {
+
+                        /* //价格信息分析的接口
+                         var obj = data.mx.Row.datas.tips;
+                         var arr = Object.keys(obj);
+                         //有多少条曲线
+                         _this.mapLineNum = arr.length;
+                         console.log(_this.mapLineNum)*/
+                        console.log(data.mx.Row);
+
+
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            if (data.mx.Row.datas.lwg) {
+                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            }
+                            if (data.mx.Row.datas.gx) {
+                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
+                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                            }
+                            if (data.mx.Row.datas.pl) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                            }
+                            if (data.mx.Row.datas.rzjb) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
                                 if (innerChart == '' || typeof(innerChart) == 'undefined') {
@@ -472,7 +650,7 @@
                                 } else {
                                     innerChart.dispose();
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                    innerChart.setOption(_this.chartOption);
+                                    innerChart.setOption(_this.chartOption, true);
                                 }
                             }, 1000);
                         }
@@ -481,28 +659,33 @@
 
 
             },
-
-            ////点击地图打开的曲线图
-            //月份选项
-            // mapInnerMonther: 1,
-            // //城市选项
-            // mapInnerArea: '',
-            // //折线图的类型
-            // mapType: 'first',
-
             mapInnerMonther(val, oldval) {
-                console.log(val, val);
                 let _this = this;
                 if (_this.mapType == 'first') {
                     //价格指数分析的接口
                     let url = '/inter.ashx?action=getexponent&timemark=' + val + '&proname=' + this.mapInnerArea;
                     ggdp.getAjax(url, (data) => {
+                        console.log(data);
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            if (data.mx.Row.datas.lwg) {
+                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            }
+                            if (data.mx.Row.datas.gx) {
+                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
+                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                            }
+                            if (data.mx.Row.datas.pl) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                            }
+                            if (data.mx.Row.datas.rzjb) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
                                 if (innerChart == '' || typeof(innerChart) == 'undefined') {
@@ -511,13 +694,14 @@
                                 } else {
                                     innerChart.dispose();
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                    innerChart.setOption(_this.chartOption);
+                                    innerChart.setOption(_this.chartOption, true);
                                 }
                             }, 1000);
                         }
                     });
 
-                } if(_this.mapType == 'second') {
+                }
+                if (_this.mapType == 'second') {
                     //价格信息分析的接口
                     let url = '/inter.ashx?action=timemark&timemark' + val + '&proname=' + this.mapInnerArea;
                     ggdp.getAjax(url, (data) => {
@@ -525,8 +709,22 @@
                             _this.$message(data.mx.Row.errmsg);
                         } else {
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            if (data.mx.Row.datas.lwg) {
+                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            }
+                            if (data.mx.Row.datas.gx) {
+                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
+                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                            }
+                            if (data.mx.Row.datas.pl) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                            }
+                            if (data.mx.Row.datas.rzjb) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
                                 if (innerChart == '' || typeof(innerChart) == 'undefined') {
@@ -535,7 +733,7 @@
                                 } else {
                                     innerChart.dispose();
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
-                                    innerChart.setOption(_this.chartOption);
+                                    innerChart.setOption(_this.chartOption, true);
                                 }
                             }, 1000);
                         }
@@ -568,36 +766,11 @@
                 }
                 return res;
             },
-            mapClickEvent(param) {
-                // let _this = this;
-                //
-                // let url = '';  //请求的url
-                // let getType = ''; //价格指数分析还是价格信息分析
-                // let area = param.name;  //点击区域
-                //
-                // url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
-                // ggdp.getAjax(url, (data) => {
-                //     console.log(data);
-                //     _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                //     _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                //     _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
-                //     _this.mapInnerArea = data.mx.Row.pname;
-                // });
-                //
-                // this.showMapChart = true;
-                // setTimeout(function () {
-                //     innerChart = echarts.init(document.getElementById('map-innner-chart'));
-                //     innerChart.setOption(_this.chartOption);
-                // }, 1000);
-
-
-            },
             drawLine() {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
                 myChart.on('click', function (param) {
-
                     let url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
                     ggdp.getAjax(url, (data) => {
                         if (data.mx.Row.errno == 2) {
@@ -608,8 +781,23 @@
                                 return;
                             }
                             _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
-                            _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                            _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            if (data.mx.Row.datas.lwg) {
+                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
+                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                            }
+                            if (data.mx.Row.datas.gx) {
+                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
+                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                            }
+                            if (data.mx.Row.datas.pl) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                            }
+                            if (data.mx.Row.datas.rzjb) {
+                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
+                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
+                            //省份
                             _this.mapInnerArea = data.mx.Row.pname;
                             _this.showMapChart = true;
                             setTimeout(function () {

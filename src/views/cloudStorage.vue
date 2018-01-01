@@ -182,6 +182,11 @@
             height: 330px !important;
         }
     }
+
+    .video-iframe {
+        width: 1492px;
+        height: 855px;
+    }
 </style>
 <template>
     <div class="cloud-wrapper">
@@ -254,38 +259,8 @@
                 </el-menu>-->
             </div>
             <transition name="el-fade-in-linear">
-                <div class="videos-content-wrapper">
-                    <el-row>
-                        <el-col :span="12">
-                            <!--大的视频-->
-                            <video-player class="vjs-custom-skin videos-content-item-big"
-                                          ref="videoPlayer"
-                                          :options="playerOptions"
-                                          :playsinline="true"
-                                          @play="onPlayerPlay($event)"
-                                          @pause="onPlayerPause($event)"
-                                          @ended="onPlayerEnded($event)"
-                                          @loadeddata="onPlayerLoadeddata($event)"
-                                          @waiting="onPlayerWaiting($event)"
-                                          @playing="onPlayerPlaying($event)"
-                                          @timeupdate="onPlayerTimeupdate($event)"
-                                          @canplay="onPlayerCanplay($event)"
-                                          @canplaythrough="onPlayerCanplaythrough($event)"
-                                          @ready="playerReadied"
-                                          @statechanged="playerStateChanged($event)">
-                            </video-player>
-                        </el-col>
-                        <el-col :span="12">
-
-                        </el-col>
-                    </el-row>
-                    <!-- <el-row v-for="(viedoItem,index) in monitorItems" :key="index">
-                         <el-col :span="6" v-for="items in viedoItem" :key="items.key">
-                             <div class="videos-content-item">
-                                 <img :src="items.imgUrl" alt="">
-                             </div>
-                         </el-col>
-                     </el-row>-->
+                <div>
+                    <iframe ref="iframe" class="video-iframe" src="static/cn/demo.html"></iframe>
                 </div>
             </transition>
         </div>
@@ -298,31 +273,16 @@
 
     import BorderBox from '@/components/BoderCompontents'
 
-    import m9 from '../assets/image/m9.jpg';
-
-    const VideoPlayer = () => import('../../node_modules/vue-video-player/src/player.vue')
 
     export default {
         name: '',
         components: {
-            VideoPlayer,
             DataHeaderBox,
             BorderBox
         },
         props: [],
         data() {
             return {
-                playerOptions: {
-                    // videojs options
-                    muted: true,
-                    language: 'en',
-                    playbackRates: [0.7, 1.0, 1.5, 2.0],
-                    sources: [{
-                        type: "video/mp4",
-                        src: "http://pic.ibaotu.com/00/25/86/008888piCNE6.mp4"
-                    }],
-                    poster: m9,
-                },
                 homeLeftDatas: {
                     storeData: [{
                         title: '今日入库量',
@@ -453,54 +413,7 @@
             }, 500)
 
         },
-        computed: {
-            player() {
-                return this.$refs.videoPlayer.player
-            }
-        },
-        methods: {
-            handleCitySelect(key, keyPath) {
-//                console.log(key, keyPath);
-
-            },
-            // listen event
-            onPlayerPlay(player) {
-                // console.log('player play!', player)
-            },
-            onPlayerPause(player) {
-                // console.log('player pause!', player)
-            },
-            onPlayerEnded(player) {
-                // console.log('player ended!', player)
-            },
-            onPlayerLoadeddata(player) {
-                // console.log('player Loadeddata!', player)
-            },
-            onPlayerWaiting(player) {
-                // console.log('player Waiting!', player)
-            },
-            onPlayerPlaying(player) {
-                // console.log('player Playing!', player)
-            },
-            onPlayerTimeupdate(player) {
-                // console.log('player Timeupdate!', player.currentTime())
-            },
-            onPlayerCanplay(player) {
-                // console.log('player Canplay!', player)
-            },
-            onPlayerCanplaythrough(player) {
-                // console.log('player Canplaythrough!', player)
-            },
-            // or listen state event
-            playerStateChanged(playerCurrentState) {
-                // console.log('player current update state', playerCurrentState)
-            },
-            // player is ready
-            playerReadied(player) {
-                // seek to 10s
-//                player.currentTime(10)
-                // console.log('example 01: the player is readied', player)
-            }
-        }
+        computed: {},
+        methods: {}
     }
 </script>

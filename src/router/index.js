@@ -6,7 +6,7 @@ const TransactionMonitor = () => import('@/views/transactionMonitor')
 export default new VueRouter({
     routes: [
         {
-            path: '/',
+            path: '/video',
             meta: {title: "首页"},
             component: videoTest
         },
@@ -16,7 +16,7 @@ export default new VueRouter({
             component: CloudStorage
         },
         {
-            path: '/video',
+            path: '/',
             meta: {title: "交易监控"},
             component: TransactionMonitor
         }
