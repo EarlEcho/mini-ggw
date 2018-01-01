@@ -7,10 +7,10 @@
     .wrap {
         position: absolute;
         z-index: 1;
-        bottom: 25px;
+        bottom: 10px;
         left: 29%;
         width: 760px;
-        height: 170px;
+        height: 160px;
         background-color: transparent;
         perspective: 1000px;
         text-align: center;
@@ -65,19 +65,18 @@
     }
 
     .ball {
-        height: 160px;
-        width: 160px;
+        height: 140px;
+        width: 140px;
         position: absolute;
         top: 50%;
         left: 50%;
         margin: -80px 0 0 -80px;
         transition: all .6s;
         overflow: hidden;
-
     }
 
     .ball:hover {
-        transform: scale(1.15);
+        transform: scale(1.12);
         overflow: hidden;
     }
 
@@ -148,19 +147,19 @@
     }
 
     .ball .y1 {
-        transform: rotateX(90deg) translateZ(64px) scale(0.60);
+        transform: rotateX(90deg) translateZ(56px) scale(0.60);
     }
 
     .ball .y2 {
-        transform: rotateX(90deg) translateZ(48px) scale(0.80);
+        transform: rotateX(90deg) translateZ(42px) scale(0.80);
     }
 
     .ball .y3 {
-        transform: rotateX(90deg) translateZ(32) scale(0.92);
+        transform: rotateX(90deg) translateZ(28) scale(0.92);
     }
 
     .ball .y4 {
-        transform: rotateX(90deg) translateZ(16px) scale(0.98);
+        transform: rotateX(90deg) translateZ(14px) scale(0.98);
     }
 
     .ball .y5 {
@@ -168,19 +167,19 @@
     }
 
     .ball .y6 {
-        transform: rotateX(90deg) translateZ(-16px) scale(0.98);
+        transform: rotateX(90deg) translateZ(-14px) scale(0.98);
     }
 
     .ball .y7 {
-        transform: rotateX(90deg) translateZ(-32px) scale(0.92);
+        transform: rotateX(90deg) translateZ(-28px) scale(0.92);
     }
 
     .ball .y8 {
-        transform: rotateX(90deg) translateZ(-48px) scale(0.80);
+        transform: rotateX(90deg) translateZ(-42px) scale(0.80);
     }
 
     .ball .y9 {
-        transform: rotateX(90deg) translateZ(-64px) scale(0.60);
+        transform: rotateX(90deg) translateZ(-56px) scale(0.60);
     }
 
     @keyframes rotate {
@@ -208,8 +207,8 @@
         display: inline-block;
         border-right: 6px solid #12669F;
         border-bottom: 6px solid #12669F;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         transform: rotate(-45deg) skew(5deg, 5deg);
         border-radius: 10%;
         margin-left: -2px;
@@ -220,8 +219,8 @@
         display: inline-block;
         border-left: 6px solid #12669F;
         border-bottom: 6px solid #12669F;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         transform: rotate(45deg) skew(-5deg, -5deg);
         border-radius: 10%;
         margin-right: -2px;
@@ -229,7 +228,7 @@
 </style>
 <template>
     <div class="wrap">
-        <div class="arrow-left">
+        <div class="arrow-left" @click="showFourTables">
             <div class="arrow-animation">
                 <div class="triangle-facing-left" v-for="i in 8" ref="triangleLeft"></div>
             </div>
@@ -264,7 +263,7 @@
                 <div class="y9"></div>
             </div>
         </div>
-        <div class="arrow-right">
+        <div class="arrow-right" @click="showFourTables">
             <div class="arrow-animation">
                 <div class="triangle-facing-right" v-for="i in 8" ref="triangleRight"></div>
             </div>
@@ -285,7 +284,10 @@
         data() {
             return {}
         },
+        props: ['foutTableEvent'],
         mounted() {
+
+
             let arrowsRight = this.$refs.triangleRight;
             let arrowsLeft = this.$refs.triangleLeft;
             let ops = 0.2;
@@ -300,6 +302,11 @@
             for (i; i < length; i++) {
                 arrowsLeft[i].style.opacity = ops;
                 ops = ops - 0.1;
+            }
+        },
+        methods: {
+            showFourTables() {
+                this.foutTableEvent();
             }
         }
     }

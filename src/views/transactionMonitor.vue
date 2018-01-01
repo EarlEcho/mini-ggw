@@ -146,13 +146,11 @@
         <rotate-cricle></rotate-cricle>
         <div class="transaction-wrapper">
             <!--!&#45;&#45;最底部的旋转动画&ndash;&gt;-->
-
-            <bottom-gloab></bottom-gloab>
+            <bottom-gloab :fout-table-event="tableClickEvent"></bottom-gloab>
             <!--中间底部的旋转球体-->
             <div id="transaction-map">
                 <!--中间的地图-->
             </div>
-
             <div class="storage-main-infos">
                 <!--<p>今日已成交<span>{{transactionDatas.}}</span>笔，累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>万元</p>
                 <p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
@@ -160,9 +158,8 @@
                 <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>元</p>
                 <!--<p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
             </div>
-            <el-button size="small" @click="showFourTables">{{switchBtnText}}</el-button>
+            <!--<el-button size="small" @click="showFourTables">{{switchBtnText}}</el-button>-->
             <!--左边数据-->
-
 
             <div class="left-data-wrapper" v-if="showFourItem">
                 <!--左上方表格-->
@@ -742,15 +739,12 @@
             }
         },
         methods: {
-            showFourTables() {
+            tableClickEvent() {
                 if (!this.showFourItem) {
                     this.showFourItem = true;
-                    this.switchBtnText = '隐藏表格';
                 } else {
                     this.showFourItem = false;
-                    this.switchBtnText = '显示表格';
                 }
-
             },
             convertData(data) {
                 let res = [];
@@ -852,8 +846,8 @@
                     },
                     legend: {
                         orient: 'horizontal',
-                        left: '50',
-                        top: '10',
+                        left: '27%',
+                        top: '5%',
                         data: ['高线'],
                         textStyle: {
                             color: '#ffffff'
@@ -863,7 +857,7 @@
                     geo: {
                         map: 'china',
                         zlevel: 10,
-                        layoutCenter: ['48%', '50%'],
+                        layoutCenter: ['48%', '43%'],
                         roam: true,
                         layoutSize: "100%",
                         zoom: 1.08,

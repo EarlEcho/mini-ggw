@@ -183,10 +183,22 @@
         }
     }
 
+    .video-iframe-w {
+        position: absolute;
+        z-index: 1;
+    }
+
     .video-iframe {
         width: 1492px;
         height: 855px;
+        position: absolute;
+        z-index:2;
     }
+    iframe {
+        position: absolute;
+        z-index: 2 !important;
+    }
+
 </style>
 <template>
     <div class="cloud-wrapper">
@@ -259,7 +271,7 @@
                 </el-menu>-->
             </div>
             <transition name="el-fade-in-linear">
-                <div>
+                <div class="video-iframe-w">
                     <iframe ref="iframe" class="video-iframe" src="static/cn/demo.html"></iframe>
                 </div>
             </transition>
@@ -283,6 +295,8 @@
         props: [],
         data() {
             return {
+                //全屏的loading
+                fullscreenLoading: true,
                 homeLeftDatas: {
                     storeData: [{
                         title: '今日入库量',
@@ -347,6 +361,11 @@
 
             }
         },
+        mounted() {
+            /*setTimeout(() => {
+                this.fullscreenLoading = false;
+            }, 2000);*/
+        },
         beforeCreate() {
             /*1、云仓储数据*/
             ggdp.getAjax('/inter.ashx?action=wstorage', (data) => {
@@ -408,9 +427,6 @@
                 }
                 this.monitorCitys = tagList;
             });
-            setTimeout(() => {
-                this.player.muted(false)
-            }, 500)
 
         },
         computed: {},
