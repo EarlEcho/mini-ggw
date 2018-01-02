@@ -179,14 +179,19 @@
                         <el-tab-pane label="盘螺" name="pl"></el-tab-pane>
                         <el-tab-pane label="热轧板卷" name="rzbj"></el-tab-pane>
                         <el-table :data="tempData" size="small" fit>
-                            <el-table-column prop="pname" label="省份" width="61px"></el-table-column>
-                            <el-table-column prop="city" label="城市" width="70px"></el-table-column>
-                            <el-table-column prop="tradname" label="品名" width="85px"></el-table-column>
-                            <el-table-column prop="standard" label="规格" width="70px"
+                            <el-table-column prop="time" label="时间" width="60px">
+                                <template slot-scope="scope">
+                                    <span>{{scope.row.time.slice(5)}}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="pname" label="省份" width="60px"></el-table-column>
+                            <el-table-column prop="city" label="城市" width="60px"></el-table-column>
+                            <el-table-column prop="tradname" label="品名" width="77px"></el-table-column>
+                            <el-table-column prop="standard" label="规格" width="60px"
                                              show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="material" label="材质" width="70px"></el-table-column>
-                            <el-table-column prop="steelFactory" label="钢厂" width="95px"></el-table-column>
-                            <el-table-column prop="price" label="价格" width="75px"></el-table-column>
+                            <el-table-column prop="material" label="材质" width="65px"></el-table-column>
+                            <el-table-column prop="steelFactory" label="钢厂" width="79px"></el-table-column>
+                            <el-table-column prop="price" label="价格" width="65px"></el-table-column>
                         </el-table>
                     </el-tabs>
                 </div>
@@ -372,7 +377,7 @@
             },
             nextPage(index) {
                 if (index == 'gx') {
-                    if (this.gxClickPage == this.gxLength-1) {
+                    if (this.gxClickPage == this.gxLength - 1) {
                         this.$message('已经是最后一页');
                         return;
                     }
@@ -382,7 +387,7 @@
                     this.gxClickPage++;
                 }
                 if (index == 'lwg') {
-                    if (this.lwgClickPage == this.lwgLength-1) {
+                    if (this.lwgClickPage == this.lwgLength - 1) {
                         this.$message('已经是最后一页');
                         return;
                     }
@@ -392,7 +397,7 @@
                     this.lwgClickPage++;
                 }
                 if (index == 'pl') {
-                    if (this.plClickPage == this.plLength-1) {
+                    if (this.plClickPage == this.plLength - 1) {
                         this.$message('已经是最后一页');
                         return;
                     }
@@ -403,7 +408,7 @@
 
                 }
                 if (index == 'rzbj') {
-                    if (this.rzbjClickPage == this.rzbjLength-1) {
+                    if (this.rzbjClickPage == this.rzbjLength - 1) {
                         this.$message('已经是最后一页');
                         return;
                     }

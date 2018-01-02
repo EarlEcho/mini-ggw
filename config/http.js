@@ -4,7 +4,7 @@ import qs from 'qs'
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.baseURL = 'http://219.144.217.162:8085';
+axios.defaults.baseURL = 'http://hldpapi.gangguwang.com';
 // POST传参序列化
 axios.interceptors.request.use(function (config) {
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';

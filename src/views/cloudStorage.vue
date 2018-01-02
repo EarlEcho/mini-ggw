@@ -192,8 +192,9 @@
         width: 1492px;
         height: 855px;
         position: absolute;
-        z-index:2;
+        z-index: 2;
     }
+
     iframe {
         position: absolute;
         z-index: 2 !important;
@@ -260,6 +261,9 @@
             <div class="homepage-navbar clearfix">
                 <el-menu :default-active="activeIndex" class="video-navbar g-lf" mode="horizontal"
                          @select="handleCitySelect">
+                    <el-menu-item index="1">
+                        包头库
+                    </el-menu-item>
                     <el-menu-item v-for="cityItem in monitorCitys" :index="cityItem.FID" :key="cityItem.FID">
                         {{cityItem.FNAME}}
                     </el-menu-item>
@@ -295,68 +299,73 @@
         props: [],
         data() {
             return {
+                activeIndex: '1',
                 //全屏的loading
                 fullscreenLoading: true,
-                homeLeftDatas: {
-                    storeData: [{
-                        title: '今日入库量',
-                        num: '0'
-                    }, {
-                        title: '出库量',
-                        num: '0'
-                    }, {
-                        title: '本月入库量',
-                        num: '0'
-                    }, {
-                        title: '出库量',
-                        num: '0'
-                    }, {
-                        title: '实时静态库存',
-                        num: '0'
-                    }],
-                    notStoreData: [{
-                        title: '入库',
-                        titleNum: '0',
-                        weight: '0',
-                        warn: '0'
-                    }, {
-                        title: '出库',
-                        titleNum: '0',
-                        weight: '0',
-                        warn: '0'
-                    }, {
-                        title: '加工',
-                        titleNum: '0',
-                        weight: '0',
-                        warn: '0'
-                    }, {
-                        title: '收费',
-                        titleNum: '0',
-                        weight: '0',
-                        warn: '0'
-                    }, {
-                        title: '车皮',
-                        titleNum: '0',
-                        weight: '0',
-                        warn: '0'
-                    }],
-                    groupStoreData: [{
-                        title: '今日入库量',
-                        num: '0'
-                    }, {
-                        title: '出库量',
-                        num: '0'
-                    }, {
-                        title: '本月入库量',
-                        num: '0'
-                    }, {
-                        title: '出库量',
-                        num: '0'
-                    }, {
-                        title: '实时静态库存',
-                        num: '0'
-                    }]
-                },
+                homeLeftDatas:
+                    {
+                        storeData: [{
+                            title: '今日入库量',
+                            num: '0'
+                        }, {
+                            title: '出库量',
+                            num: '0'
+                        }, {
+                            title: '本月入库量',
+                            num: '0'
+                        }, {
+                            title: '出库量',
+                            num: '0'
+                        }, {
+                            title: '实时静态库存',
+                            num: '0'
+                        }],
+                        notStoreData:
+                            [{
+                                title: '入库',
+                                titleNum: '0',
+                                weight: '0',
+                                warn: '0'
+                            }, {
+                                title: '出库',
+                                titleNum: '0',
+                                weight: '0',
+                                warn: '0'
+                            }, {
+                                title: '加工',
+                                titleNum: '0',
+                                weight: '0',
+                                warn: '0'
+                            }, {
+                                title: '收费',
+                                titleNum: '0',
+                                weight: '0',
+                                warn: '0'
+                            }, {
+                                title: '车皮',
+                                titleNum: '0',
+                                weight: '0',
+                                warn: '0'
+                            }],
+                        groupStoreData:
+                            [{
+                                title: '今日入库量',
+                                num: '0'
+                            }, {
+                                title: '出库量',
+                                num: '0'
+                            }, {
+                                title: '本月入库量',
+                                num: '0'
+                            }, {
+                                title: '出库量',
+                                num: '0'
+                            }, {
+                                title: '实时静态库存',
+                                num: '0'
+                            }]
+                    }
+                ,
                 monitorCitys: []
 
             }

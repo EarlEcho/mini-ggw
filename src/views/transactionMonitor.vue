@@ -117,10 +117,9 @@
         .el-dialog__header {
             color: white;
             font-weight: bold;
-            margin: 0 0 10px;
         }
         .el-dialog__body {
-            padding: 10px 0;
+            padding: 10px 0 0 0;
         }
         .el-tabs--card > .el-tabs__header .el-tabs__nav {
             border: none;
@@ -197,7 +196,7 @@
                         <el-radio :label="6">6月</el-radio>
                     </el-radio-group>
                 </div>
-                <div id="map-innner-chart" style="width: 100%;height: 260px;" ref="mapInnerChart">
+                <div id="map-innner-chart" style="width: 100%;height: 300px;" ref="mapInnerChart">
 
                 </div>
             </el-dialog>
@@ -251,7 +250,7 @@
                 //城市选项
                 mapInnerArea: '',
                 //折线图的类型
-                mapType: 'first',
+                mapType: 'second',
                 mapLineNum: 1,
 
 
@@ -349,18 +348,24 @@
                 chartOption: {
                     backgroundColor: '#172f4b',
                     tooltip: {
-                        trigger: 'item'
+                        trigger: 'item',
+                        formatter(params) {
+                            return '日期：' + params.name + '<br/>' + '价格：' + params.value
+                        }
                     },
                     grid: {
                         left: '0',
-                        right: '10px',
+                        right: '20px',
                         top: '5px',
-                        bottom: '0',
-                        containLabel: true
+                        bottom: '30px',
+                        containLabel: true,
+                        y2: 140
                     },
                     xAxis: [{
                         type: 'category',
-                        boundaryGap: false,
+                        axisLabel: {
+                            rotate: -30,
+                        },
                         axisLine: {
                             lineStyle: {
                                 color: '#57617B'
@@ -409,7 +414,7 @@
                                     color: 'rgba(137, 189, 27, 0)'
                                 }], false),
                                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
+                                shadowBlur: 10
                             }
                         },
                         itemStyle: {
@@ -431,18 +436,18 @@
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: 'rgba(137, 189, 27, 0.3)'
+                                    color: 'rgba(0, 136, 212, 0.3)'
                                 }, {
                                     offset: 0.8,
-                                    color: 'rgba(137, 189, 27, 0)'
+                                    color: 'rgba(0, 136, 212, 0)'
                                 }], false),
                                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
+                                shadowBlur: 10
                             }
                         },
                         itemStyle: {
                             normal: {
-                                color: 'rgb(137,189,27)'
+                                color: 'rgb(219,50,51)'
                             }
                         },
                         data: [],
@@ -459,13 +464,13 @@
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: 'rgba(137, 189, 27, 0.3)'
+                                    color: 'rgba(219, 50, 51, 0.3)'
                                 }, {
                                     offset: 0.8,
-                                    color: 'rgba(137, 189, 27, 0)'
+                                    color: 'rgba(219, 50, 51, 0)'
                                 }], false),
                                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
+                                shadowBlur: 10
                             }
                         },
                         itemStyle: {
@@ -487,66 +492,10 @@
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: 'rgba(137, 189, 27, 0.3)'
+                                    color: 'rgba(0, 136, 212, 0.2)'
                                 }, {
-                                    offset: 0.8,
-                                    color: 'rgba(137, 189, 27, 0)'
-                                }], false),
-                                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(137,189,27)'
-                            }
-                        },
-                        data: [],
-                    }, {
-                        name: '规格1',
-                        type: 'line',
-                        smooth: true,
-                        lineStyle: {
-                            normal: {
-                                width: 1
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(137, 189, 27, 0.3)'
-                                }, {
-                                    offset: 0.8,
-                                    color: 'rgba(137, 189, 27, 0)'
-                                }], false),
-                                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                shadowBlur: 20
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(137,189,27)'
-                            }
-                        },
-                        data: [],
-                    }, {
-                        name: '规格1',
-                        type: 'line',
-                        smooth: true,
-                        lineStyle: {
-                            normal: {
-                                width: 1
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(137, 189, 27, 0.3)'
-                                }, {
-                                    offset: 0.8,
-                                    color: 'rgba(137, 189, 27, 0)'
+                                    offset: 1,
+                                    color: 'rgba(0, 136, 212, 0)'
                                 }], false),
                                 shadowColor: 'rgba(0, 0, 0, 0.1)',
                                 shadowBlur: 20
@@ -574,22 +523,40 @@
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
-                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            let item = _this.chartOption.series;
+                            _this.chartOption.xAxis[0].data = data.mx.Row.datas.dates;
                             if (data.mx.Row.datas.lwg) {
-                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                                item[0].data = data.mx.Row.datas.lwg;
+                                item[0].name = data.mx.Row.datas.tips.lwgtip;
+                            } else {
+                                item[0].data = [];
+                                item[0].name = [];
                             }
+
                             if (data.mx.Row.datas.gx) {
-                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
-                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                                item[1].data = data.mx.Row.datas.gx;
+                                item[1].name = data.mx.Row.datas.tips.gxtip;
                             }
+                            else {
+                                item[1].data = [];
+                                item[1].name = [];
+                            }
+
                             if (data.mx.Row.datas.pl) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                                item[2].data = data.mx.Row.datas.pl;
+                                item[2].name = data.mx.Row.datas.tips.pltip;
+                            } else {
+                                item[2].data = [];
+                                item[2].name = [];
                             }
+
                             if (data.mx.Row.datas.rzjb) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                                item[3].data = data.mx.Row.datas.rzjb;
+                                item[3].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
+                            else {
+                                item[3].data = [];
+                                item[3].name = [];
                             }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
@@ -622,22 +589,41 @@
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
-                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+
+                            let item = _this.chartOption.series;
+                            _this.chartOption.xAxis[0].data = data.mx.Row.datas.dates;
                             if (data.mx.Row.datas.lwg) {
-                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                                item[0].data = data.mx.Row.datas.lwg;
+                                item[0].name = data.mx.Row.datas.tips.lwgtip;
+                            } else {
+                                item[0].data = [];
+                                item[0].name = [];
                             }
+
                             if (data.mx.Row.datas.gx) {
-                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
-                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                                item[1].data = data.mx.Row.datas.gx;
+                                item[1].name = data.mx.Row.datas.tips.gxtip;
                             }
+                            else {
+                                item[1].data = [];
+                                item[1].name = [];
+                            }
+
                             if (data.mx.Row.datas.pl) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                                item[2].data = data.mx.Row.datas.pl;
+                                item[2].name = data.mx.Row.datas.tips.pltip;
+                            } else {
+                                item[2].data = [];
+                                item[2].name = [];
                             }
+
                             if (data.mx.Row.datas.rzjb) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                                item[3].data = data.mx.Row.datas.rzjb;
+                                item[3].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
+                            else {
+                                item[3].data = [];
+                                item[3].name = [];
                             }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
@@ -666,22 +652,40 @@
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
-                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            let item = _this.chartOption.series;
+                            _this.chartOption.xAxis[0].data = data.mx.Row.datas.dates;
                             if (data.mx.Row.datas.lwg) {
-                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                                item[0].data = data.mx.Row.datas.lwg;
+                                item[0].name = data.mx.Row.datas.tips.lwgtip;
+                            } else {
+                                item[0].data = [];
+                                item[0].name = [];
                             }
+
                             if (data.mx.Row.datas.gx) {
-                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
-                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                                item[1].data = data.mx.Row.datas.gx;
+                                item[1].name = data.mx.Row.datas.tips.gxtip;
                             }
+                            else {
+                                item[1].data = [];
+                                item[1].name = [];
+                            }
+
                             if (data.mx.Row.datas.pl) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                                item[2].data = data.mx.Row.datas.pl;
+                                item[2].name = data.mx.Row.datas.tips.pltip;
+                            } else {
+                                item[2].data = [];
+                                item[2].name = [];
                             }
+
                             if (data.mx.Row.datas.rzjb) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                                item[3].data = data.mx.Row.datas.rzjb;
+                                item[3].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
+                            else {
+                                item[3].data = [];
+                                item[3].name = [];
                             }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
@@ -705,22 +709,40 @@
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
                         } else {
-                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            let item = _this.chartOption.series;
+                            _this.chartOption.xAxis[0].data = data.mx.Row.datas.dates;
                             if (data.mx.Row.datas.lwg) {
-                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                                item[0].data = data.mx.Row.datas.lwg;
+                                item[0].name = data.mx.Row.datas.tips.lwgtip;
+                            } else {
+                                item[0].data = [];
+                                item[0].name = [];
                             }
+
                             if (data.mx.Row.datas.gx) {
-                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
-                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                                item[1].data = data.mx.Row.datas.gx;
+                                item[1].name = data.mx.Row.datas.tips.gxtip;
                             }
+                            else {
+                                item[1].data = [];
+                                item[1].name = [];
+                            }
+
                             if (data.mx.Row.datas.pl) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                                item[2].data = data.mx.Row.datas.pl;
+                                item[2].name = data.mx.Row.datas.tips.pltip;
+                            } else {
+                                item[2].data = [];
+                                item[2].name = [];
                             }
+
                             if (data.mx.Row.datas.rzjb) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                                item[3].data = data.mx.Row.datas.rzjb;
+                                item[3].name = data.mx.Row.datas.tips.rzjbtip;
+                            }
+                            else {
+                                item[3].data = [];
+                                item[3].name = [];
                             }
                             _this.$message('请稍等，数据切换中...');
                             setTimeout(function () {
@@ -765,7 +787,8 @@
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
                 myChart.on('click', function (param) {
-                    let url = '/inter.ashx?action=getexponent&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
+                    let url = '/inter.ashx?action=timemark&timemark' + _this.mapInnerMonther + '&proname=' + param.name;
+
                     ggdp.getAjax(url, (data) => {
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
@@ -774,23 +797,42 @@
                                 _this.$message('数据为空');
                                 return;
                             }
-                            _this.chartOption.xAxis.data = data.mx.Row.datas.dates;
+                            let item = _this.chartOption.series;
+                            _this.chartOption.xAxis[0].data = data.mx.Row.datas.dates;
                             if (data.mx.Row.datas.lwg) {
-                                _this.chartOption.series[0].data = data.mx.Row.datas.lwg;
-                                _this.chartOption.series[0].name = data.mx.Row.datas.tips.lwgtip;
+                                item[0].data = data.mx.Row.datas.lwg;
+                                item[0].name = data.mx.Row.datas.tips.lwgtip;
+                            } else {
+                                item[0].data = [];
+                                item[0].name = [];
                             }
+
                             if (data.mx.Row.datas.gx) {
-                                _this.chartOption.series[1].data = data.mx.Row.datas.gx;
-                                _this.chartOption.series[1].name = data.mx.Row.datas.tips.gxtip;
+                                item[1].data = data.mx.Row.datas.gx;
+                                item[1].name = data.mx.Row.datas.tips.gxtip;
                             }
+                            else {
+                                item[1].data = [];
+                                item[1].name = [];
+                            }
+
                             if (data.mx.Row.datas.pl) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.pl;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.pltip;
+                                item[2].data = data.mx.Row.datas.pl;
+                                item[2].name = data.mx.Row.datas.tips.pltip;
+                            } else {
+                                item[2].data = [];
+                                item[2].name = [];
                             }
+
                             if (data.mx.Row.datas.rzjb) {
-                                _this.chartOption.series[2].data = data.mx.Row.datas.rzjb;
-                                _this.chartOption.series[2].name = data.mx.Row.datas.tips.rzjbtip;
+                                item[3].data = data.mx.Row.datas.rzjb;
+                                item[3].name = data.mx.Row.datas.tips.rzjbtip;
                             }
+                            else {
+                                item[3].data = [];
+                                item[3].name = [];
+                            }
+
                             //省份
                             _this.mapInnerArea = data.mx.Row.pname;
                             _this.showMapChart = true;
