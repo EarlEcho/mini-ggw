@@ -350,7 +350,7 @@
                     tooltip: {
                         trigger: 'item',
                         formatter(params) {
-                            return '日期：' + params.name + '<br/>' + '价格：' + params.value
+                            return '品名：' + params.seriesName + '<br/>' + '日期：' + params.name + '<br/>' + '价格：' + params.value
                         }
                     },
                     grid: {
