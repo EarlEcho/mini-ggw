@@ -395,6 +395,26 @@
                             }
                         }
                     }],
+                    mapPointData: [{
+                        name: '西安',
+                        value: [{
+                            tradname: "螺纹钢",
+                            price: 3555,
+                            rise: 0
+                        },{
+                            tradname: "中厚板",
+                            price: 598,
+                            rise: 0
+                        }]
+                    },{
+                        name: '兰州',
+                        value: [{
+                            tradname: "螺纹钢",
+                            price: 3555,
+                            rise: 0
+                        }]
+                    }],
+
                     series: [{
                         name: '规格1',
                         type: 'line',
@@ -938,12 +958,20 @@
                 this.transactionDatas = data;
             });
 
+            /*ggdp.postAjax('http://news-test.gangguwang.com/dbapi/price/getfinalprice', (data) => {
+                console.log(data);
+                data.forEach(function (item, index) {
+                    console.log(index, item)
+                })
+                this.mapPointData = data;
+            });*/
+
             let _this = this;
             /*绘制地图*/
             [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
                 _this.series.push(
                     {
-                        name: '高线',
+                        name: '西安',
                         type: 'scatter',
                         zlevel: 20,
                         color: '#f00',
@@ -959,7 +987,7 @@
                             {name: "苏州", value: 50},
                             {name: "茂名", value: 50},
                             {name: "嘉兴", value: 51},
-                            {name: "长春", value: 51},
+                            {name: "长春", value: '螺纹钢-3555-0<br/>热轧板卷'},
                             {name: "胶州", value: 52},
                             {name: "银川", value: 52},
                             {name: "张家港", value: 52},
@@ -973,6 +1001,8 @@
                             {name: "阳江", value: 57},
                             {name: "泸州", value: 57},
                             {name: "西宁", value: 57},
+
+
                         ]),
                         symbolSize: 10,
                         itemStyle: {

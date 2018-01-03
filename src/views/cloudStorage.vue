@@ -376,7 +376,7 @@
             }, 2000);*/
         },
         beforeCreate() {
-            /*1、云仓储数据*/
+            /*/!*1、云仓储数据*!/
             ggdp.getAjax('/inter.ashx?action=wstorage', (data) => {
                 let storageData = data.Data;
                 this.homeLeftDatas.storeData[0].num = storageData.FTodayIn;  //今日入库量
@@ -384,7 +384,7 @@
                 this.homeLeftDatas.storeData[2].num = storageData.FMonthIn;  //本月入库量
                 this.homeLeftDatas.storeData[3].num = storageData.FMonthOut;  //本月出库量
                 this.homeLeftDatas.storeData[4].num = storageData.FNowStrage;  //实时静态库存
-            });
+            });*/
 
 
             /*云仓储待作业*/

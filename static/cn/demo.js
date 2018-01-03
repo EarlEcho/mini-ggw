@@ -32,7 +32,6 @@ $(function () {
     }
 
 
-
     // 窗口事件绑定
     $(window).bind({
         resize: function () {
@@ -48,10 +47,10 @@ $(function () {
     });
     // 开始预览  定时器，以保证登录完成之后进行预览
     setTimeout(() => {
-        //预览事件，传递参数为通道口
-        clickStartRealPlay(1);
-        console.log('预览成功');
+        clickStartRealPlay()
     }, 900)
+
+
     $('#hideAttrs').hide();
     //初始化日期时间
     var szCurTime = dateFormat(new Date(), "yyyy-MM-dd");
@@ -60,6 +59,69 @@ $(function () {
 
 
 });
+//开始预览
+function clickStartRealPlay() {
+    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
+    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180];
+    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
+    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
+    var channelID = [1,2,3,4,5,6,7];
+    for (var i = 0; i < szIP.length; i++) {
+        iStreamType = parseInt($("#streamtype").val(), 10),
+        iWndIndex = i;
+        iChannelID = parseInt(channelID[i], 10);
+        var iRet = WebVideoCtrl.I_StartRealPlay(szIP[i], {
+            iStreamType: iStreamType,
+            iWndIndex: iWndIndex,
+            iChannelID: iChannelID
+        });
+
+        if ("" == szIP[i]) {
+            return;
+        }
+        if (0 == iRet) {
+            szInfo = "开始预览成功！";
+        } else {
+            szInfo = "开始预览失败！";
+        }
+
+        showOPInfo(szIP + " " + szInfo);
+    }
+}
+// 登录
+function clickLogin() {
+    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
+    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180];
+    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
+    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
+
+    if ("" == szIP[0] || "" == szPort[0]) {
+        return;
+    }
+    for (var i = 0; i < 7; i++) {
+        console.log(szIP[i])
+
+        var iRet = WebVideoCtrl.I_Login(szIP[i], 1, szPort[i], szUsername[i], szPassword[i], {
+            success: function (xmlDoc) {
+                showOPInfo(szIP[i] + " 登录成功！");
+
+                $("#ip").prepend("<option value='" + szIP[i] + "'>" + szIP[i] + "</option>");
+                setTimeout(function () {
+                    $("#ip").val(szIP[i]);
+                    getChannelInfo();
+                }, 10);
+            },
+            error: function () {
+                showOPInfo(szIP[i] + " 登录失败！");
+            }
+
+        });
+    }
+    if (-1 == iRet) {
+        showOPInfo(szIP[i] + " 已登录过！");
+    }
+}
+
 
 // 显示操作信息
 function showOPInfo(szInfo) {
@@ -130,35 +192,7 @@ function changeWndNum(iType) {
     WebVideoCtrl.I_ChangeWndNum(iType);
 }
 
-// 登录
-function clickLogin() {
-    var szIP = $("#loginip").val(),
-        szPort = $("#port").val(),
-        szUsername = $("#username").val(),
-        szPassword = $("#password").val();
-    if ("" == szIP || "" == szPort) {
-        return;
-    }
 
-    var iRet = WebVideoCtrl.I_Login(szIP, 1, szPort, szUsername, szPassword, {
-        success: function (xmlDoc) {
-            showOPInfo(szIP + " 登录成功！");
-
-            $("#ip").prepend("<option value='" + szIP + "'>" + szIP + "</option>");
-            setTimeout(function () {
-                $("#ip").val(szIP);
-                getChannelInfo();
-            }, 10);
-        },
-        error: function () {
-            showOPInfo(szIP + " 登录失败！");
-        }
-    });
-
-    if (-1 == iRet) {
-        showOPInfo(szIP + " 已登录过！");
-    }
-}
 
 // 退出
 function clickLogout() {
@@ -289,7 +323,7 @@ function getChannelInfo() {
 }
 
 
-// 开始预览
+/*// 开始预览
 function clickStartRealPlay(channelVal) {
     console.log(channelVal);
     console.log('通道：', $("#channels").val());
@@ -322,7 +356,7 @@ function clickStartRealPlay(channelVal) {
     }
 
     showOPInfo(szIP + " " + szInfo);
-}
+}*/
 
 // 停止预览
 function clickStopRealPlay() {
