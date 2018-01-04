@@ -395,26 +395,7 @@
                             }
                         }
                     }],
-                    mapPointData: [{
-                        name: '西安',
-                        value: [{
-                            tradname: "螺纹钢",
-                            price: 3555,
-                            rise: 0
-                        },{
-                            tradname: "中厚板",
-                            price: 598,
-                            rise: 0
-                        }]
-                    },{
-                        name: '兰州',
-                        value: [{
-                            tradname: "螺纹钢",
-                            price: 3555,
-                            rise: 0
-                        }]
-                    }],
-
+                    mapPointDatas: [],
                     series: [{
                         name: '规格1',
                         type: 'line',
@@ -939,7 +920,7 @@
                 });
             },
             convertData2(data) {
-                var res = [];
+                let res = [];
                 for (var i = 0; i < data.length; i++) {
                     var geoCoord = chinaPoint[data[i].name];
                     if (geoCoord) {
@@ -951,133 +932,107 @@
                 }
                 return res;
             }
+
         },
-        created() {
+        beforeMount() {
+            let _this = this;
+            /*地图 散点图*/
+            ggdp.getAjax('/inter.ashx?action=getfinalprice', (data) => {
+                [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
+                    _this.series.push(
+                        {
+                            name: '西安',
+                            type: 'scatter',
+                            zlevel: 20,
+                            color: '#f00',
+                            coordinateSystem: 'geo',
+                            data: _this.convertData2(data.mapPointData),
+                            symbolSize: 10,
+                            itemStyle: {
+                                normal: {color: '#f00'}
+                            }
+
+                        },
+                        {
+                            type: 'lines',
+                            zlevel: 15,
+                            effect: {
+                                show: true, period: 4, trailLength: 0, symbol: 'arrow', symbolSize: 7,
+                            },
+                            lineStyle: {
+                                normal: {width: 1.2, opacity: 0.6, curveness: 0.2, color: '#F19000'}
+                            },
+                            data: _this.convertData(item[1])
+                        },
+                        //出发点
+                        {
+                            type: 'effectScatter',
+                            coordinateSystem: 'geo',
+                            zlevel: 15,
+                            rippleEffect: {
+                                period: 4, brushType: 'stroke', scale: 4
+                            },
+                            symbol: 'circle',
+                            symbolSize: function (val) {
+                                return 4 + val[2] / 10;
+                            },
+                            itemStyle: {
+                                normal: {show: true, color: '#FA4D41'}
+                            },
+                            data: [{
+                                name: _this.fromdata, value: chinaPoint[item[0]].concat([100]),
+                            }],
+                        },
+                        /*到达点*/
+                        {
+                            type: 'effectScatter',
+                            coordinateSystem: 'geo',
+                            rippleEffect: {
+                                period: 4, brushType: 'stroke', scale: 4
+                            },
+                            zlevel: 15,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'right',
+                                    formatter: '{b}'
+                                }
+                            },
+                            symbol: 'circle',
+                            symbolSize: 15,
+                            itemStyle: {
+                                normal: {
+                                    color: '#F19000'
+                                }
+                            },
+                            data: item[1].map(function (dataItem) {
+                                return {
+                                    name: dataItem[1].name,
+                                    value: chinaPoint[dataItem[1].name].concat([dataItem[1].name]),
+                                    tooltip: {
+                                        formatter: dataItem[0].name + "--" + dataItem[1].name + "：" + dataItem[1].value
+                                    }
+                                };
+                            }),
+                        }
+                    );
+                });
+
+
+
+
+            });
             /*此处获取地图上方的交易数据概述*/
             ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
                 this.transactionDatas = data;
             });
 
-            /*ggdp.postAjax('http://news-test.gangguwang.com/dbapi/price/getfinalprice', (data) => {
-                console.log(data);
-                data.forEach(function (item, index) {
-                    console.log(index, item)
-                })
-                this.mapPointData = data;
-            });*/
-
-            let _this = this;
             /*绘制地图*/
-            [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
-                _this.series.push(
-                    {
-                        name: '西安',
-                        type: 'scatter',
-                        zlevel: 20,
-                        color: '#f00',
-                        coordinateSystem: 'geo',
-                        data: _this.convertData2([
-                            {name: "章丘", value: 45},
-                            {name: "肇庆", value: 46},
-                            {name: "大连", value: 47},
-                            {name: "临汾", value: 47},
-                            {name: "吴江", value: 47},
-                            {name: "石嘴山", value: 49},
-                            {name: "沈阳", value: 50},
-                            {name: "苏州", value: 50},
-                            {name: "茂名", value: 50},
-                            {name: "嘉兴", value: 51},
-                            {name: "长春", value: '螺纹钢-3555-0<br/>热轧板卷'},
-                            {name: "胶州", value: 52},
-                            {name: "银川", value: 52},
-                            {name: "张家港", value: 52},
-                            {name: "三门峡", value: 53},
-                            {name: "锦州", value: 54},
-                            {name: "南昌", value: 54},
-                            {name: "柳州", value: 54},
-                            {name: "三亚", value: 54},
-                            {name: "自贡", value: 56},
-                            {name: "吉林", value: 56},
-                            {name: "阳江", value: 57},
-                            {name: "泸州", value: 57},
-                            {name: "西宁", value: 57},
 
-
-                        ]),
-                        symbolSize: 10,
-                        itemStyle: {
-                            normal: {color: '#f00'}
-                        }
-
-                    },
-                    {
-                        type: 'lines',
-                        zlevel: 15,
-                        effect: {
-                            show: true, period: 4, trailLength: 0, symbol: 'arrow', symbolSize: 7,
-                        },
-                        lineStyle: {
-                            normal: {width: 1.2, opacity: 0.6, curveness: 0.2, color: '#F19000'}
-                        },
-                        data: _this.convertData(item[1])
-                    },
-                    //出发点
-                    {
-                        type: 'effectScatter',
-                        coordinateSystem: 'geo',
-                        zlevel: 15,
-                        rippleEffect: {
-                            period: 4, brushType: 'stroke', scale: 4
-                        },
-                        symbol: 'circle',
-                        symbolSize: function (val) {
-                            return 4 + val[2] / 10;
-                        },
-                        itemStyle: {
-                            normal: {show: true, color: '#FA4D41'}
-                        },
-                        data: [{
-                            name: _this.fromdata, value: chinaPoint[item[0]].concat([100]),
-                        }],
-                    },
-                    /*到达点*/
-                    {
-                        type: 'effectScatter',
-                        coordinateSystem: 'geo',
-                        rippleEffect: {
-                            period: 4, brushType: 'stroke', scale: 4
-                        },
-                        zlevel: 15,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'right',
-                                formatter: '{b}'
-                            }
-                        },
-                        symbol: 'circle',
-                        symbolSize: 15,
-                        itemStyle: {
-                            normal: {
-                                color: '#F19000'
-                            }
-                        },
-                        data: item[1].map(function (dataItem) {
-                            return {
-                                name: dataItem[1].name,
-                                value: chinaPoint[dataItem[1].name].concat([dataItem[1].name]),
-                                tooltip: {
-                                    formatter: dataItem[0].name + "--" + dataItem[1].name + "：" + dataItem[1].value
-                                }
-                            };
-                        }),
-                    }
-                );
-            });
             let map = setInterval(function () {
                 _this.drawLine();
                 clearInterval(map);
-            }, 500)
+            }, 1500)
         },
 
     }
