@@ -224,18 +224,28 @@
             return {
                 logoHeaderActive: '/',
                 nowDate: '',
-                intervalValue: '1',
+                intervalValue: '',
                 intervalOptions: [{
-                    value: '1',
+                    value: 120000,
                     label: '2分钟'
                 }, {
-                    value: '2',
+                    value: 300000,
                     label: '5分钟'
                 }, {
-                    value: '3',
+                    value: 600000,
                     label: '10分钟'
                 }]
             }
+        },
+        watch: {
+            intervalValue(val, oldval) {
+                setInterval(() => {
+                    this.$router.push('/temp');
+                }, val)
+            }
+        },
+        mounted() {
+            this.intervalValue = '';
         },
         methods: {
             handleSelect(key, keyPath) {
@@ -257,7 +267,7 @@
             }
         },
         created() {
-            let path = this.$router.history.current.fullPath
+            let path = this.$router.history.current.fullPath;
             if (path == '/cloud-storage') {
                 this.logoHeaderActive = '/cloud-storage';
             }

@@ -61,11 +61,11 @@ $(function () {
 });
 //开始预览
 function clickStartRealPlay() {
-    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
-    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180];
-    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
-    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
-    var channelID = [1,2,3,4,5,6,7];
+    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
+    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180, 8180];
+    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
+    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
+    var channelID = [1,2,3,4,5,6,7,8];
     for (var i = 0; i < szIP.length; i++) {
         iStreamType = parseInt($("#streamtype").val(), 10),
         iWndIndex = i;
@@ -90,17 +90,15 @@ function clickStartRealPlay() {
 }
 // 登录
 function clickLogin() {
-    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
-    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180];
-    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
-    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
+    var szIP = ['1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154', '1.180.52.154'];
+    var szPort = [8180, 8180, 8180, 8180, 8180, 8180, 8180, 8180];
+    var szUsername = ['admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin'];
+    var szPassword = ['dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800', 'dl2149800'];
 
     if ("" == szIP[0] || "" == szPort[0]) {
         return;
     }
-    for (var i = 0; i < 7; i++) {
-        console.log(szIP[i])
-
+    for (var i = 0; i < szIP.length; i++) {
         var iRet = WebVideoCtrl.I_Login(szIP[i], 1, szPort[i], szUsername[i], szPassword[i], {
             success: function (xmlDoc) {
                 showOPInfo(szIP[i] + " 登录成功！");
