@@ -50,7 +50,6 @@ $(function () {
         clickStartRealPlay()
     }, 900)
 
-
     $('#hideAttrs').hide();
     //初始化日期时间
     var szCurTime = dateFormat(new Date(), "yyyy-MM-dd");

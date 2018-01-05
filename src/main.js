@@ -7,7 +7,6 @@ require('@/assets/css/reset.css');
 require('@/assets/css/common.less');
 require('@/assets/css/iconfont.css');
 
-require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 
 router.beforeEach((to, from, next) => {
@@ -16,7 +15,6 @@ router.beforeEach((to, from, next) => {
     }
     next()
 });
-
 
 Vue.config.productionTip = false
 

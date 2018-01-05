@@ -569,7 +569,7 @@
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
                                     innerChart.setOption(_this.chartOption, true);
                                 }
-                            }, 1000);
+                            }, 700);
                         }
                     });
 
@@ -636,7 +636,7 @@
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
                                     innerChart.setOption(_this.chartOption, true);
                                 }
-                            }, 1000);
+                            }, 700);
                         }
                     });
                 }
@@ -698,7 +698,7 @@
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
                                     innerChart.setOption(_this.chartOption, true);
                                 }
-                            }, 1000);
+                            }, 700);
                         }
                     });
 
@@ -755,7 +755,7 @@
                                     innerChart = echarts.init(_this.$refs.mapInnerChart);
                                     innerChart.setOption(_this.chartOption, true);
                                 }
-                            }, 1000);
+                            }, 700);
                         }
                     });
                 }
@@ -1017,9 +1017,6 @@
                         }
                     );
                 });
-
-
-
 
             });
             /*此处获取地图上方的交易数据概述*/
