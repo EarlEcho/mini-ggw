@@ -153,7 +153,7 @@
             <div class="storage-main-infos">
                 <!--<p>今日已成交<span>{{transactionDatas.}}</span>笔，累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>万元</p>
                 <p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
-                <p>今日待出库数量<span>{{transactionDatas.wck}}</span>吨，已出库数量<span>{{transactionDatas.yck}}</span>吨</p>
+                <p>今日待出库吨数<span>{{transactionDatas.wck}}</span>，已出库吨数<span>{{transactionDatas.yck}}</span></p>
                 <p>累计<span>{{transactionDatas.zjyl}}</span>吨，交易金额<span>{{transactionDatas.zjyje}}</span>元</p>
                 <!--<p>已发布成交价信息<span>{{transactionDatas.}}</span>条，价格指数信息<span>{{transactionDatas.}}</span>条</p>-->
             </div>
@@ -181,12 +181,12 @@
 
             <el-dialog :visible.sync="showMapChart" width="650px" top="17%" center class="map-inner-charts">
                 <template slot="title">
-                    {{mapInnerArea}}地区交易及价格信息
+                    {{mapInnerArea}}地区成交价及螺纹指数分析
                 </template>
                 <div class="chart-tabs">
                     <el-tabs v-model="mapType" type="card">
-                        <el-tab-pane label="价格指数分析" name="first"></el-tab-pane>
-                        <el-tab-pane label="价格信息分析" name="second"></el-tab-pane>
+                        <el-tab-pane label="螺纹钢指数分析" name="first"></el-tab-pane>
+                        <el-tab-pane label="成交价分析" name="second"></el-tab-pane>
                     </el-tabs>
                 </div>
                 <div class="checkbox-wrapper clearfix">
@@ -269,80 +269,72 @@
                     [{
                         name: '西安'
                     }, {
-                        name: '乌鲁木齐',
-                        value: 100
+                        name: '乌鲁木齐'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '拉萨',
-                        value: 70
+                        name: '拉萨'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '西宁',
-                        value: 30
+                        name: '西宁'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '银川',
-                        value: 30
+                        name: '银川'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '兰州',
-                        value: 30
+                        name: '兰州'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '包头',
-                        value: 30
+                        name: '包头'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '成都',
-                        value: 10
+                        name: '成都'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '重庆',
-                        value: 80
+                        name: '重庆'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '贵阳',
-                        value: 55
+                        name: '贵阳'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '长沙',
-                        value: 90
+                        name: '长沙'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '太原',
-                        value: 90
+                        name: '太原'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '昆明',
-                        value: 90
+                        name: '昆明'
                     }],
                     [{
                         name: '西安'
                     }, {
-                        name: '贵阳',
-                        value: 90
+                        name: '贵阳'
+                    }],
+                    [{
+                        name: '西安'
+                    }, {
+                        name: '广东'
                     }]
                 ],
                 chartOption: {
@@ -516,6 +508,7 @@
             //http://219.144.217.162:8085/inter.ashx?action=timemark&timemark=1&proname=陕西
             mapType(val, oldval) {
                 let _this = this;
+                this.mapInnerMonther = 1;
                 if (val == 'first') {
                     //价格指数分析的接口
                     let url = '/inter.ashx?action=getexponent&timemark=' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
@@ -787,6 +780,7 @@
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('transaction-map'));
                 let _this = this;
+                _this.mapInnerMonther = 1;
                 myChart.on('click', function (param) {
                     let url = '/inter.ashx?action=timemark&timemark' + _this.mapInnerMonther + '&proname=' + param.name;
 
@@ -977,7 +971,7 @@
                                 return 4 + val[2] / 10;
                             },
                             itemStyle: {
-                                normal: {show: true, color: '#FA4D41'}
+                                normal: {show: false}
                             },
                             data: [{
                                 name: _this.fromdata, value: chinaPoint[item[0]].concat([100]),
@@ -993,10 +987,11 @@
                             zlevel: 15,
                             label: {
                                 normal: {
-                                    show: true,
-                                    position: 'right',
-                                    formatter: '{b}'
+                                    show: false
                                 }
+                            },
+                            tooltip:{
+                                show:false,
                             },
                             symbol: 'circle',
                             symbolSize: 15,

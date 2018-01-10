@@ -317,7 +317,7 @@
                             title: '出库量',
                             num: '0'
                         }, {
-                            title: '实时静态库存',
+                            title: '库存总量',
                             num: '0'
                         }],
                         notStoreData:
@@ -361,7 +361,7 @@
                                 title: '出库量',
                                 num: '0'
                             }, {
-                                title: '实时静态库存',
+                                title: '库存总量',
                                 num: '0'
                             }]
                     }

@@ -286,7 +286,7 @@
                                     <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
                                                      width="190px"></el-table-column>-->
                                     <el-table-column prop="jyjg" label="交易价格"></el-table-column>
-                                    <el-table-column prop="cjsl" label="成交数量"></el-table-column>
+                                    <el-table-column prop="cjsl" label="成交吨数"></el-table-column>
                                     <el-table-column prop="wzgg" label="物资规格" show-overflow-tooltip></el-table-column>
                                     <el-table-column prop="wzpm" label="物资品名" show-overflow-tooltip></el-table-column>
                                     <el-table-column prop="wzcd" label="物资产地"></el-table-column>
@@ -393,14 +393,14 @@
                     backgroundColor: '#1C2B44',
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{b} : {c}吨 ({d}%)"
                     },
-                    color: ['#74c31f', '#d35833', '#00ccff', '#ffcc00', '#ffdc90'],
+                    color: ['#74c31f', '#d35833','#ffdc90','#85b6b2', '#6d4f8d', '#cd5e7e', '#e38980', '#f7db88'],
                     legend: {
-                        itemWidth: 20,
-                        itemHeight: 10,
+                        itemWidth: 18,
+                        itemHeight: 7,
                         orient: 'vertical',
-                        padding: [7, 10],
+                        padding: [3, 8],
                         top: '15px',
                         left: '5px',
                         x: 'left',
@@ -422,8 +422,9 @@
                         {
                             type: 'pie',
                             radius: '55%',
-                            center: ['61%', '55%'],
+                            center: ['61%', '60%'],
                             selectedMode: 'single',
+                            minAngle:40,
                             data: [
                                 {value: 305, name: '重庆公司', selected: true},
                                 {value: 250, name: '北京公司'},
@@ -433,14 +434,10 @@
                             ],
                             label: {
                                 normal: {
-                                    backgroundColor: '#5c6c80',
-                                    borderColor: '#495c72',
-                                    borderWidth: 1,
-                                    borderRadius: 4,
+                                    formatter: "{b}",
+                                    position: 'inside',
                                     color: 'white',
-                                    padding: [5, 7],
                                     fontSize: 11,
-                                    lineHeight: 33,
                                 }
                             },
                             labelLine: {
@@ -454,8 +451,9 @@
                         {
                             type: 'pie',
                             radius: '55%',
-                            center: ['61%', '55%'],
+                            center: ['61%', '60%'],
                             selectedMode: 'single',
+                            minAngle:40,
                             data: [
                                 {value: 305, name: '重庆公司', selected: true},
                                 {value: 250, name: '北京公司'},
@@ -465,10 +463,16 @@
                             ],
                             label: {
                                 normal: {
-                                    formatter: '{d}%\n{c}吨',
-                                    position: 'inner',
+                                    formatter: "{d}%\n{c}吨",
+                                    position: 'outside',
+                                    backgroundColor: '#5c6c80',
+                                    borderColor: '#495c72',
+                                    borderWidth: 1,
+                                    borderRadius: 4,
                                     color: 'white',
+                                    padding: [5, 7],
                                     fontSize: 11,
+                                    lineHeight: 33,
                                 }
                             },
                             labelLine: {

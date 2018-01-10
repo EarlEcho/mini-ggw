@@ -174,8 +174,8 @@
                 </div>
                 <div class="data-content">
                     <el-tabs v-model="tabActive" type="card">
-                        <el-tab-pane label="高线" name="gx"></el-tab-pane>
                         <el-tab-pane label="螺纹钢" name="lwg"></el-tab-pane>
+                        <el-tab-pane label="高线" name="gx"></el-tab-pane>
                         <el-tab-pane label="盘螺" name="pl"></el-tab-pane>
                         <el-tab-pane label="热轧板卷" name="rzbj"></el-tab-pane>
                         <el-table :data="tempData" size="small" fit>
@@ -233,7 +233,7 @@
         data() {
             return {
                 /*今日成交价的属性*/
-                tabActive: 'gx',
+                tabActive: 'lwg',
                 tempData: [],
 
                 /*高线*/
@@ -293,16 +293,7 @@
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
-                //第一版默认显示高线
-                //高线
-                this.gxFullData = data.mx.Row.gx;
-                this.gxLength = Math.ceil(this.gxFullData.length / 10);
-                /*储存分页数据*/
-                for (let i = 0, j = 0; i < this.gxLength; i++) {
-                    this.$set(this.gxShowPage, i, this.gxFullData.slice(j, j + 10))
-                    j = j + 10;
-                }
-                this.tempData = this.gxShowPage[0];
+                //第一版默认显示螺纹钢
 
                 /*螺纹钢*/
                 this.lwgFullData = data.mx.Row.lwg;
@@ -311,6 +302,19 @@
                     this.$set(this.lwgShowPage, i, this.lwgFullData.slice(j, j + 10))
                     j = j + 10;
                 }
+                this.tempData = this.lwgShowPage[0];
+
+
+                //高线
+                this.gxFullData = data.mx.Row.gx;
+                this.gxLength = Math.ceil(this.gxFullData.length / 10);
+                /*储存分页数据*/
+                for (let i = 0, j = 0; i < this.gxLength; i++) {
+                    this.$set(this.gxShowPage, i, this.gxFullData.slice(j, j + 10))
+                    j = j + 10;
+                }
+
+
 
                 /*盘螺*/
                 this.plFullData = data.mx.Row.pl;

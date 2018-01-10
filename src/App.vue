@@ -224,28 +224,32 @@
             return {
                 logoHeaderActive: '/',
                 nowDate: '',
-                intervalValue: '',
+                intervalValue: 120000,
                 intervalOptions: [{
                     value: 120000,
                     label: '2分钟'
-                }, {
+                }
+                /*, {
                     value: 300000,
                     label: '5分钟'
                 }, {
                     value: 600000,
                     label: '10分钟'
-                }]
+                }*/
+                ]
             }
         },
         watch: {
-            intervalValue(val, oldval) {
+            /*intervalValue(val, oldval) {
                 setInterval(() => {
                     this.$router.push('/temp');
                 }, val)
-            }
+            }*/
         },
         mounted() {
-            this.intervalValue = '';
+            setInterval(() => {
+                this.$router.push('/temp');
+            }, 120000)
         },
         methods: {
             handleSelect(key, keyPath) {

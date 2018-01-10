@@ -12,7 +12,10 @@ $(function () {
     // 初始化插件参数及插入插件
     WebVideoCtrl.I_InitPlugin(1490, 800, {
         //窗口分割数
+
+        szColorProperty:'plugin-background:11213A; sub-background:11213A; sub-border:11213A; sub-border-select:11213A',
         iWndowType: 3,
+
         cbSelWnd: function (xmlDoc) {
             g_iWndIndex = $(xmlDoc).find("SelectWnd").eq(0).text();
             var szInfo = "当前选择的窗口编号：" + g_iWndIndex;

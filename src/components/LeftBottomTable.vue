@@ -244,7 +244,7 @@
                         left: '80',
                     },
                     title: [{
-                        text: '重量和金额总统计',
+                        text: '吨位和金额总统计',
                         left: '35%',
                         top: '10%',
                         textStyle: {
@@ -263,7 +263,7 @@
                         textStyle: {
                             color: "#d7d7d7"
                         },
-                        data: ['重量(吨)', '金额(万元)']
+                        data: ['吨位', '金额(万元)']
                     },
                     xAxis: [{
                         type: 'category',
@@ -306,7 +306,7 @@
                         }*/
                     },
                     series: [{
-                        name: '重量(吨)',
+                        name: '吨位',
                         type: 'bar',
                         barWidth: 10,
                         itemStyle: {
