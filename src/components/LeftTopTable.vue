@@ -281,18 +281,18 @@
                                     </el-table-column>
                                     <el-table-column prop="ywrq" label="日期" show-overflow-tooltip
                                                      :formatter="filterTime"></el-table-column>
-                                    <!--<el-table-column prop="fphm" label="销售组织" show-overflow-tooltip
-                                                     width="190px"></el-table-column>
-                                    <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
-                                                     width="190px"></el-table-column>-->
-                                    <el-table-column prop="jyjg" label="交易价格"></el-table-column>
-                                    <el-table-column prop="cjsl" label="成交吨数"></el-table-column>
-                                    <el-table-column prop="wzgg" label="物资规格" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="wzpm" label="物资品名" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="wzcd" label="物资产地"></el-table-column>
-                                    <el-table-column prop="wzck" label="仓库" show-overflow-tooltip></el-table-column>
                                     <el-table-column prop="khsf" label="省份"></el-table-column>
+                                    <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
+                                                     width="190px"></el-table-column>
+                                    <el-table-column prop="fphm" label="销售客户" show-overflow-tooltip
+                                                     width="190px"></el-table-column>
+                                    <el-table-column prop="wzck" label="仓库" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzpm" label="品名" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzgg" label="规格" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzcd" label="钢厂"></el-table-column>
+                                    <el-table-column prop="jyjg" label="交易价格"></el-table-column>
                                     <el-table-column prop="djzt" label="状态"></el-table-column>
+                                    <el-table-column prop="cjsl" label="成交吨数"></el-table-column>
                                     <el-table-column prop="dcks" label="待出库吨数">
                                         <template slot-scope="scope">
                                             <span class="text-red">{{ scope.row.dcks }}</span>
@@ -302,8 +302,10 @@
                             </div>
                             <div class="popup-other-infos">
                                 <p class="other-item">
-                                今日待出库数量<span class="text-red"> {{transactionDatas.wck}} </span>吨，已出库数量<span class="text-green"> {{transactionDatas.yck}} </span>吨
-                                累计<span class="text-orange"> {{transactionDatas.zjyl}} </span>吨，交易金额<span class="text-blue"> {{transactionDatas.zjyje}} </span>元
+                                    今日待出库数量<span class="text-red"> {{transactionDatas.wck}} </span>吨，已出库数量<span
+                                    class="text-green"> {{transactionDatas.yck}} </span>吨
+                                    累计<span class="text-orange"> {{transactionDatas.zjyl}} </span>吨，交易金额<span
+                                    class="text-blue"> {{transactionDatas.zjyje}} </span>元
 
                                 </p>
                             </div>
@@ -345,7 +347,7 @@
         props: [],
         data() {
             return {
-                transactionDatas:'',
+                transactionDatas: '',
                 /*饼图时的单选框*/
                 radioType: 1,
                 radioMonth: 1,
@@ -395,7 +397,7 @@
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c}吨 ({d}%)"
                     },
-                    color: ['#74c31f', '#d35833','#ffdc90','#85b6b2', '#6d4f8d', '#cd5e7e', '#e38980', '#f7db88'],
+                    color: ['#74c31f', '#d35833', '#ffdc90', '#85b6b2', '#6d4f8d', '#cd5e7e', '#e38980', '#f7db88'],
                     legend: {
                         itemWidth: 18,
                         itemHeight: 7,
@@ -424,7 +426,7 @@
                             radius: '55%',
                             center: ['61%', '60%'],
                             selectedMode: 'single',
-                            minAngle:40,
+                            minAngle: 40,
                             data: [
                                 {value: 305, name: '重庆公司', selected: true},
                                 {value: 250, name: '北京公司'},
@@ -453,7 +455,7 @@
                             radius: '55%',
                             center: ['61%', '60%'],
                             selectedMode: 'single',
-                            minAngle:40,
+                            minAngle: 40,
                             data: [
                                 {value: 305, name: '重庆公司', selected: true},
                                 {value: 250, name: '北京公司'},
@@ -488,10 +490,6 @@
             }
         },
         beforeCreate() {
-            /*此处获取地图上方的交易数据概述*/
-            ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
-                this.transactionDatas = data;
-            });
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;

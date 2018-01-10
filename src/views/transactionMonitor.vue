@@ -568,7 +568,7 @@
 
                 } else {
                     //价格信息分析的接口
-                    let url = '/inter.ashx?action=timemark&timemark' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
+                    let url = '/inter.ashx?action=timemark&timemark=' + this.mapInnerMonther + '&proname=' + this.mapInnerArea;
                     ggdp.getAjax(url, (data) => {
 
                         /* //价格信息分析的接口
@@ -698,7 +698,7 @@
                 }
                 if (_this.mapType == 'second') {
                     //价格信息分析的接口
-                    let url = '/inter.ashx?action=timemark&timemark' + val + '&proname=' + this.mapInnerArea;
+                    let url = '/inter.ashx?action=timemark&timemark=' + val + '&proname=' + this.mapInnerArea;
                     ggdp.getAjax(url, (data) => {
                         if (data.mx.Row.errno == 2) {
                             _this.$message(data.mx.Row.errmsg);
@@ -782,7 +782,7 @@
                 let _this = this;
                 _this.mapInnerMonther = 1;
                 myChart.on('click', function (param) {
-                    let url = '/inter.ashx?action=timemark&timemark' + _this.mapInnerMonther + '&proname=' + param.name;
+                    let url = '/inter.ashx?action=timemark&timemark=' + _this.mapInnerMonther + '&proname=' + param.name;
 
                     ggdp.getAjax(url, (data) => {
                         if (data.mx.Row.errno == 2) {
