@@ -193,7 +193,7 @@
             <div class="header-action-box g-rt">
                 <span class="header-timer">{{nowDate}}</span>
                 <div class="header-chooser">监测间隔
-                    <div class="header-chooser-select">
+                    <!--<div class="header-chooser-select">
                         <el-select v-model="intervalValue" placeholder="请选择" size="mini">
                             <el-option
                                 v-for="item in intervalOptions"
@@ -202,7 +202,7 @@
                                 :value="item.value" width="80px">
                             </el-option>
                         </el-select>
-                    </div>
+                    </div>-->
                 </div>
                 <span class="tool-group">
                     <i class="icon iconfont icon-yifu"></i>
@@ -247,9 +247,9 @@
             }*/
         },
         mounted() {
-            setInterval(() => {
+            /*setInterval(() => {
                 this.$router.push('/temp');
-            }, 120000)
+            }, 120000)*/
         },
         methods: {
             handleSelect(key, keyPath) {

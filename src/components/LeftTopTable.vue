@@ -144,7 +144,7 @@
                         <el-table-column prop="ywrq" label="日期" width="52px" show-overflow-tooltip
                                          :formatter="filterTime"></el-table-column>
                         <el-table-column prop="khsf" label="省份" width="53px" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="dhkh" label="订货客户" width="100px" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="dhkh" label="买方" width="100px" show-overflow-tooltip></el-table-column>
                         <el-table-column prop="wzpm" label="品名" width="80px" show-overflow-tooltip></el-table-column>
                         <el-table-column prop="wzgg" label="规格" width="55px" show-overflow-tooltip></el-table-column>
                         <el-table-column prop="cjsl" label="数量" width="56px" show-overflow-tooltip></el-table-column>
@@ -282,9 +282,9 @@
                                     <el-table-column prop="ywrq" label="日期" show-overflow-tooltip
                                                      :formatter="filterTime"></el-table-column>
                                     <el-table-column prop="khsf" label="省份"></el-table-column>
-                                    <el-table-column prop="dhkh" label="订货客户" show-overflow-tooltip
+                                    <el-table-column prop="dhkh" label="买方" show-overflow-tooltip
                                                      width="190px"></el-table-column>
-                                    <el-table-column prop="fphm" label="销售客户" show-overflow-tooltip
+                                    <el-table-column prop="fphm" label="卖方" show-overflow-tooltip
                                                      width="190px"></el-table-column>
                                     <el-table-column prop="wzck" label="仓库" show-overflow-tooltip></el-table-column>
                                     <el-table-column prop="wzpm" label="品名" show-overflow-tooltip></el-table-column>
