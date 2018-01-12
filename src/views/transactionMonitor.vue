@@ -119,7 +119,7 @@
             font-weight: bold;
         }
         .el-dialog__body {
-            padding: 10px 0 0 0;
+            padding: 10px 0 0 0 !important;
         }
         .el-tabs--card > .el-tabs__header .el-tabs__nav {
             border: none;

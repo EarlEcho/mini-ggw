@@ -169,7 +169,7 @@
             text-align: center;
         }
         .el-dialog__body {
-            padding: 10px 0 0 0;
+            padding: 10px 0 0 0 !important;
         }
 
     }
