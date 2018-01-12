@@ -928,6 +928,106 @@
             }
 
         },
+        mounted(){
+            //每5分钟刷新一次数据
+            let _this = this;
+            setInterval(()=>{
+                /*地图 散点图*/
+                ggdp.getAjax('/inter.ashx?action=getfinalprice', (data) => {
+                    [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
+                        _this.series.push(
+                            {
+                                name: '西安',
+                                type: 'scatter',
+                                zlevel: 20,
+                                color: '#f00',
+                                coordinateSystem: 'geo',
+                                data: _this.convertData2(data.mapPointData),
+                                symbolSize: 10,
+                                itemStyle: {
+                                    normal: {color: '#f00'}
+                                }
+
+                            },
+                            {
+                                type: 'lines',
+                                zlevel: 15,
+                                effect: {
+                                    show: true, period: 4, trailLength: 0, symbol: 'arrow', symbolSize: 7,
+                                },
+                                lineStyle: {
+                                    normal: {width: 1.2, opacity: 0.6, curveness: 0.2, color: '#F19000'}
+                                },
+                                data: _this.convertData(item[1])
+                            },
+                            //出发点
+                            {
+                                type: 'effectScatter',
+                                coordinateSystem: 'geo',
+                                zlevel: 15,
+                                rippleEffect: {
+                                    period: 4, brushType: 'stroke', scale: 4
+                                },
+                                symbol: 'circle',
+                                symbolSize: function (val) {
+                                    return 4 + val[2] / 10;
+                                },
+                                itemStyle: {
+                                    normal: {show: false}
+                                },
+                                data: [{
+                                    name: _this.fromdata, value: chinaPoint[item[0]].concat([100]),
+                                }],
+                            },
+                            /*到达点*/
+                            {
+                                type: 'effectScatter',
+                                coordinateSystem: 'geo',
+                                rippleEffect: {
+                                    period: 4, brushType: 'stroke', scale: 4
+                                },
+                                zlevel: 15,
+                                label: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                tooltip:{
+                                    show:false,
+                                },
+                                symbol: 'circle',
+                                symbolSize: 15,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#F19000'
+                                    }
+                                },
+                                data: item[1].map(function (dataItem) {
+                                    return {
+                                        name: dataItem[1].name,
+                                        value: chinaPoint[dataItem[1].name].concat([dataItem[1].name]),
+                                        tooltip: {
+                                            formatter: dataItem[0].name + "--" + dataItem[1].name + "：" + dataItem[1].value
+                                        }
+                                    };
+                                }),
+                            }
+                        );
+                    });
+
+                });
+                /*此处获取地图上方的交易数据概述*/
+                ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
+                    this.transactionDatas = data;
+                });
+                /*绘制地图*/
+                let map = setInterval(function () {
+                    _this.drawLine();
+                    clearInterval(map);
+                }, 1500);
+
+            },300000)
+        },
         beforeMount() {
             let _this = this;
             /*地图 散点图*/

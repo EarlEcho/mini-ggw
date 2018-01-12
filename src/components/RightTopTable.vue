@@ -157,6 +157,22 @@
             width: 131px;
         }
     }
+
+    .table-inner-dialog {
+        background: rgba(0, 0, 0, 0.5);
+        .el-dialog {
+            background: rgba(22, 45, 72, 0.9);
+        }
+        .el-dialog__title {
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .el-dialog__body {
+            padding: 10px 0 0 0;
+        }
+
+    }
 </style>
 <template>
     <div class="right-top-table clearfix">
@@ -178,7 +194,7 @@
                         <el-tab-pane label="高线" name="gx"></el-tab-pane>
                         <el-tab-pane label="盘螺" name="pl"></el-tab-pane>
                         <el-tab-pane label="热轧板卷" name="rzbj"></el-tab-pane>
-                        <el-table :data="tempData" size="small" fit>
+                        <el-table :data="tempData" size="small" fit @row-click="clickTableDialog">
                             <el-table-column prop="time" label="时间" width="60px">
                                 <template slot-scope="scope">
                                     <span>{{scope.row.time.slice(5)}}</span>
@@ -210,6 +226,24 @@
             </border-box>
         </div>
 
+
+        <!--点击表格 出现的弹出框-->
+        <el-dialog :title="innerTableTitle" :visible.sync="tableDialogVisible" center top="7%" width="700px" class="table-inner-dialog"
+                   :modal="false">
+            <el-table :data="innerTable" size="small" fit>
+                <el-table-column prop="time" label="时间"></el-table-column>
+                <el-table-column prop="pname" label="省份"></el-table-column>
+                <el-table-column prop="city" label="城市"></el-table-column>
+                <el-table-column prop="tradname" label="品名"></el-table-column>
+                <el-table-column prop="standard" label="规格"></el-table-column>
+                <el-table-column prop="material" label="材质"></el-table-column>
+                <el-table-column prop="steelFactory" label="钢厂"></el-table-column>
+                <el-table-column prop="price" label="成交价"
+                                 show-overflow-tooltip></el-table-column>
+            </el-table>
+        </el-dialog>
+
+
     </div>
 
 </template>
@@ -232,6 +266,8 @@
         props: [],
         data() {
             return {
+                /*弹出框*/
+                tableDialogVisible: false,
                 /*今日成交价的属性*/
                 tabActive: 'lwg',
                 tempData: [],
@@ -268,6 +304,9 @@
                 pricePage: 0, /*分页数据的页数*/
                 clickPage: 0,//点击页码的次数
 
+                innerTable: [],
+                innerTableTitle: '',
+
 
             }
         },
@@ -290,6 +329,50 @@
                     this.rzbjClickPage = 0;
                 }
             }
+        },
+        mounted() {
+            setInterval(() => {
+                ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
+                    //第一版默认显示螺纹钢
+
+                    /*螺纹钢*/
+                    this.lwgFullData = data.mx.Row.lwg;
+                    this.lwgLength = Math.ceil(this.lwgFullData.length / 10);
+                    for (let i = 0, j = 0; i < this.lwgLength; i++) {
+                        this.$set(this.lwgShowPage, i, this.lwgFullData.slice(j, j + 10))
+                        j = j + 10;
+                    }
+                    this.tempData = this.lwgShowPage[0];
+
+
+                    //高线
+                    this.gxFullData = data.mx.Row.gx;
+                    this.gxLength = Math.ceil(this.gxFullData.length / 10);
+                    /*储存分页数据*/
+                    for (let i = 0, j = 0; i < this.gxLength; i++) {
+                        this.$set(this.gxShowPage, i, this.gxFullData.slice(j, j + 10))
+                        j = j + 10;
+                    }
+
+
+                    /*盘螺*/
+                    this.plFullData = data.mx.Row.pl;
+                    this.plLength = Math.ceil(this.plFullData.length / 10);
+                    for (let i = 0, j = 0; i < this.plLength; i++) {
+                        this.$set(this.plShowPage, i, this.plFullData.slice(j, j + 10))
+                        j = j + 10;
+                    }
+
+                    /*热轧板卷*/
+                    this.rzbjFullData = data.mx.Row.rzbj;
+                    this.rzbjLength = Math.ceil(this.rzbjFullData.length / 10);
+                    for (let i = 0, j = 0; i < this.rzbjLength; i++) {
+                        this.$set(this.rzbjShowPage, i, this.rzbjFullData.slice(j, j + 10))
+                        j = j + 10;
+                    }
+
+                });
+            }, 320000)
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=bigscreen', (data) => {
@@ -315,7 +398,6 @@
                 }
 
 
-
                 /*盘螺*/
                 this.plFullData = data.mx.Row.pl;
                 this.plLength = Math.ceil(this.plFullData.length / 10);
@@ -336,6 +418,64 @@
 
         },
         methods: {
+            clickTableDialog(row) {
+                /*
+                * ：http://hldpapi.gangguwang.com/inter.ashx?action=allprice&time=2018-01-11&city=%E8%A5%BF%E5%AE%89&trade=%E8%9E%BA%E7%BA%B9%E9%92%A2
+                * */
+                console.log(row);
+
+                ggdp.getAjax('/inter.ashx?action=allprice&time=' + row.time + '&city=' + row.city + '&trade=' + row.tradname, (data) => {
+                    console.log(data.mx.Row);
+                    let infos = data.mx.Row;
+                    let infoDatas = data.mx.Row.datas
+
+                    infoDatas.forEach((item)=> {
+                        item.time = infos.time;
+                        item.pname = infos.pname;
+                        item.city = infos.city;
+                        item.tradname = infos.tradname;
+                        console.log(item);
+                    })
+
+                    this.innerTableTitle = infos.tradname + '实时成交价';
+                    this.innerTable = infoDatas;
+
+
+
+                    this.tableDialogVisible = true;
+                });
+                /*
+                * {…}
+city
+:
+"西安"
+material
+:
+"HRB400E"
+pname
+:
+"陕西"
+price
+:
+"3850"
+rise
+:
+0
+standard
+:
+"Ф16-25"
+steelFactory
+:
+"龙钢"
+time
+:
+"2018-01-12"
+tradname
+:
+"螺纹钢"
+                * */
+
+            },
             lastPage(index) {
                 if (index == 'gx') {
                     if (this.gxClickPage == 0) {

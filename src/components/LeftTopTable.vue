@@ -322,12 +322,9 @@
                 </el-dialog>
             </div>
         </div>
-
-
     </div>
 
 </template>
-
 <script>
     import ggdp from '@/functions/common'
     import BorderBox from '@/components/BoderCompontents'
@@ -488,6 +485,26 @@
                     ]
                 }
             }
+        },
+        mounted(){
+            setInterval(()=>{
+                ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
+                    /*将获取到的数据赋值给realTimeFullData储存*/
+                    this.realTimeFullData = data.mx.Row;
+                    this.realPieOptions.legend.data = data.mx.charts.area;
+                    this.realPieOptions.series[1].data = data.mx.charts.datas;
+                    this.realPieOptions.series[0].data = data.mx.charts.datas;
+
+                    /*计算页数，数组长度除以一页显示的条数，得到的数向上取整*/
+                    this.realDataPage = Math.ceil(this.realTimeFullData.length / 9);
+                    /*储存分页数据*/
+                    for (let i = 0, j = 0; i < this.realDataPage; i++) {
+                        this.$set(this.realTimeData, i, this.realTimeFullData.slice(j, j + 9))
+                        j = j + 9;
+                    }
+                    this.tempData = this.realTimeData[0];
+                });
+            },300000)
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {

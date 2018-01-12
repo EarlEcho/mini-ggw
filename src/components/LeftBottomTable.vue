@@ -344,6 +344,20 @@
                 pieChart.setOption(this.transacPieOptions);
             }
         },
+        mounted(){
+            setInterval(()=>{
+                ggdp.getAjax('/inter.ashx?action=analhysis', (data) => {
+                    this.transacPieOptions.xAxis.data = data.barGraph.xAxis;
+                    this.transacPieOptions.series[0].data = data.barGraph.series1;
+                    this.transacPieOptions.series[1].data = data.barGraph.series2;
+
+                    this.dataAnalysis = data;
+                });
+                ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
+                    this.dataAccount = data;
+                });
+            },310000)
+        },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=analhysis', (data) => {
                 this.transacPieOptions.xAxis.data = data.barGraph.xAxis;
@@ -355,7 +369,6 @@
             ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
                 this.dataAccount = data;
             });
-
         },
     }
 </script>

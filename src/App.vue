@@ -193,7 +193,7 @@
             <div class="header-action-box g-rt">
                 <span class="header-timer">{{nowDate}}</span>
                 <div class="header-chooser">监测间隔
-                    <!--<div class="header-chooser-select">
+                    <div class="header-chooser-select">
                         <el-select v-model="intervalValue" placeholder="请选择" size="mini">
                             <el-option
                                 v-for="item in intervalOptions"
@@ -202,7 +202,7 @@
                                 :value="item.value" width="80px">
                             </el-option>
                         </el-select>
-                    </div>-->
+                    </div>
                 </div>
                 <span class="tool-group">
                     <i class="icon iconfont icon-yifu"></i>
@@ -224,10 +224,10 @@
             return {
                 logoHeaderActive: '/',
                 nowDate: '',
-                intervalValue: 120000,
+                intervalValue: 300000,
                 intervalOptions: [{
-                    value: 120000,
-                    label: '2分钟'
+                    value: 300000,
+                    label: '5分钟'
                 }
                 /*, {
                     value: 300000,

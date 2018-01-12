@@ -371,9 +371,61 @@
             }
         },
         mounted() {
-            /*setTimeout(() => {
-                this.fullscreenLoading = false;
-            }, 2000);*/
+            //每5分钟更新一次数据
+            setInterval(() => {
+
+                /*云仓储待作业*/
+                ggdp.getAjax('/inter.ashx?action=processed', (data) => {
+                    let processData = data.Data;
+                    /*入库*/
+                    this.homeLeftDatas.notStoreData[0].titleNum = processData.FInCount;  //入库单数量
+                    this.homeLeftDatas.notStoreData[0].weight = processData.FInWeight;  //入库重量
+                    this.homeLeftDatas.notStoreData[0].warn = processData.FInALCount;  //入库单预警数量
+
+                    /*出库*/
+                    this.homeLeftDatas.notStoreData[1].titleNum = processData.FOutCount;  //出库单数量
+                    this.homeLeftDatas.notStoreData[1].weight = processData.FOutWeight;  //出库重量
+                    this.homeLeftDatas.notStoreData[1].warn = processData.FOutALCount;  //出库单预警数量
+
+                    /*加工*/
+                    this.homeLeftDatas.notStoreData[2].titleNum = processData.FMhCount;  //加工单数量
+                    this.homeLeftDatas.notStoreData[2].weight = processData.FMhWeight;  //加工重量
+                    this.homeLeftDatas.notStoreData[2].warn = processData.FMhALCount;  //加工单预警数量
+
+                    /*收费*/
+                    this.homeLeftDatas.notStoreData[3].titleNum = processData.FChCount;  //收费单数量
+                    this.homeLeftDatas.notStoreData[3].weight = processData.FChWeight;  //收费重量
+                    this.homeLeftDatas.notStoreData[3].warn = processData.FChALCount;  //收费单预警数量
+
+                    /*车皮*/
+                    this.homeLeftDatas.notStoreData[4].titleNum = processData.FTkCount;  //车皮单数量
+                    this.homeLeftDatas.notStoreData[4].weight = processData.FTkWeight;  //车皮重量
+                    this.homeLeftDatas.notStoreData[4].warn = processData.FTkALCount;  //车皮单预警数量
+
+                });
+
+
+                /*集团库存数据*/
+                ggdp.getAjax('/inter.ashx?action=stack', (data) => {
+                    let stackData = data;
+                    this.homeLeftDatas.groupStoreData[0].num = stackData.jrrk;  //今日入库量
+                    this.homeLeftDatas.groupStoreData[1].num = stackData.jrck;  //今日出库量
+                    this.homeLeftDatas.groupStoreData[2].num = stackData.byljrk;  //本月入库量
+                    this.homeLeftDatas.groupStoreData[3].num = stackData.byljck;  //本月出库量
+                    this.homeLeftDatas.groupStoreData[4].num = stackData.ssjtkc;  //实时静态库存
+                });
+
+                /*3、仓库（视频上面的仓库标签）*/
+                ggdp.getAjax('/inter.ashx?action=wlist', (data) => {
+                    let tagList = data.Data.slice(0, 7);
+                    for (let i = 0; i < 7; i++) {
+                        tagList[i].FNAME = tagList[i].FNAME.slice(4);
+                    }
+                    this.monitorCitys = tagList;
+                });
+
+
+            }, 300000);
         },
         beforeCreate() {
             /*/!*1、云仓储数据*!/

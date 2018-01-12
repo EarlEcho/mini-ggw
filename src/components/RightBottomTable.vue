@@ -154,7 +154,7 @@
         <div class="daily-price-table" v-show="!showDailyPriceLine">
             <border-box>
                 <div class="data-header-box">
-                    <span class="title">螺纹价格指数</span>
+                    <span class="title">中西部螺纹价格指数</span>
                     <div class="table-header-group">
                         <!--<el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>-->
                         <el-tooltip class="item" effect="dark" content="指定城市最新一条螺纹钢价格指数数据，其中涨跌是针对与紧接着一条的数据之差。"
@@ -167,16 +167,14 @@
                     <el-row>
                         <el-col :span="12">
                             <el-table :data="dailyVolumeTable[0]" size="small" fit>
-                                <el-table-column prop="pname" label="省份" width="40px"></el-table-column>
-                                <el-table-column prop="city" label="城市" width="40px"
+                                <el-table-column prop="time" label="时间" width="75px"
                                                  show-overflow-tooltip></el-table-column>
-                                <el-table-column prop="reltime" label="发布时间" width="75px"
+                                <el-table-column prop="latestprice" label="最新综合价" width="80px"
                                                  show-overflow-tooltip></el-table-column>
-
-                                <el-table-column prop="exponent" label="指数" width="51px" show-overflow-tooltip>
+                                <el-table-column prop="num" label="指数" width="51px" show-overflow-tooltip>
                                     <template slot-scope="scope">
-                                    <span :class="scope.row.exponent>2000?'red bold':'green bold'"
-                                          style="font-size: 13px">{{scope.row.exponent}}</span>
+                                    <span :class="scope.row.num>2000?'red bold':'green bold'"
+                                          style="font-size: 13px">{{scope.row.num}}</span>
                                     </template>
                                 </el-table-column>
 
@@ -193,16 +191,14 @@
                         </el-col>
                         <el-col :span="12">
                             <el-table :data="dailyVolumeTable[1]" size="small" fit>
-                                <el-table-column prop="pname" label="省份" width="40px"></el-table-column>
-                                <el-table-column prop="city" label="城市" width="40px"
+                                <el-table-column prop="time" label="时间" width="75px"
                                                  show-overflow-tooltip></el-table-column>
-                                <el-table-column prop="reltime" label="发布时间" width="75px"
+                                <el-table-column prop="latestprice" label="最新综合价" width="80px"
                                                  show-overflow-tooltip></el-table-column>
-
-                                <el-table-column prop="exponent" label="指数" width="51px" show-overflow-tooltip>
+                                <el-table-column prop="num" label="指数" width="51px" show-overflow-tooltip>
                                     <template slot-scope="scope">
-                                    <span :class="scope.row.exponent>2000?'red bold':'green bold'"
-                                          style="font-size: 13px">{{scope.row.exponent}}</span>
+                                    <span :class="scope.row.num>2000?'red bold':'green bold'"
+                                          style="font-size: 13px">{{scope.row.num}}</span>
                                     </template>
                                 </el-table-column>
 
@@ -379,10 +375,20 @@
 
             }
         },
+        mounted(){
+            setInterval(()=>{
+                ggdp.getAjax('/inter.ashx?action=getmidwestdata', (data) => {
+                    this.dailyVolumeFullData = data.mx.Row;
+                    data = data.mx.Row;
+                    this.$set(this.dailyVolumeTable, 0, data.slice(0, 7))
+                    this.$set(this.dailyVolumeTable, 1, data.slice(7, 14))
+                });
+            },310000)
+        },
         beforeCreate() {
-            ggdp.getAjax('/inter.ashx?action=screenexp', (data) => {
-                this.dailyVolumeFullData = data.mx.Row;
-                data = data.mx.Row;
+            ggdp.getAjax('/inter.ashx?action=getmidwestdata', (data) => {
+                this.dailyVolumeFullData = data.mx.Row.datas;
+                data = data.mx.Row.datas;
                 this.$set(this.dailyVolumeTable, 0, data.slice(0, 7))
                 this.$set(this.dailyVolumeTable, 1, data.slice(7, 14))
             });
