@@ -488,6 +488,10 @@
         },
         mounted(){
             setInterval(()=>{
+                /*此处获取地图上方的交易数据概述*/
+                ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
+                    this.transactionDatas = data;
+                });
                 ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                     /*将获取到的数据赋值给realTimeFullData储存*/
                     this.realTimeFullData = data.mx.Row;
@@ -507,6 +511,10 @@
             },300000)
         },
         beforeCreate() {
+            /*此处获取地图上方的交易数据概述*/
+            ggdp.getAjax('/inter.ashx?action=statistics', (data) => {
+                this.transactionDatas = data;
+            });
             ggdp.getAjax('/inter.ashx?action=transaction', (data) => {
                 /*将获取到的数据赋值给realTimeFullData储存*/
                 this.realTimeFullData = data.mx.Row;

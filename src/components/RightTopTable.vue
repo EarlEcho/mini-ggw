@@ -159,7 +159,8 @@
     }
 
     .table-inner-dialog {
-        background: rgba(0, 0, 0, 0.5);
+        z-index: 999999;
+        background: rgba(0, 0, 0, 0.8);
         .el-dialog {
             background: rgba(22, 45, 72, 0.9);
         }
@@ -228,8 +229,7 @@
 
 
         <!--点击表格 出现的弹出框-->
-        <el-dialog :title="innerTableTitle" :visible.sync="tableDialogVisible" center top="7%" width="700px" class="table-inner-dialog"
-                   :modal="false">
+        <el-dialog :title="innerTableTitle" :visible.sync="tableDialogVisible" center width="700px" class="table-inner-dialog" :modal="false" :close-on-click-modal="false">
             <el-table :data="innerTable" size="small" fit>
                 <el-table-column prop="time" label="时间"></el-table-column>
                 <el-table-column prop="pname" label="省份"></el-table-column>
@@ -419,29 +419,17 @@
         },
         methods: {
             clickTableDialog(row) {
-                /*
-                * ：http://hldpapi.gangguwang.com/inter.ashx?action=allprice&time=2018-01-11&city=%E8%A5%BF%E5%AE%89&trade=%E8%9E%BA%E7%BA%B9%E9%92%A2
-                * */
-                console.log(row);
-
                 ggdp.getAjax('/inter.ashx?action=allprice&time=' + row.time + '&city=' + row.city + '&trade=' + row.tradname, (data) => {
-                    console.log(data.mx.Row);
                     let infos = data.mx.Row;
                     let infoDatas = data.mx.Row.datas
-
+                    this.innerTableTitle = infos.tradname + '实时成交价';
+                    this.innerTable = infoDatas;
                     infoDatas.forEach((item)=> {
                         item.time = infos.time;
                         item.pname = infos.pname;
                         item.city = infos.city;
                         item.tradname = infos.tradname;
-                        console.log(item);
                     })
-
-                    this.innerTableTitle = infos.tradname + '实时成交价';
-                    this.innerTable = infoDatas;
-
-
-
                     this.tableDialogVisible = true;
                 });
                 /*

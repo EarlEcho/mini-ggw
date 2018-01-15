@@ -38,7 +38,6 @@
 
     .right-data-wrapper {
         position: absolute;
-        z-index: 1;
         top: 34px;
         right: 30px;
         overflow: hidden;

@@ -86,8 +86,9 @@
         transform-style: preserve-3d;
         animation: rotate3d 40s infinite linear;
         img {
+            width: 70px;
             position: relative;
-            top: 55px;
+            top: 45px;
         }
     }
 
@@ -251,7 +252,7 @@
                 <div class="x7"></div>
                 <div class="x8"></div>
                 <div class="x9"></div>
-                <img src="../assets/image/logobk.png" alt="">
+                <img src="../assets/image/logo2.png" alt="">
                 <div class="y1"></div>
                 <div class="y2"></div>
                 <div class="y3"></div>
