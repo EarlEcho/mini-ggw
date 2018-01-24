@@ -216,56 +216,6 @@
                             </el-tooltip>
                         </p>
                         <p class="popup-title">实时交易数据分析</p>
-                        <!--<el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
-                                 :inline="true">
-                            <el-form-item>
-                                <el-date-picker v-model="popupSearchData.timer1" type="date" placeholder="选择日期"
-                                                size="small"></el-date-picker>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-date-picker v-model="popupSearchData.timer2" type="date" placeholder="选择日期"
-                                                size="small"></el-date-picker>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.city" placeholder="城市" size="small">
-                                    <el-option v-for="item in cityOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.company" placeholder="公司" size="small">
-                                    <el-option v-for="item in companyOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.user" placeholder="用户" size="small">
-                                    <el-option v-for="item in userOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.variety" placeholder="品种" size="small">
-                                    <el-option v-for="item in varietyOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.standard" placeholder="规格" size="small">
-                                    <el-option v-for="item in standardOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button @click="showDialogType1 = true" size="small">搜索</el-button>
-                            </el-form-item>
-                        </el-form>-->
                         <div class="temp-gap-w">
 
                         </div>
@@ -280,14 +230,14 @@
                                         </template>
                                     </el-table-column>
                                     <el-table-column prop="ywrq" label="日期" show-overflow-tooltip
-                                                     :formatter="filterTime"></el-table-column>
-                                    <el-table-column prop="khsf" label="省份"></el-table-column>
+                                                     :formatter="filterTime" width="70px"></el-table-column>
+                                    <el-table-column prop="khsf" label="省份" width="80px"></el-table-column>
                                     <el-table-column prop="dhkh" label="买方" show-overflow-tooltip
                                                      width="190px"></el-table-column>
                                     <el-table-column prop="fphm" label="卖方" show-overflow-tooltip
                                                      width="190px"></el-table-column>
-                                    <el-table-column prop="wzck" label="仓库" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="wzpm" label="品名" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="wzck" label="仓库" show-overflow-tooltip width="165px" ></el-table-column>
+                                    <el-table-column prop="wzpm" label="品名" show-overflow-tooltip ></el-table-column>
                                     <el-table-column prop="wzgg" label="规格" show-overflow-tooltip></el-table-column>
                                     <el-table-column prop="wzcd" label="钢厂"></el-table-column>
                                     <el-table-column prop="jyjg" label="交易价格"></el-table-column>

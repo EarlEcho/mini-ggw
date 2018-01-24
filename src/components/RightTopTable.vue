@@ -89,7 +89,7 @@
                 margin-left: 0;
             }
         }
-        .numarrow {
+        /*.numarrow {
             display: inline-block;
             width: 45px;
             text-align: left;
@@ -97,7 +97,7 @@
                 margin-right: -2px;
                 vertical-align: middle;
             }
-        }
+        }*/
         .daily-volume-msg {
             height: 60px;
             width: 100%;
@@ -111,7 +111,15 @@
         }
 
     }
-
+    .numarrow {
+        display: inline-block;
+        width: 35px;
+        text-align: center;
+        i {
+            margin-right: -6px;
+            vertical-align: middle;
+        }
+    }
     .daily-volume-table {
         float: right;
         .border-box {
@@ -196,19 +204,28 @@
                         <el-tab-pane label="盘螺" name="pl"></el-tab-pane>
                         <el-tab-pane label="热轧板卷" name="rzbj"></el-tab-pane>
                         <el-table :data="tempData" size="small" fit @row-click="clickTableDialog">
-                            <el-table-column prop="time" label="时间" width="60px">
+                            <el-table-column prop="time" label="时间" width="50px">
                                 <template slot-scope="scope">
                                     <span>{{scope.row.time.slice(5)}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="pname" label="省份" width="60px"></el-table-column>
-                            <el-table-column prop="city" label="城市" width="60px"></el-table-column>
-                            <el-table-column prop="tradname" label="品名" width="77px"></el-table-column>
+                            <el-table-column prop="pname" label="省份" width="51px"></el-table-column>
+                            <el-table-column prop="city" label="城市" width="55px"></el-table-column>
+                            <el-table-column prop="tradname" label="品名" width="65px"></el-table-column>
                             <el-table-column prop="standard" label="规格" width="60px"
                                              show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="material" label="材质" width="65px"></el-table-column>
-                            <el-table-column prop="steelFactory" label="钢厂" width="79px"></el-table-column>
-                            <el-table-column prop="price" label="价格" width="65px"></el-table-column>
+                            <el-table-column prop="material" label="材质" width="60px"></el-table-column>
+                            <el-table-column prop="steelFactory" label="钢厂" width="75px"></el-table-column>
+                            <el-table-column prop="price" label="价格" width="55px"></el-table-column>
+                            <el-table-column prop="rise" label="涨跌" width="55px">
+                                <template slot-scope="scope">
+                                        <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
+                                            <i :class="riseIcon(scope.row.rise)"></i>
+                                            {{mathAbs(scope.row.rise)}}
+                                            <!--math.abs是取绝对值的函数-->
+                                        </span>
+                                </template>
+                            </el-table-column>
                         </el-table>
                     </el-tabs>
                 </div>
@@ -418,6 +435,25 @@
 
         },
         methods: {
+            mathAbs(val) {
+                if (val == 0) {
+                    return '---'
+                }
+                else {
+                    return Math.abs(val);
+                }
+            },
+            riseIcon(val) {
+                if (val == 0) {
+                    return 'center';
+                }
+                if (val > 0) {
+                    return 'icon iconfont icon-up';
+                }
+                else {
+                    return 'icon iconfont icon-down';
+                }
+            },
             clickTableDialog(row) {
                 ggdp.getAjax('/inter.ashx?action=allprice&time=' + row.time + '&city=' + row.city + '&trade=' + row.tradname, (data) => {
                     let infos = data.mx.Row;
@@ -432,37 +468,6 @@
                     })
                     this.tableDialogVisible = true;
                 });
-                /*
-                * {…}
-city
-:
-"西安"
-material
-:
-"HRB400E"
-pname
-:
-"陕西"
-price
-:
-"3850"
-rise
-:
-0
-standard
-:
-"Ф16-25"
-steelFactory
-:
-"龙钢"
-time
-:
-"2018-01-12"
-tradname
-:
-"螺纹钢"
-                * */
-
             },
             lastPage(index) {
                 if (index == 'gx') {

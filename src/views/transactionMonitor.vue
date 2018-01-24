@@ -124,7 +124,7 @@
             border: none;
         }
         .el-tabs__item {
-            width: 325px;
+            width: 650px;
             text-align: center;
             color: white;
         }
@@ -180,11 +180,11 @@
 
             <el-dialog :visible.sync="showMapChart" width="650px" top="17%" center class="map-inner-charts">
                 <template slot="title">
-                    {{mapInnerArea}}地区成交价及螺纹指数分析
+                    {{mapInnerArea}}地区成交价分析
                 </template>
                 <div class="chart-tabs">
                     <el-tabs v-model="mapType" type="card">
-                        <el-tab-pane label="螺纹钢指数分析" name="first"></el-tab-pane>
+                        <!--<el-tab-pane label="螺纹钢指数分析" name="first"></el-tab-pane>-->
                         <el-tab-pane label="成交价分析" name="second"></el-tab-pane>
                     </el-tabs>
                 </div>

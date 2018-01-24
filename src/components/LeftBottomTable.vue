@@ -143,7 +143,7 @@
                                 <el-col :span="4">元</el-col>
                             </el-row>
                             <el-row class="dark-item">
-                                <el-col :span="8">累计交易量：</el-col>
+                                <el-col :span="8">本年交易量：</el-col>
                                 <el-col :span="10" :offset="2" class="right"><span>{{dataAnalysis.bnxl}}</span></el-col>
                                 <el-col :span="4">吨</el-col>
                             </el-row>
