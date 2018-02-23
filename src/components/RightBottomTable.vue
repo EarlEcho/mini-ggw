@@ -156,7 +156,7 @@
                 <div class="data-header-box">
                     <span class="title">中西部螺纹价格指数</span>
                     <div class="table-header-group">
-                        <!--<el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>-->
+                        <el-button icon="icon iconfont icon-fangda" @click="showPopupTable"></el-button>
                         <el-tooltip class="item" effect="dark" content="指定城市最新一条螺纹钢价格指数数据，其中涨跌是针对与紧接着一条的数据之差。"
                                     placement="top-start">
                             <el-button icon="icon iconfont icon-question"></el-button>
@@ -232,96 +232,15 @@
                                 <el-button icon="icon iconfont icon-wenhao"></el-button>
                             </el-tooltip>
                         </p>
-                        <p class="popup-title">价格指数分析</p>
-                        <!--<el-form class="select-group-wrapper" ref="popupSearchData" :model="popupSearchData"
-                                 :inline="true">
-                            <el-form-item>
-                                <el-date-picker v-model="popupSearchData.timer1" type="date" placeholder="选择日期"
-                                                size="small"></el-date-picker>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-date-picker v-model="popupSearchData.timer2" type="date" placeholder="选择日期"
-                                                size="small"></el-date-picker>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.provice" placeholder="省份" size="small">
-                                    <el-option v-for="item in proviceOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.city" placeholder="城市" size="small">
-                                    <el-option v-for="item in cityOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-select v-model="popupSearchData.variety" placeholder="品种" size="small">
-                                    <el-option v-for="item in varietyOptions" :key="item.value" :label="item.label"
-                                               :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button @click="showDialogType1 = true" size="small">搜索</el-button>
-                            </el-form-item>
-                        </el-form>-->
+                        <p class="popup-title">中西部螺纹价格指数</p>
                         <div class="temp-gap-w">
 
                         </div>
-                        <div class="type2-chart-table-box clearfix">
-                            <div class="expand-table-wrapper g-lf">
-                                <div class="data-content type2-data-table">
-                                    <el-table :data="dailyVolumeFullData" size="small" fit>
-                                        <el-table-column prop="pname" label="省份" width="50px"></el-table-column>
-                                        <el-table-column prop="city" label="城市" width="65px"
-                                                         show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="reltime" label="发布时间" width="95px"
-                                                         show-overflow-tooltip></el-table-column>
 
-                                        <el-table-column prop="exponent" label="指数" width="76px" show-overflow-tooltip>
-                                            <template slot-scope="scope">
-                                                <span :class="scope.row.exponent>2000?'red bold':'green bold'"
-                                                      style="font-size: 13px">{{scope.row.exponent}}</span>
-                                            </template>
-                                        </el-table-column>
+                        <div id="right-inner-lines" style="width: 100%;height: 670px;" ref="rightInnerLines">
 
-                                        <el-table-column prop="rise" label="涨跌" width="65px" show-overflow-tooltip>
-                                            <template slot-scope="scope">
-                                                <span :class="scope.row.rise>0?'text-red numarrow':'text-green numarrow'">
-                                                    <i :class="riseIcon(scope.row.rise)"></i>
-                                                    {{mathAbs(scope.row.rise)}}
-                                                            <!--math.abs是取绝对值的函数-->
-                                                </span>
-                                            </template>
-                                        </el-table-column>
-                                    </el-table>
-                                </div>
-                            </div>
-                            <div class="expand-chart-wrapper g-rt">
-                                <div class="chart-content">
-                                    <div id="popup-chart" ref="popupChart" style="width: 100%; height: 470px;">
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <!--<div class="popup-other-infos">
-                            <p class="other-item">2017年10月1日至2017年10月25日，<span class="yellow">xxxx</span>地区，
-                                合同数量<span class="blue">222</span>件，总交易量<span class="pink">111111</span>吨，
-                                总交易金额<span class="orange">111111</span>万元，
-                                已出库<span class="green">xxxx</span>吨，
-                                未出库<span class="red">xxxx</span>吨。
-                            </p>
-                            <p class="other-item">2017年10月1日至2017年10月25日，<span class="yellow">xxxx</span>地区，
-                                合同数量<span class="blue">222</span>件，总交易量<span class="pink">111111</span>吨，
-                                总交易金额<span class="orange">111111</span>万元，
-                                已出库<span class="green">xxxx</span>吨，
-                                未出库<span class="red">xxxx</span>吨。
-                            </p>
-                        </div>-->
+
                     </border-box>
 
                 </el-dialog>
@@ -338,16 +257,14 @@
     import ggdp from '@/functions/common'
     import BorderBox from '@/components/BoderCompontents'
 
-    // 按需引入 ECharts 主模块
-    //    let echarts = require('echarts/lib/echarts');
-    //
-    //    require('echarts/lib/chart/line');
+    //     按需引入 ECharts 主模块
+    let echarts = require('echarts/lib/echarts');
+    require('echarts/lib/chart/line');
     //    // 引入提示框和标题组件
     //    require('echarts/lib/component/tooltip');
     //    require('echarts/lib/component/title');
 
     let myChart;
-
     export default {
         name: 'RightTopTable',
         components: {BorderBox},
@@ -372,18 +289,159 @@
                 cityOptions: [],
                 proviceOptions: [],
                 varietyOptions: [],
+                chartOption: {
+                    backgroundColor: '#1C2B44',
+                    title: {
+                        text: '行业实时热度指数',
+                        show: false,
+                        textStyle: {
+                            fontWeight: 'normal',
+                            fontSize: 16,
+                            color: '#F1F1F3'
+                        },
+                        left: '6%'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            lineStyle: {
+                                color: '#57617B'
+                            }
+                        }
+                    },
+                    legend: {
+                        icon: 'rect',
+                        itemWidth: 14,
+                        itemHeight: 5,
+                        itemGap: 13,
+                        data: ['中西部螺纹指数', '中西部螺纹综合价'],
+                        right: '4%',
+                        textStyle: {
+                            fontSize: 12,
+                            color: '#F1F1F3'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#57617B'
+                            }
+                        },
+                        data: []
+                    }],
+                    yAxis: [{
+                        type: 'value',
+                        name: '',
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#57617B'
+                            }
+                        },
+                        axisLabel: {
+                            margin: 10,
+                            textStyle: {
+                                fontSize: 14
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: '#57617B'
+                            }
+                        }
+                    }],
+                    series: [{
+                        name: '中西部螺纹指数',
+                        type: 'line',
+                        smooth: true,
+                        symbol: 'circle',
+                        symbolSize: 5,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(219, 50, 51, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(219, 50, 51, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 10
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+
+                                color: 'rgb(219,50,51)',
+                                borderColor: 'rgba(219,50,51,0.2)',
+                                borderWidth: 12
+                            }
+                        },
+                        data: []
+                    }, {
+                        name: '中西部螺纹综合价',
+                        type: 'line',
+                        smooth: true,
+                        symbol: 'circle',
+                        symbolSize: 5,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(0, 136, 212, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(0, 136, 212, 0)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                shadowBlur: 10
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(0,136,212)',
+                                borderColor: 'rgba(0,136,212,0.2)',
+                                borderWidth: 12
+
+                            }
+                        },
+                        data: []
+                    }]
+                },
 
             }
         },
-        mounted(){
-            setInterval(()=>{
+        mounted() {
+            setInterval(() => {
                 ggdp.getAjax('/inter.ashx?action=getmidwestdata', (data) => {
                     this.dailyVolumeFullData = data.mx.Row;
                     data = data.mx.Row;
                     this.$set(this.dailyVolumeTable, 0, data.slice(0, 7))
                     this.$set(this.dailyVolumeTable, 1, data.slice(7, 14))
                 });
-            },310000)
+            }, 310000)
         },
         beforeCreate() {
             ggdp.getAjax('/inter.ashx?action=getmidwestdata', (data) => {
@@ -415,37 +473,29 @@
                 }
             },
             showPopupTable() {
+                /*此处获取dialogd的数据*/
+                ggdp.getAjax('/inter.ashx?action=getallmidwestdata', (data) => {
+                    let lineDatas = data.mx.Row.datas;
+                    console.log(lineDatas)
+                    this.chartOption.xAxis[0].data = lineDatas.dates;
+
+                    this.chartOption.legend.data[0] = lineDatas.tips.numtip;
+                    this.chartOption.legend.data[1] = lineDatas.tips.pricetip;
+                    this.chartOption.series[0].data = lineDatas.num;
+                    this.chartOption.series[0].name = lineDatas.tips.numtip;
+
+
+                    this.chartOption.series[1].data = lineDatas.price;
+                    this.chartOption.series[1].name = lineDatas.tips.pricetip;
+
+                });
                 this.showPriceDialog = true;
+                setTimeout(() => {
+                    myChart = echarts.init(document.getElementById('right-inner-lines'));
+                    myChart.setOption(this.chartOption);
+                }, 1000)
 
-
-                /*let map = setInterval(function () {
-                    if (myChart == '' || typeof(myChart) == 'undefined') {
-                        myChart = echarts.init(_this.$refs.popupChart);
-                        myChart.setOption(_this.chartOption, true);
-                    } else {
-                        myChart.dispose();
-                        myChart = echarts.init(_this.$refs.popupChart);
-                        myChart.setOption(_this.chartOption);
-                    }
-                    clearInterval(map);
-                }, 1000)*/
-
-
-            },
-            dailyPriceChart: function () {
-                let _this = this;
-                _this.showDailyPriceLine = !_this.showDailyPriceLine;
-                let LineChart = echarts.init(document.getElementById('daily-price-chart'));
-                LineChart.setOption(_this.dailyLineOptions);
-            },
-            expandData: function () {
-
-            },
-
-        },
-        mounted() {
-
-
+            }
         }
 
     }
