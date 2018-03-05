@@ -1,5 +1,25 @@
 <!--交易监控-->
 <style lang="less">
+    .red-point {
+        display: inline-block;
+        vertical-align: middle;
+        width: 10px;
+        height: 10px;
+        background: red;
+        border-radius: 50%;
+        margin-right: 4px;
+    }
+
+    .blue-point {
+        display: inline-block;
+        vertical-align: middle;
+        width: 10px;
+        height: 10px;
+        background: #2ca1f4;
+        border-radius: 50%;
+        margin-right: 4px;
+    }
+
     .transaction-wrapper {
         width: 1920px;
         height: 950px;
@@ -341,7 +361,7 @@
                     tooltip: {
                         trigger: 'item',
                         formatter(params) {
-                            return '品名：' + params.seriesName + '<br/>' + '日期：' + params.name + '<br/>' + '价格：' + params.value
+                            return params.name + '<br/>' + '<span class="red-point"></span>品名：' + params.seriesName + '<br/>' + '<span class="blue-point"></span>价格：' + params.value
                         }
                     },
                     grid: {
@@ -927,10 +947,10 @@
             }
 
         },
-        mounted(){
+        mounted() {
             //每5分钟刷新一次数据
             let _this = this;
-            setInterval(()=>{
+            setInterval(() => {
                 /*地图 散点图*/
                 ggdp.getAjax('/inter.ashx?action=getfinalprice', (data) => {
                     [[_this.fromdata, _this.BJData]].forEach(function (item, i) {
@@ -991,8 +1011,8 @@
                                         show: false
                                     }
                                 },
-                                tooltip:{
-                                    show:false,
+                                tooltip: {
+                                    show: false,
                                 },
                                 symbol: 'circle',
                                 symbolSize: 15,
@@ -1025,7 +1045,7 @@
                     clearInterval(map);
                 }, 1500);
 
-            },300000)
+            }, 300000)
         },
         beforeMount() {
             let _this = this;
@@ -1089,8 +1109,8 @@
                                     show: false
                                 }
                             },
-                            tooltip:{
-                                show:false,
+                            tooltip: {
+                                show: false,
                             },
                             symbol: 'circle',
                             symbolSize: 15,
