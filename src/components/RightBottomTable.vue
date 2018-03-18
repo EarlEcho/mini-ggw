@@ -476,7 +476,6 @@
                 /*此处获取dialogd的数据*/
                 ggdp.getAjax('/inter.ashx?action=getallmidwestdata', (data) => {
                     let lineDatas = data.mx.Row.datas;
-                    console.log(lineDatas)
                     this.chartOption.xAxis[0].data = lineDatas.dates;
 
                     this.chartOption.legend.data[0] = lineDatas.tips.numtip;
